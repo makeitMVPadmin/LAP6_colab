@@ -4,6 +4,7 @@ import ProfilePage from './pages/ProfilePage/profile-page'
 import UsersPage from './pages/UsersPage/users-page'
 import ConnectionsPage from './pages/ConnectionsPage/connections-page'
 
+// Hoping that adding something like this will make my add work right
 function App() {
   return (
     <BrowserRouter>
