@@ -1,8 +1,14 @@
-export default function ColabPage() {
+import React from 'react';
+import DummyNavBar from '@/components/DummyNavBar/DummyNavBar';
+import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard';
 
+export default function ColabPage() {
   return (
     <main>
-      <h1>Welcome Colab User</h1>
+      <DummyNavBar />
+      <div className='flex justify-center'>
+        <GoalBuddyCard />
+      </div>
     </main>
   )
 }
