@@ -1,15 +1,16 @@
-// Get All Calendar events from database
+/* Description:Function to get All Calendar events from database
+@author[Aparna]*/
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { baseEvents, calendarEvents } from "../../utils/types";
+import { BaseEvents, CalendarEvents } from "../../utils/types";
 
-export const getAllCalendarEvents = async (): Promise<calendarEvents[]> => {
+export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, 'calendar_events'));
     const events = querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      ...(doc.data() as baseEvents),
+      ...(doc.data() as BaseEvents),
     }));
     return events;
   } catch (err) {
