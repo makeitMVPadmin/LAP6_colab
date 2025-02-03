@@ -1,7 +1,7 @@
 //GetEvents by unique Id
 
 import { doc, getDoc } from 'firebase/firestore'
-import { baseEvents, calendarEvents } from '../../utils/type'
+import { baseEvents, calendarEvents } from '../../utils/types'
 import { db } from '../firebase'
 
 export const getByEventId = async (
