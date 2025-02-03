@@ -1,14 +1,15 @@
-export interface baseEvents {
-    createdAt: { seconds: Number; nanoseconds: Number }
-    createdUserId: string
-    invitedUserId: string
-    eventDescription: string
-    eventEndTime: { seconds: Number; nanoseconds: Number }
-    eventStartTime: { seconds: Number; nanoseconds: Number }
-    eventTitle: string
-    eventStatus: string
-    googleEventId: string
-  }
-  export interface calendarEvents extends baseEvents {
-    id: string
-  }
+type Timestamp = { seconds: number; nanoseconds: number }
+export interface BaseEvents {
+  createdAt: Timestamp
+  createdUserId: string
+  invitedUserId: string
+  eventDescription: string
+  eventEndTime: Timestamp
+  eventStartTime: Timestamp
+  eventTitle: string
+  eventStatus: string
+  googleEventId: string
+}
+export interface CalendarEvents extends BaseEvents {
+  id: string
+}

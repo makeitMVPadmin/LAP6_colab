@@ -1,12 +1,12 @@
 //GetEvents by unique Id
 
 import { doc, getDoc } from 'firebase/firestore'
-import { baseEvents, calendarEvents } from '../../utils/types'
+import { BaseEvents, CalendarEvents } from '../../utils/types'
 import { db } from '../firebase'
 
 export const getByEventId = async (
   eventId: string,
-): Promise<calendarEvents> => {
+): Promise<CalendarEvents> => {
   try {
     // Reference the document by its ID
     const eventDocRef = doc(db, 'calendar_events', eventId)
@@ -14,7 +14,7 @@ export const getByEventId = async (
 
     return {
       id: eventDoc.id,
-      ...(eventDoc.data() as baseEvents),
+      ...(eventDoc.data() as BaseEvents),
     }
   } catch (err) {
     console.error('Error fetching event by ID', err)
