@@ -21,7 +21,7 @@ This feature is built to integrate with an existing platform called Communiti, e
 - Allow users to browse and filter through a list of other users based on their skills, availability, and collaborating preference for a "Goal Buddy"
 - Enable users to define their own availability for others to see
 - Allow users to book a meetup time with other users that agree with each other's availability
-- Create a calender event that syncs with Google Calendar and notifies them about the booked event
+- Create a calender event that notifies users about the booked event
 
 ## Project Resources
 
