@@ -1,4 +1,5 @@
-//GetEvents by unique Id
+/*GetEvents by unique Id
+@author[Aparna]*/
 
 import { doc, getDoc } from 'firebase/firestore'
 import { BaseEvents, CalendarEvents } from '../../utils/types'
