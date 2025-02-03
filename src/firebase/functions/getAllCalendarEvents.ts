@@ -2,7 +2,7 @@
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { baseEvents, calendarEvents } from "../utils/types";
+import { baseEvents, calendarEvents } from "../../utils/types";
 
 export const getAllCalendarEvents = async (): Promise<calendarEvents[]> => {
   try {
