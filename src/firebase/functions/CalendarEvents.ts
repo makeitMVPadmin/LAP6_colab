@@ -12,8 +12,8 @@ export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
       ...(doc.data() as BaseEvents),
     }))
     return events
-  } catch (err) {
+  } catch (error) {
     console.error('Error fetching calendar events', err)
-    throw err // Re-throw the error to handle it in the calling function
+    throw error // Re-throw the error to handle it in the calling function
   }
 }
