@@ -2,7 +2,7 @@
 @author[Aparna]*/
 
 import { doc, getDoc } from 'firebase/firestore'
-import { BaseEvents, CalendarEvents } from '../../utils/types'
+import { BaseEvents, CalendarEvents } from '../../src/types/types'
 import { db } from '../firebase'
 
 export const getByEventId = async (
