@@ -1,5 +1,5 @@
 import React from 'react';
-import BookingCalendar from "../Calendar/BookingCalendar";
+import BookingCalendar from "../BookingCalendar/BookingCalendar";
 import EventBox from '../EventBox/EventBox';
 
 import { Button } from "@/components/ui/button";
