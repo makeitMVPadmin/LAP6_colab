@@ -1,9 +1,8 @@
-/* Description:Function to get All Calendar events from database
-@author[Aparna]*/
-
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { BaseEvents, CalendarEvents } from "../../utils/types";
+/* Description:Function to get All Calendar events from database
+@author[Aparna]*/
 
 export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
   try {
