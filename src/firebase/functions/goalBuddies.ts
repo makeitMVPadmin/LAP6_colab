@@ -1,6 +1,6 @@
 import { db } from '../firebase'
 import { collection, getDocs } from 'firebase/firestore'
-import { GoalBuddy, BaseGoalBuddy } from '../../utils/types'
+import { GoalBuddy, BaseGoalBuddy } from '../../types/types'
 
 /*
  * Description: This function fetch all goal buddies in the collection.

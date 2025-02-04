@@ -1,4 +1,4 @@
-import React from 'react';
+
 import DummyNavBar from '@/components/DummyNavBar/DummyNavBar';
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard';
 
