@@ -28,7 +28,7 @@ export async function getCalendarEventsbyCreatorId(createdUserId:string):Promise
 Description: get All calendar Events by invitedUserId
 @author[Aparna]*/
 
-export async function getCalendarEventsbyInvitedId(invitedUserId:string):Promise<CalendarEvents[]>{
+export async function getCalendarEventsbyInviteeId(invitedUserId:string):Promise<CalendarEvents[]>{
     try{
         const events=query(collection(db,"calendar_events"),where("invitedUserId","==",invitedUserId)) ;
         const querySnapshot=await getDocs(events);
