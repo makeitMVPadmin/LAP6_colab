@@ -1,9 +1,9 @@
-/*GetUsers by unique Id
-@author[Kevin]*/
-
 import { doc, getDoc } from 'firebase/firestore'
 import { BaseUser, User } from '../../src/types/types'
 import { db } from '../firebase'
+
+/*GetUsers by unique Id
+@author[Kevin]*/
 
 export const getUserById = async (
   userId: string,
