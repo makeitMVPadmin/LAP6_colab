@@ -1,3 +1,19 @@
+
+export interface BaseEvents {
+  createdAt: Timestamp
+  createdUserId: string
+  invitedUserId: string
+  eventDescription: string
+  eventEndTime:Timestamp
+  eventStartTime: Timestamp
+  eventTitle: string
+  eventStatus: 'pending' | 'completed' | 'canceled'
+  googleEventId: string
+}
+export interface CalendarEvents extends BaseEvents {
+  id:string
+}
+
 type Timestamp = {
   seconds: number
   nanoseconds: number
