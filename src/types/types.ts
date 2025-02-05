@@ -36,3 +36,23 @@ export interface BaseGoalBuddy {
 export interface GoalBuddy extends BaseGoalBuddy {
   id: string
 }
+
+export interface BaseUser {
+  city: string,
+  country: string,
+  createdAt: Timestamp,
+  discipline: string,
+  email: string,
+  firstName: string,
+  interests: [],
+  lastName: string,
+  profilePhoto: string,
+  roleId: string,
+  state: string,
+  updatedAt: string,
+  username: string
+}
+
+export interface User extends BaseUser {
+  id: string
+}
