@@ -49,7 +49,7 @@ export interface BaseUser {
   profilePhoto: string,
   roleId: string,
   state: string,
-  updatedAt: string,
+  updatedAt: Timestamp,
   username: string
 }
 
