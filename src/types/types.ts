@@ -1,23 +1,24 @@
 
+type Timestamp = { seconds: number; nanoseconds: number }
+
 export interface BaseEvents {
   createdAt: Timestamp
   createdUserId: string
   invitedUserId: string
   eventDescription: string
+
   eventEndTime:Timestamp
   eventStartTime: Timestamp
   eventTitle: string
   eventStatus: 'pending' | 'completed' | 'canceled'
+
   googleEventId: string
 }
 export interface CalendarEvents extends BaseEvents {
   id:string
 }
 
-type Timestamp = {
-  seconds: number
-  nanoseconds: number
-}
+
 export interface BaseGoalBuddy {
   availabilities: []
   bio: string
@@ -34,5 +35,6 @@ export interface BaseGoalBuddy {
 }
 
 export interface GoalBuddy extends BaseGoalBuddy {
+
   id: string
 }
