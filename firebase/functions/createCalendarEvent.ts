@@ -1,5 +1,6 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+//** Description: Creating data in the calendarEvents  */
 export async function addCalendarEvent(
   createdUserId: string,
   eventDescription: string,
