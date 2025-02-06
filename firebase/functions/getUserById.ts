@@ -7,12 +7,18 @@ import { db } from '../firebase'
 
 export const getUserById = async (
   userId: string,
-): Promise<User> => {
+): Promise<User | [] > => {
   try {
     // Reference the document by its ID
     const userDocRef = doc(db, 'users', userId)
     const userDoc = await getDoc(userDocRef)
 
+    if (!userDoc.exists()) {
+      throw new Error(`ID does not exist`)
+    }
+
+    console.log('userDoc', userDoc)
+    console.log('userDocRef', userDocRef)
     return {
       id: userDoc.id,
       ...(userDoc.data() as BaseUser),

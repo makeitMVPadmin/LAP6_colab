@@ -16,7 +16,7 @@ export const getAllUsers = async (): Promise<User[]> => {
     }))
     return usersArray
   } catch (error) {
-    console.error('Error getting document', error)
+    console.error('Error fetching users', error)
     return []
   }
 }
