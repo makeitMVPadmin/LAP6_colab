@@ -2,15 +2,16 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { BaseEvents, CalendarEvents } from "../../src/types/types";
 /*
-Description:get All calendar Events by createdUserId 
+Description:get All calendar Events by UserIds 
 @author[Aparna]*/
 
-export async function getCalendarEventsbyCreatorId(createdUserId:string):Promise<CalendarEvents[]>{
+export async function getCalendarEventsbyUserIds(createdUserId:string ,inviteeUserId:string):Promise<CalendarEvents[]>{
     try{
-        const events=query(collection(db,"calendar_events"),where("createdUserId","==",createdUserId)) ;
+        const events=query(collection(db,"calendar_events"),where("createdUserId","==",createdUserId && "inviteeUserId","==",inviteeUserId)) ;
         const querySnapshot=await getDocs(events);
         const calendarEventsArray:CalendarEvents[]=querySnapshot.docs.map((item)=>{
-          return{  id:item.id,
+          return{  
+            id:item.id,
             ...(item.data() as BaseEvents)
           }
         })
