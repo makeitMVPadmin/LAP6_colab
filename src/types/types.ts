@@ -39,7 +39,7 @@ export interface GoalBuddy extends BaseGoalBuddy {
   id: string
 }
 
-export interface BaseUser {
+export type BaseUser = {
   city: string,
   country: string,
   createdAt: Timestamp,
@@ -54,6 +54,7 @@ export interface BaseUser {
   updatedAt: Timestamp,
   username: string
 }
+
 
 export interface User extends BaseUser {
   id: string
