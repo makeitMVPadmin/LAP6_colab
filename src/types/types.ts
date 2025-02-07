@@ -1,12 +1,13 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
+//import { Timestamp } from "firebase/firestore"
+
 export interface BaseEvents {
   createdAt: Timestamp
   createdUserId: string
   invitedUserId: string
   eventDescription: string
-
   eventEndTime:Timestamp
   eventStartTime: Timestamp
   eventTitle: string

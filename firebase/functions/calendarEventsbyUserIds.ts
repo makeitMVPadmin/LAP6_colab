@@ -12,33 +12,39 @@ Description:get All calendar Events by either createdUserIds or inviteeUserIds a
 we should filter events to only include those that occur on or after the specified date.
 @author[Aparna]*/
 
-export async function getCalendarEventsbyUserIds(
+export async function getUserEvents(
   userId: string,
   date?: Timestamp,
 ): Promise<CalendarEvents[]> {
+  console.log('userId: ' + userId)
+  console.log('date: ' + date)
   try {
-    let events;
-    if (date) {
-      events = query(
-        collection(db, 'calendar_events'),
-        where('eventStartTime', '>=', date),
-        where('createdUserId', '==', userId),
-      )
-    } else
-      events = query(
-        collection(db, 'calendar_events'),
-        where('createdUserId', '==', userId),
-      )
-    const querySnapshot = await getDocs(events)
-    const calendarEventsArray: CalendarEvents[] = querySnapshot.docs.map(
-      (item) => {
-        return {
-          id: item.id,
-          ...(item.data() as BaseEvents),
-        }
-      },
+    const createdUserQuery = query(
+      collection(db, 'calendar_events'),
+      where('createdUserId', '==', userId),
     )
-    return calendarEventsArray
+    const inviteeUserQuery = query(
+      collection(db, 'calendar_events'),
+      where('invitedUserId', '==', userId),
+    )
+    const [createdSnapshot, inviteeSnapshot] = await Promise.all([
+      getDocs(createdUserQuery),
+      getDocs(inviteeUserQuery),
+    ])
+
+    const createdEvents: CalendarEvents[] = createdSnapshot.docs
+      .map((item) => ({
+        id: item.id,
+        ...(item.data() as BaseEvents),
+      }))
+      .filter((event) => event.eventStartTime >= date)
+
+    const inviteeEvents: CalendarEvents[] = inviteeSnapshot.docs
+      .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
+      .filter((event) => event.eventStartTime >= date)
+
+    const mergeArray = [...createdEvents, ...inviteeEvents]
+    return mergeArray
   } catch (error) {
     console.error('Error getting documents: ', error)
     return []
