@@ -16,8 +16,6 @@ export async function getUserEvents(
   userId: string,
   date?: Timestamp,
 ): Promise<CalendarEvents[]> {
-  console.log('userId: ' + userId)
-  console.log('date: ' + date)
   try {
     const createdUserQuery = query(
       collection(db, 'calendar_events'),
@@ -32,16 +30,24 @@ export async function getUserEvents(
       getDocs(inviteeUserQuery),
     ])
 
-    const createdEvents: CalendarEvents[] = createdSnapshot.docs
-      .map((item) => ({
-        id: item.id,
-        ...(item.data() as BaseEvents),
-      }))
-      .filter((event) => event.eventStartTime >= date)
+    let createdEvents: CalendarEvents[] = createdSnapshot.docs.map((item) => ({
+      id: item.id,
+      ...(item.data() as BaseEvents),
+    }))
 
-    const inviteeEvents: CalendarEvents[] = inviteeSnapshot.docs
-      .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
-      .filter((event) => event.eventStartTime >= date)
+    let inviteeEvents: CalendarEvents[] = inviteeSnapshot.docs.map((item) => ({
+      id: item.id,
+      ...(item.data() as BaseEvents),
+    }))
+
+    if (date) {
+      createdEvents = createdEvents.filter(
+        (event) => event.eventStartTime >= date,
+      )
+      inviteeEvents = inviteeEvents.filter(
+        (event) => event.eventStartTime >= date,
+      )
+    }
 
     const mergeArray = [...createdEvents, ...inviteeEvents]
     return mergeArray
