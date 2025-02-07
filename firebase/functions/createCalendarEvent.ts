@@ -23,7 +23,7 @@ export async function addCalendarEvent(
       eventTitle: eventTitle,
       invitedUserId: invitedUserId,
       eventStatus: eventStatus,
-      googleEventId: googleEventId,
+      googleEventId: googleEventId
     })
     return event
   } catch (error) {
