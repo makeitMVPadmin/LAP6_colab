@@ -1,20 +1,34 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  query,
+  Timestamp,
+  where,
+} from 'firebase/firestore'
 import { db } from '../firebase'
 import { BaseEvents, CalendarEvents } from '../../src/types/types'
 /*
-Description:get All calendar Events by createdUserIds and inviteeUserIds 
+Description:get All calendar Events by either createdUserIds or inviteeUserIds and 
+we should filter events to only include those that occur on or after the specified date.
 @author[Aparna]*/
 
 export async function getCalendarEventsbyUserIds(
-  createdUserId: string,
-  inviteeUserId: string,
+  userId: string,
+  date?: Timestamp,
 ): Promise<CalendarEvents[]> {
   try {
-    const events = query(
-      collection(db, 'calendar_events'),
-      where('createdUserId', '==', createdUserId),
-      where('invitedUserId', '==', inviteeUserId),
-    )
+    let events;
+    if (date) {
+      events = query(
+        collection(db, 'calendar_events'),
+        where('eventStartTime', '>=', date),
+        where('createdUserId', '==', userId),
+      )
+    } else
+      events = query(
+        collection(db, 'calendar_events'),
+        where('createdUserId', '==', userId),
+      )
     const querySnapshot = await getDocs(events)
     const calendarEventsArray: CalendarEvents[] = querySnapshot.docs.map(
       (item) => {
