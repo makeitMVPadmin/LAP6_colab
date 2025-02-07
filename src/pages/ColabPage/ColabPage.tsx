@@ -4,13 +4,10 @@ import Layout from '@/components/Layout/Layout'
 
 export default function ColabPage() {
   return (
-    <main>
-      <DummyNavBar />
-
+    <Layout>
       <div className="flex justify-center">
         <GoalBuddyCard />
       </div>
-      <Layout></Layout>
-    </main>
+    </Layout>
   )
 }

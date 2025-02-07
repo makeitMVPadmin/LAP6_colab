@@ -22,7 +22,7 @@ const DummyNavBar: React.FC = () => {
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
       </div>
-      {isSidebaropen && <AppSidebar />}
+      {isSidebaropen && <AppSidebar isOpen={isSidebaropen} />}
     </div>
   )
 }
