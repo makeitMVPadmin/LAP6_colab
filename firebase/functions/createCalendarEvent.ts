@@ -1,6 +1,7 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
-//** Description: Creating data in the calendarEvents  */
+//** Description: Creating data in the calendarEvents
+// @author[Aparna] */
 export async function addCalendarEvent(
   createdUserId: string,
   eventDescription: string,
@@ -8,7 +9,7 @@ export async function addCalendarEvent(
   eventEndTime: Date,
   eventTitle: string,
   invitedUserId: string,
-  eventStatus: 'pending' | 'completed' | 'canceled',
+  eventStatus: 'confirmed' | 'pending' | 'canceled',
   googleEventId: string,
 ): Promise<Object> {
   try {

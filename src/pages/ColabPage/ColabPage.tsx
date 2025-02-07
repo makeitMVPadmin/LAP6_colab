@@ -1,19 +1,40 @@
-import { useEffect } from "react"
-
+import { useEffect } from 'react'
+import {addCalendarEvent} from '../../../firebase/functions/createCalendarEvent'
 export default function ColabPage() {
-  useEffect(()=>{
-const addData=async()=>{
-  addCalendarEvent()
-}
-addData('user123',
+  useEffect(() => {
+    const addData = async (
+      createdUserId: string,
+      eventDescription: string,
+      eventStartTime: Date,
+      eventEndTime: Date,
+      eventTitle: string,
+      invitedUserId: string,
+      eventStatus: 'confirmed' | 'pending' | 'canceled',
+      googleEventId: string,
+    ) => {
+      const resonse = await addCalendarEvent(
+        createdUserId,
+        eventDescription,
+        eventStartTime,
+        eventEndTime,
+        eventTitle,
+        invitedUserId,
+        eventStatus,
+        googleEventId,
+      )
+      console.log(resonse)
+    }
+    addData(
+      'rOkIPaJbpDxHABmnPGTN',
       'Team meeting to discuss project updates',
-      new Date('2023-10-15T10:00:00'),
-      new Date('2023-10-15T11:00:00'),
+      new Date('2025-02-10T10:00:00'),
+      new Date('2025-02-10T11:00:00'),
       'Project Meeting',
-      'user456',
-      EventStatus.Pending,
-      'google-event-id-123');
-  },[])
+      'RwXczeoWBfq4tEJ5BKoY',
+      'confirmed',
+      'google-event-id-123',
+    )
+  }, [])
 
   return (
     <main>
