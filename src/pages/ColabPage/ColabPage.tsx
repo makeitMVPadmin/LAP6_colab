@@ -27,8 +27,8 @@ export default function ColabPage() {
     addData(
       'rOkIPaJbpDxHABmnPGTN',
       'Team meeting to discuss project updates',
-      new Date('2025-02-10T10:00:00'),
       new Date('2025-02-10T11:00:00'),
+      new Date('2025-02-10T12:00:00'),
       'Project Meeting',
       'RwXczeoWBfq4tEJ5BKoY',
       'confirmed',
