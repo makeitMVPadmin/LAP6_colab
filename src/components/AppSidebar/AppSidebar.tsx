@@ -31,8 +31,8 @@ const items = [
 export function AppSidebar({ isOpen }: { isOpen: boolean }) {
   return (
 
-    <Sidebar className="absolute top-[140px] h-[60vh] w-[250px] border shadow-lg transition-transform duration-300 ease-in-out">
-      <SidebarContent className="h-[90%] bg-red-300 w-[80%] absolute right-0 bottom-3">
+    <Sidebar className="absolute top-[130px] h-[60vh] w-[250px] border shadow-lg transition-transform duration-300 ease-in-out">
+      <SidebarContent className="h-[90%] bg-gray-300 w-[80%] absolute right-0 bottom-3">
         <SidebarGroup className="items-center">
           <Avatar className="w-12 h-12 mt-2 mb-2">
             <AvatarFallback className="bg-[#D9D9D9]" />
@@ -42,10 +42,10 @@ export function AppSidebar({ isOpen }: { isOpen: boolean }) {
           <SidebarGroupContent>
             <SidebarMenu className="mt-4 items-center">
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.title} className="border w-[180px] rounded-full bg-white hover:bg-gray-200 transition duration-200 mb-4">
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
-                      <span>{item.title}</span>
+                      <span className=''>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
