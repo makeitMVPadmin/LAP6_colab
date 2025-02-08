@@ -30,8 +30,9 @@ const items = [
 
 export function AppSidebar({ isOpen }: { isOpen: boolean }) {
   return (
-    <Sidebar className="absolute top-40 h-[full] w-[250px] ">
-      <SidebarContent className="h-[90%] bg-red-300 w-[80%] absolute right-0 bottom-0">
+
+    <Sidebar className="absolute top-[140px] h-[60vh] w-[250px] border shadow-lg transition-transform duration-300 ease-in-out">
+      <SidebarContent className="h-[90%] bg-red-300 w-[80%] absolute right-0 bottom-3">
         <SidebarGroup className="items-center">
           <Avatar className="w-12 h-12 mt-2 mb-2">
             <AvatarFallback className="bg-[#D9D9D9]" />
