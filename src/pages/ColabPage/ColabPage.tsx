@@ -2,6 +2,8 @@
 import DummyNavBar from '@/components/DummyNavBar/DummyNavBar'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 
+
+
 export default function ColabPage() {
   
   return (
