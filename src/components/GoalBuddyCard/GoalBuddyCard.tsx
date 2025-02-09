@@ -31,15 +31,15 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
             </Avatar>
           </CardHeader>
           <CardContent className="flex flex-col justify-center p-4 w-11/12">
-            <h1 className="font-semibold text-lg sm:text-xl md:text-2xl text-center">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
-            <span className="text-sm sm:text-base md:text-lg mt-2">{`Experience: ${goalBuddy.yearsOfExperience}`}</span>
+            <h1 className="font-semibold text-lg sm:text-xl md:text-2xl">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
+            <span className="text-sm sm:text-base mt-2">{`Experience: ${goalBuddy.yearsOfExperience}`}</span>
             {goalBuddy.interests.length > 0 && (
-              <ul className="text-sm sm:text-base md:text-lg">
+              <ul className="text-sm sm:text-base">
                 Interests:
                 {goalBuddy.interests.map((interest, index) => (
                   <li
                     key={index}
-                    className="list-disc list-inside text-sm sm:text-base md:text-lg"
+                    className="list-disc list-inside text-sm sm:text-base"
                   >
                     {interest}
                   </li>
