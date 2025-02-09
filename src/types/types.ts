@@ -28,7 +28,7 @@ export interface BaseGoalBuddy {
   isAccountabilityPartner: boolean
   isMentor: boolean
   isNetworking: boolean
-  skills: []
+  skills: string[]
   timezone: string
   updatedAt: Timestamp
   userId: string
@@ -40,14 +40,14 @@ export interface GoalBuddy extends BaseGoalBuddy {
   id: string
 }
 
-export interface BaseUser {
+export type BaseUser = {
   city: string,
   country: string,
   createdAt: Timestamp,
   discipline: string,
   email: string,
   firstName: string,
-  interests: [],
+  interests: string[],
   lastName: string,
   profilePhoto: string,
   roleId: string,
@@ -56,6 +56,18 @@ export interface BaseUser {
   username: string
 }
 
+
 export interface User extends BaseUser {
   id: string
+}
+
+export interface AllGoalBuddyData extends Omit<GoalBuddy, 'createdAt' | 'updatedAt'>, Omit<User, 'createdAt' | 'updatedAt'> {
+  createdAt: {
+    goalBuddy: Timestamp;
+    user: Timestamp
+  },
+  updatedAt: {
+    goalBuddy: Timestamp,
+    user: Timestamp
+  }
 }
