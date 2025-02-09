@@ -1,6 +1,21 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
+type TimePeriod = {
+  startTime: Time,
+  endTime: Time
+}
+
+type Time = {
+  hours: number,
+  minutes: number
+}
+
+export type Availabilities = {
+  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
+  timePeriod: TimePeriod[]
+}
+
 export interface BaseEvents {
   createdAt: Timestamp
   createdUserId: string
@@ -20,7 +35,7 @@ export interface CalendarEvents extends BaseEvents {
 
 
 export interface BaseGoalBuddy {
-  availabilities: []
+  availabilities: Availabilities[]
   bio: string
   createdAt: Timestamp
   googleCalendarId: string
