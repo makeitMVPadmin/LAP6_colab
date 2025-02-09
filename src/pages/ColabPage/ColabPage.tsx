@@ -1,6 +1,6 @@
 
 export default function ColabPage() {
- 
+
 
   return (
     <div>
