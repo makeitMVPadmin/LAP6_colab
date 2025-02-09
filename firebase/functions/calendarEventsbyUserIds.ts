@@ -8,7 +8,7 @@ import {
 import { db } from '../firebase'
 import { BaseEvents, CalendarEvents } from '../../src/types/types'
 /*
-Description:get All calendar Events by either createdUserIds or inviteeUserIds and 
+Description:get All calendar Events by inviteeUserIds and 
 we should filter events to only include those that occur on or after the specified date.
 @author[Aparna]*/
 
