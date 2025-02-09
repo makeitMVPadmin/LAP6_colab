@@ -1,89 +1,42 @@
-import { useEffect, useState } from 'react'
-import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
-import { GoalBuddy } from '@/types/types'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { cn } from "../lib/utils"
 import { Button } from '../ui/button'
 
-export default function Filter() {
-    const [goalBuddiesArray, setGoalBuddiesArray] = useState<GoalBuddy[]>([])
-    const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<GoalBuddy[]>([])
-    const [filterCount, setFilterCount] = useState(0);
-    const [filtered, setFiltered] = useState({
-        mentor: false,
-        accountability: false,
-        networking: false
-    })
-
-    const initGoalBuddies = async() => {
-        const allGoalBuddies = await getAllGoalBuddies()
-        setGoalBuddiesArray(allGoalBuddies)
+interface filterProps {
+    filterGoalBuddies: Function,
+    filtered: {
+        mentor: boolean,
+        accountability: boolean,
+        networking: boolean
     }
+}
 
-    useEffect(() => {
-        initGoalBuddies()
-        console.log(filterCount)
-        if (filterCount === 0) setFilteredGoalBuddies([])
-    }, [!goalBuddiesArray])
-
-    const filterMentors = () => {
-        setFilteredGoalBuddies(goalBuddiesArray.filter(goalBuddy => {
-            return goalBuddy.isMentor === true
-        }))
-        setFiltered({...filtered, mentor: !filtered.mentor})
-        setFilterCount(filtered.mentor 
-            ? filterCount + 1
-            : filterCount - 1)
-    }
-
-    const filterAccountabilityPartners = () => {
-        setFilteredGoalBuddies(goalBuddiesArray.filter(goalBuddy => {
-            return goalBuddy.isAccountabilityPartner
-        }))
-        setFiltered({...filtered, accountability: !filtered.accountability})
-        setFilterCount(filtered.accountability 
-            ? filterCount + 1
-            : filterCount - 1)
-    }
-
-    const filterNetworking = () => {
-        setFilteredGoalBuddies(goalBuddiesArray.filter(goalBuddy => {
-            return goalBuddy.isNetworking
-        }))
-        setFiltered({...filtered, networking: !filtered.networking})
-        setFilterCount(filtered.networking 
-            ? filterCount + 1
-            : filterCount - 1)
-    }
-
-    useEffect(() => {
-        console.clear()
-        console.log('All goal buddies', goalBuddiesArray)
-        console.log('Filtered goal buddies', filteredGoalBuddies)
-    }, [initGoalBuddies, filterMentors, filterAccountabilityPartners, filterNetworking])
+const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filtered }) => {
+    const filterIndication = filtered.mentor 
+        ? cn("font-light bg-black text-white") 
+        : cn("font-light bg-white text-black")
 
     return (
-        <Card className={cn("w-96")}>
+        <Card className={cn("w-96 h-52")}>
             <CardHeader>
             <CardTitle className={cn("text-center text-l")}>Sort & Filter</CardTitle>
             </CardHeader>
             <CardContent className={cn("flex flex-col")}>
                 <Button 
-                    className={filtered.mentor 
-                        ? cn("bg-black text-white") 
-                        : cn("bg-white text-black")} 
-                    onClick={() => {filterMentors()}}>Mentors</Button>
+                    className={filterIndication} 
+                    onClick={() => {filterGoalBuddies('mentor')}}>
+                Mentors</Button>
                 <Button 
-                    className={filtered.accountability 
-                        ? cn("bg-black text-white") 
-                        : cn("bg-white text-black")} 
-                    onClick={() => {filterAccountabilityPartners()}}>Goal Buddies</Button>
+                    className={filterIndication} 
+                    onClick={() => {filterGoalBuddies('accountability')}}>
+                Accountability Partners</Button>
                 <Button 
-                    className={filtered.networking 
-                        ? cn("bg-black text-white") 
-                        : cn("bg-white text-black")} 
-                    onClick={() => {filterNetworking()}}>Networking</Button>
+                    className={filterIndication} 
+                    onClick={() => {filterGoalBuddies('networking')}}>
+                Networking</Button>
                 </CardContent>
         </Card>
     )
 }
+
+export default Filter;
