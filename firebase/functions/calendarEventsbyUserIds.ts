@@ -17,23 +17,11 @@ export async function getUserEvents(
   date?: Timestamp,
 ): Promise<CalendarEvents[]> {
   try {
-    const createdUserQuery = query(
-      collection(db, 'calendar_events'),
-      where('createdUserId', '==', userId),
-    )
     const inviteeUserQuery = query(
       collection(db, 'calendar_events'),
       where('invitedUserId', '==', userId),
     )
-    const [createdSnapshot, inviteeSnapshot] = await Promise.all([
-      getDocs(createdUserQuery),
-      getDocs(inviteeUserQuery),
-    ])
-
-    let createdEvents: CalendarEvents[] = createdSnapshot.docs.map((item) => ({
-      id: item.id,
-      ...(item.data() as BaseEvents),
-    }))
+    const inviteeSnapshot = await getDocs(inviteeUserQuery)
 
     let inviteeEvents: CalendarEvents[] = inviteeSnapshot.docs.map((item) => ({
       id: item.id,
@@ -41,15 +29,12 @@ export async function getUserEvents(
     }))
 
     if (date) {
-      createdEvents = createdEvents.filter(
-        (event) => event.eventStartTime >= date,
-      )
       inviteeEvents = inviteeEvents.filter(
         (event) => event.eventStartTime >= date,
       )
     }
 
-    const mergeArray = [...createdEvents, ...inviteeEvents]
+    const mergeArray = [...inviteeEvents]
     return mergeArray
   } catch (error) {
     console.error('Error getting documents: ', error)
