@@ -6,7 +6,6 @@ import { AllGoalBuddyData } from "@/types/types";
 
 export default function ColabPage() {
   const [goalBuddyList, setGoalBuddyList] = useState<AllGoalBuddyData[]>([])
-  console.log(goalBuddyList);
   
   useEffect(() => {
     const fetchData = async () => {

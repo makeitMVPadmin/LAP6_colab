@@ -22,7 +22,6 @@ export const getAllGoalBuddyData = async () => {
       return null
     })
     .filter( item => item !== null)
-    console.log(filteredList)
     return filteredList
 
   } catch (error) {
