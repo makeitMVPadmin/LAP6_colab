@@ -13,7 +13,7 @@ export async function createCalendarEvent(
   googleEventId: string,
 ): Promise<object> {
   try {
-    const event = await addDoc(collection(db, 'calendar_events'), {
+    const eventDoc =  {
       createdAt: Timestamp.fromDate(new Date()),
       updatedAt: Timestamp.fromDate(new Date()),
       createdUserId: createdUserId,
@@ -24,7 +24,9 @@ export async function createCalendarEvent(
       invitedUserId: invitedUserId,
       eventStatus: eventStatus,
       googleEventId: googleEventId
-    })
+    }
+    const docRef = await addDoc(collection(db, 'calendarEvents'), eventDoc)
+    const event={...eventDoc, id: docRef.id}
     return event
   } catch (error) {
     console.error('Error creating document: ', error)
