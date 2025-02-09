@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "../ui/card";
-import {
-  Avatar,
-  AvatarFallback,
-} from "@/components/ui/avatar";
-import Modal from '../Modal/Modal';
+import { Card, CardContent, CardHeader } from '../ui/card'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import Modal from '../Modal/Modal'
+import clsx from 'clsx'
+import { SidebarContext } from '../context/SidebarContext'
 
 const GoalBuddyCard: React.FC = () => {
+  const sidebarcontext = useContext(SidebarContext)
+  if (!sidebarcontext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebaropen } = sidebarcontext
   return (
-    <div className="flex justify-center flex-wrap content-around gap-5 max-w-[1200px]">
+    <div
+      className={clsx(
+        'flex justify-center flex-wrap content-around gap-5 max-w-[1200px]',
+        isSidebaropen && 'bg-black bg-opacity-80',
+      )}
+    >
       {Array.from({ length: 8 }).map((_, index) => (
         <Card
           key={index}
@@ -37,7 +42,7 @@ const GoalBuddyCard: React.FC = () => {
         </Card>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default GoalBuddyCard;
+export default GoalBuddyCard

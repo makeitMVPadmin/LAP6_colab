@@ -5,7 +5,7 @@ interface SidebarType {
   isSidebaropen: boolean
   setIsSideBarOpen: (isSidebaropen: boolean) => void
 }
-export const SidebarContext = createContext<SidebarType>()
+export const SidebarContext = createContext<SidebarType | undefined>(undefined)
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isSidebaropen, setIsSideBarOpen] = useState(false)
   return (
