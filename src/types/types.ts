@@ -59,3 +59,14 @@ export type BaseUser = {
 export interface User extends BaseUser {
   id: string
 }
+
+export interface AllGoalBuddyData extends Omit<GoalBuddy, 'createdAt' | 'updatedAt'>, Omit<User, 'createdAt' | 'updatedAt'> {
+  createdAt: {
+    goalBuddy: Timestamp;
+    user: Timestamp
+  },
+  updatedAt: {
+    goalBuddy: Timestamp,
+    user: Timestamp
+  }
+}
