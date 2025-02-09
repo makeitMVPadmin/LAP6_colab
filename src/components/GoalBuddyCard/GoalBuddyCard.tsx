@@ -22,7 +22,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
       {goalBuddyList.map((goalBuddy) => (
         <Card
           key={goalBuddy.userId}
-          className="flex flex-row min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer"
+          className="flex flex-row min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer transform transition-transform duration-150 hover:scale-110"
         >
           <CardHeader className="self-start">
             <Avatar className="w-16 h-16">
