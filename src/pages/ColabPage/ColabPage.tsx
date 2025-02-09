@@ -2,7 +2,7 @@
 import DummyNavBar from '@/components/DummyNavBar/DummyNavBar'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import { useEffect } from 'react'
-import {getUserEvents} from '../../../firebase/functions/calendarEventsbyUserIds'
+import {getUserEvents,deleteEventByGoogleId} from '../../../firebase/functions/calendarEventsbyUserIds'
 import { Timestamp } from 'firebase/firestore'
 
 
@@ -22,6 +22,7 @@ console.error('Failed to fetch events: ', error)
 }
 fetchEvents()
 }, [])
+
   return (
     <main>
      <DummyNavBar />
