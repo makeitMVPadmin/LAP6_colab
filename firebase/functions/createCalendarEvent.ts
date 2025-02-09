@@ -2,7 +2,7 @@ import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 //** Description: Creating data in the calendarEvents
 // @author[Aparna] */
-export async function addCalendarEvent(
+export async function createCalendarEvent(
   createdUserId: string,
   eventDescription: string,
   eventStartTime: Date,
@@ -11,7 +11,7 @@ export async function addCalendarEvent(
   invitedUserId: string,
   eventStatus: 'confirmed' | 'pending' | 'canceled',
   googleEventId: string,
-): Promise<Object> {
+): Promise<object> {
   try {
     const event = await addDoc(collection(db, 'calendar_events'), {
       createdAt: Timestamp.fromDate(new Date()),

@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
-import {addCalendarEvent} from '../../../firebase/functions/createCalendarEvent'
+
+import { createCalendarEvent } from '../../../firebase/functions/createCalendarEvent'
 export default function ColabPage() {
-  useEffect(() => {
+  const handleClick = () => {
     const addData = async (
       createdUserId: string,
       eventDescription: string,
@@ -12,7 +12,7 @@ export default function ColabPage() {
       eventStatus: 'confirmed' | 'pending' | 'canceled',
       googleEventId: string,
     ) => {
-      const resonse = await addCalendarEvent(
+      const resonse = await createCalendarEvent(
         createdUserId,
         eventDescription,
         eventStartTime,
@@ -34,11 +34,12 @@ export default function ColabPage() {
       'confirmed',
       'google-event-id-123',
     )
-  }, [])
+  }
 
   return (
     <main>
       <h1>Welcome Colab User</h1>
+      <button onClick={handleClick}>AddData</button>
     </main>
   )
 }
