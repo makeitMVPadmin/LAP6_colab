@@ -16,9 +16,9 @@ export default function ColabPage() {
   }
 
   return (
-    <>
+    <div>
       <h1>Welcome Colab User</h1>
       <button onClick={handleClick}>Add Data</button>
-    </>
+    </div>
   )
 }
