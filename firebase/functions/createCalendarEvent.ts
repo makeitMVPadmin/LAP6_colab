@@ -2,34 +2,30 @@ import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 //** Description: Creating data in the calendarEvents
 // @author[Aparna] */
+
+export interface EventData {
+  createdUserId: string
+  eventDescription: string
+  eventStartTime: Date
+  eventEndTime: Date
+  eventTitle: string
+  invitedUserId: string
+  eventStatus: 'confirmed' | 'pending' | 'canceled'
+  googleEventId: string
+}
 export async function createCalendarEvent(
-  createdUserId: string,
-  eventDescription: string,
-  eventStartTime: Date,
-  eventEndTime: Date,
-  eventTitle: string,
-  invitedUserId: string,
-  eventStatus: 'confirmed' | 'pending' | 'canceled',
-  googleEventId: string,
-): Promise<object> {
+  eventData: EventData,
+): Promise<object | null> {
   try {
-    const eventDoc =  {
-      createdAt: Timestamp.fromDate(new Date()),
-      updatedAt: Timestamp.fromDate(new Date()),
-      createdUserId: createdUserId,
-      eventDescription: eventDescription,
-      eventStartTime: Timestamp.fromDate(eventStartTime),
-      eventEndTime: Timestamp.fromDate(eventEndTime),
-      eventTitle: eventTitle,
-      invitedUserId: invitedUserId,
-      eventStatus: eventStatus,
-      googleEventId: googleEventId
+    const eventDoc = {
+      eventData,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
     }
-    const docRef = await addDoc(collection(db, 'calendarEvents'), eventDoc)
-    const event={...eventDoc, id: docRef.id}
-    return event
+    const docRef = await addDoc(collection(db, 'calendar_events'), eventDoc)
+    return { ...eventDoc, id: docRef.id }
   } catch (error) {
     console.error('Error creating document: ', error)
-    return {}
+    return null
   }
 }
