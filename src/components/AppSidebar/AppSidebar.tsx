@@ -31,7 +31,7 @@ const items = [
 export function AppSidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <Sidebar
-      className={`absolute top-[120px] h-[170vh] w-[250px] bg-black shadow-lg`}
+      className={`absolute top-[120px]  w-[250px] bg-black shadow-lg`}
     >
       <SidebarContent className="h-[90%] bg-white w-[80%] absolute right-0 bottom-3 rounded-xl inset-shadow-md ring-2">
         <SidebarGroup className="items-center">
