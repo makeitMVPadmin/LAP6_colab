@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 export default function ColabPage() {
   const [goalBuddyList, setGoalBuddyList] = useState<GoalBuddy[]>([])
   const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<GoalBuddy[]>([])
-  const [filtered, setFiltered] = useState({
+  const [filter, setFilter] = useState({
       mentor: false,
       accountability: false,
       networking: false
@@ -24,16 +24,20 @@ export default function ColabPage() {
 
   const filterGoalBuddies = (choice: string) => {
     setFilteredGoalBuddies(goalBuddyList.filter(goalBuddy => {
+      if (!filteredGoalBuddies) return
       if (choice === 'mentor') return goalBuddy.isMentor
-      else if (choice === 'accountability') return goalBuddy.isAccountabilityPartner
-      else if (choice === 'networking') return goalBuddy.isNetworking
-      else return false;
+      if (choice === 'accountability') return goalBuddy.isAccountabilityPartner
+      if (choice === 'networking') return goalBuddy.isNetworking
     }))
-    if (choice === 'mentor') setFiltered({...filtered, mentor: !filtered.mentor})
-    else if (choice === 'accountability') setFiltered({...filtered, accountability: !filtered.accountability})
-    else if (choice === 'networking') setFiltered({...filtered, networking: !filtered.networking})
-    else return false;
+    if (!filter) return
+    if (choice === 'mentor') setFilter({...filter, mentor: !filter.mentor})
+    if (choice === 'accountability') setFilter({...filter, accountability: !filter.accountability})
+    if (choice === 'networking') setFilter({...filter, networking: !filter.networking})
   }
+
+  useEffect(() => {
+  console.log(filteredGoalBuddies)
+  }, [filterGoalBuddies])
 
   return (
     <main>
@@ -41,7 +45,7 @@ export default function ColabPage() {
       <section className="flex">
         <Filter 
           filterGoalBuddies={filterGoalBuddies} 
-          filtered={filtered}
+          filter={filter}
         />
         <div className='flex justify-center'>
           <GoalBuddyCard />
