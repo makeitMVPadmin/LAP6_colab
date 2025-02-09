@@ -15,7 +15,7 @@ we should filter events to only include those that occur on or after the specifi
 export async function getUserEvents(
   userId: string,
   date?: Timestamp,
-): Promise<CalendarEvents[]> {
+): Promise<CalendarEvents[] | string> {
   try {
     const inviteeUserQuery = query(
       collection(db, 'calendar_events'),
@@ -25,19 +25,22 @@ export async function getUserEvents(
       collection(db, 'calendar_events'),
       where('createdUserId', '==', userId),
     )
-
+  
     const [inviteeSnapshot, createdSnapshot] = await Promise.all([
       getDocs(inviteeUserQuery),
       getDocs(createdUserQuery),
     ])
-    let events1: CalendarEvents[]=[];
-    let events2: CalendarEvents[]=[];
-
+    if (inviteeSnapshot.empty && createdSnapshot.empty) {
+      return 'No events found with that userId';
+    }
+    let events1: CalendarEvents[] = []
+    let events2: CalendarEvents[] = []
+   
     if (date) {
-       events1 = inviteeSnapshot.docs
+      events1 = inviteeSnapshot.docs
         .filter((item) => item.data().eventStartTime >= date)
         .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
-       events2 = createdSnapshot.docs
+      events2 = createdSnapshot.docs
         .filter((item) => item.data().eventStartTime >= date)
         .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
     }
