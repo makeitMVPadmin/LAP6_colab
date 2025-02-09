@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+
 import { Calendar } from "../ui/calendar";
 
-const BookingCalendar: React.FC = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+interface BookingCalendarProps {
+    selectedDate: Date | undefined;
+    setDate: (date: Date | undefined) => void;
+}
+
+const BookingCalendar: React.FC<BookingCalendarProps> = ({ selectedDate, setDate }) => {
 
   return (
     <div className="border-2 border-black rounded-lg">
       <Calendar
         mode="single"
-        selected={date}
+        selected={selectedDate}
         onSelect={setDate}
         className="rounded-md border bg-white"
       />
