@@ -37,5 +37,4 @@ const DummyNavBar: React.FC = () => {
     </div>
   )
 }
-
 export default DummyNavBar

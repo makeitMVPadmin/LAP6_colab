@@ -1,29 +1,28 @@
 import React, { useContext } from 'react'
 import { Card, CardContent, CardHeader } from '../ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import Modal from '../Modal/Modal'
 import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
-import { AllGoalBuddyData } from '@/types/types';
-
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { AllGoalBuddyData } from '@/types/types'
 
 interface GoalBuddyCardProps {
   goalBuddyList: AllGoalBuddyData[]
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
-    const sidebarcontext = useContext(SidebarContext)
+  const sidebarcontext = useContext(SidebarContext)
   if (!sidebarcontext) {
     throw new Error('Sidebar context not found')
   }
   const { isSidebaropen } = sidebarcontext
   return (
-    <div className={clsx("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] mx-auto", isSidebaropen && 'bg-black bg-opacity-70',)}>
+    <div
+      className={clsx(
+        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]',
+        isSidebaropen && 'bg-black bg-opacity-70',
+      )}
+    >
       {goalBuddyList?.map((goalBuddy) => (
         <Card
           key={goalBuddy.userId}
@@ -56,10 +55,6 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
       ))}
     </div>
   )
-
 }
-
-};
-
 
 export default GoalBuddyCard
