@@ -6,7 +6,7 @@ export default function ColabPage() {
     <main>
       <DummyNavBar />
       <div className="flex justify-center">
-        <GoalBuddyCard />
+        <GoalBuddyCard goalBuddyList={[]}/>
       </div>
     </main>
   )
