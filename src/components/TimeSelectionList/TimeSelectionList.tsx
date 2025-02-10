@@ -9,6 +9,8 @@ interface TimeSelectionListProps {
 
 const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selectedDate, setTime}) => {
   const [activeRow, setActiveRow] = useState<number | null>(null);
+  console.log("provided timesList: ");
+  console.log(timesList);
 
   return (
     <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">

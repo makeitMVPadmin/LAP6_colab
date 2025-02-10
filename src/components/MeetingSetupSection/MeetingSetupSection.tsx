@@ -74,16 +74,14 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({goalBuddy}) =>
         
         // Go throuh each of the user's availability time periods for this day and add each 30 minute interval to the availableTimes array
         for(let i = 0; i < meetingTimes.length; i++){
-          const timeRange: TimePeriod = meetingTimes[i];
-          const meetingTime: Time = timeRange.startTime;
-          const endTime: Time = timeRange.endTime;
+          let meetingStartTime: Time = meetingTimes[i].startTime;
+          let endTime: Time = meetingTimes[i].endTime;
           
           // Add each available 30 minute interval in this TimePeriod to the availableTimes array
-          while(!(meetingTime.hours === endTime.hours && meetingTime.minutes === endTime.minutes)){
-            // console.log("I enter this loop");
+          while(!(meetingStartTime.hours === endTime.hours && meetingStartTime.minutes === endTime.minutes)){
 
             // Create a Time object for the end of the meeting by incrementing by 30
-            const meetingEndTime: Time = {hours: meetingTime.hours, minutes: meetingTime.minutes};
+            let meetingEndTime: Time = {hours: meetingStartTime.hours, minutes: meetingStartTime.minutes};
             if(meetingEndTime.minutes === 30){
               meetingEndTime.minutes = 0;
               meetingEndTime.hours++;
@@ -94,18 +92,24 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({goalBuddy}) =>
 
             // Check if the user already has a meeting scheduled for this time
             // If not, then add the time to the availableTimes array
-            const meetingAsTimestamp: Timestamp = createTimestamp(selectedDate, meetingTime);
+            const meetingAsTimestamp: Timestamp = createTimestamp(selectedDate, meetingStartTime);
             // console.log("possible meeting's timestamp: " + meetingAsTimestamp.seconds + " seconds, " + meetingAsTimestamp.nanoseconds + " nanoseconds");
 
             if(!isExistingStartTime(meetingAsTimestamp, userMeetings)){
-              const meetingPeriod: TimePeriod = {startTime: meetingTime, endTime: meetingEndTime};
+              // console.log("meeting start time");
+              // console.log(meetingStartTime);
+              // console.log("meeting end time");
+              // console.log(meetingEndTime);
+              const meetingPeriod: TimePeriod = {startTime: meetingStartTime, endTime: meetingEndTime};
+              // meetingPeriod.startTime.hours = meetingStartTime.hours;
+              // meetingPeriod.startTime.minutes = meetingStartTime.minutes;
               availableTimes.push(meetingPeriod);
-              // console.log("Added time: " + meetingTime.hours + ":" + meetingTime.minutes + " - " + meetingEndTime.hours + ":" + meetingEndTime.minutes);
+              // console.log("Added time: ")
+              // console.log(meetingPeriod);
             }
 
             // Increment the meetingTime to the next 30 minute interval
-            meetingTime.hours = meetingEndTime.hours;
-            meetingTime.minutes = meetingEndTime.minutes;
+            meetingStartTime = meetingEndTime;
           }
         }
 
