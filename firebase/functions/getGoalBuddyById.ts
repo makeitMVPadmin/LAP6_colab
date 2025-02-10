@@ -24,6 +24,6 @@ export const getGoalBuddyById = async (
     }
   } catch (error) {
     console.error('Error fetching one goal buddy by ID', error)
-    return null
+    throw error
   }
 }
