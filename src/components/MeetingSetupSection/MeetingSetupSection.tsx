@@ -127,8 +127,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
 
   // Create a meeting event based on the selected date and time
   async function makeMeetingEvent(){
-    console.log(date);
-    console.log(selectedTime);
+    // console.log(date);
+    // console.log(selectedTime);
     // If the user has selected a date and time, then create a meeting event
     if (date && selectedTime) {
 
@@ -148,7 +148,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
       try {
         const response = await createCalendarEvent(eventData);
         console.log(response);
-        console.log("Creating the meeting was a success");
+        // console.log("Creating the meeting was a success");
 
       } catch (error) {
         console.error("Error creating calendar event:", error);
