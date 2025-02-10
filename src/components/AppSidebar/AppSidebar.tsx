@@ -49,7 +49,7 @@ export function AppSidebar() {
     <div className="w-[screen] h-screen flex justify-end  z-100">
       <div className="bg-black w-[250px] max-h-[80%] relative z-10 opacity-95">
         <Sidebar className="w-[200px] absolute h-[90%] top-[10%] bg-white rounded-xl shadow-md">
-          <SidebarContent>
+          <SidebarContent className="px-2">
             <SidebarGroup className="items-center mt-2">
               <Avatar className="w-12 h-12 mt-2 mb-4">
                 <AvatarFallback className="bg-[#B7D9B9]" />
@@ -58,7 +58,7 @@ export function AppSidebar() {
                   alt="@shadcn"
                 />
               </Avatar>
-              <div>
+              <div className='text-sm font-bold'>
                 {' '}
                 {goalBuddyData && goalBuddyData.bio}
               </div>
