@@ -1,19 +1,68 @@
-
 import DummyNavBar from '@/components/DummyNavBar/DummyNavBar'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
-
+import { useEffect, useState } from 'react'
+import { getAllGoalBuddies } from '../../../firebase/functions/goalBuddies'
+import { getAllUsers } from '../../../firebase/functions/getAllUsers'
+import { AllGoalBuddyData } from '../../types/types'
 
 export default function ColabPage() {
- 
- return (
-   <main>
-    <DummyNavBar />
-     <div className="flex justify-center">
-       <GoalBuddyCard />
-     </div>
-   </main>
- )
+  const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
+    useState<AllGoalBuddyData[] | []>([])
+
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchGoalBuddiesCombinedWithUser = async () => {
+      const goalBuddies = await getAllGoalBuddies()
+      const users = await getAllUsers()
+
+      const goalBuddiesMergedWithUsers = goalBuddies.map((goalBuddy) => {
+        const user = users.find((user) => goalBuddy.userId === user.id)
+        if (user) {
+          return {
+            ...goalBuddy,
+            ...user,
+            createdAt: {
+              goalBuddy: goalBuddy.createdAt,
+              user: user.createdAt,
+            },
+            updatedAt: {
+              goalBuddy: goalBuddy.updatedAt,
+              user: user.updatedAt,
+            },
+          }
+        } else {
+          return null
+        }
+      })
+
+      setGoalBuddiesCombinedWithUsers(
+        goalBuddiesMergedWithUsers.filter((item) => item != null),
+      )
+
+      setIsLoading(false)
+    }
+
+    fetchGoalBuddiesCombinedWithUser()
+  }, [])
+
+  return (
+    <main>
+      <DummyNavBar />
+      <div className="flex justify-center">
+        {isLoading ? (
+          <p>Loading goal buddies data...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] mx-auto">
+            {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
+              <GoalBuddyCard
+                key={goalBuddyWithUser.id}
+                goalBuddy={goalBuddyWithUser}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
+  )
 }
-
-
-
