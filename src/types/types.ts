@@ -1,6 +1,8 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
+//import { Timestamp } from "firebase/firestore"
+
 export interface BaseEvents {
   createdAt: Timestamp,
   updatedAt: Timestamp,
