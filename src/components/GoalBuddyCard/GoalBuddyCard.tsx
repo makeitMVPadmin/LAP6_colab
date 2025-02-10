@@ -19,7 +19,7 @@ interface GoalBuddyCardProps {
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] mx-auto">
-      {goalBuddyList.map((goalBuddy) => (
+      {goalBuddyList?.map((goalBuddy) => (
         <Card
           key={goalBuddy.userId}
           className="flex flex-row min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer transform transition-transform duration-150 hover:scale-110"

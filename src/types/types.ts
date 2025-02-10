@@ -1,17 +1,18 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
+//import { Timestamp } from "firebase/firestore"
+
 export interface BaseEvents {
-  createdAt: Timestamp
+  createdAt: Timestamp,
+  updatedAt: Timestamp,
   createdUserId: string
   invitedUserId: string
   eventDescription: string
-
   eventEndTime:Timestamp
   eventStartTime: Timestamp
   eventTitle: string
-  eventStatus: 'pending' | 'completed' | 'canceled'
-
+  eventStatus: 'confirmed' | 'pending' | 'canceled'
   googleEventId: string
 }
 export interface CalendarEvents extends BaseEvents {
