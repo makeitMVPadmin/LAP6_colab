@@ -1,4 +1,5 @@
 
+
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import Layout from '@/components/Layout/Layout'
 
@@ -13,5 +14,6 @@ export default function ColabPage() {
       </div>
     </Layout>
     </div>
+
   )
 }
