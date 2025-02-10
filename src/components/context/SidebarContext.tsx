@@ -2,14 +2,14 @@ import { ReactNode, useState } from 'react'
 import { createContext } from 'react'
 
 interface SidebarType {
-  isSidebaropen: boolean
-  setIsSideBarOpen: (isSidebaropen: boolean) => void
+  isSidebarOpen: boolean
+  setIsSideBarOpen: (isSidebarOpen: boolean) => void
 }
 export const SidebarContext = createContext<SidebarType | undefined>(undefined)
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
-  const [isSidebaropen, setIsSideBarOpen] = useState(false)
+  const [isSidebarOpen, setIsSideBarOpen] = useState(false)
   return (
-    <SidebarContext.Provider value={{ isSidebaropen, setIsSideBarOpen }}>
+    <SidebarContext.Provider value={{ isSidebarOpen, setIsSideBarOpen }}>
       {children}
     </SidebarContext.Provider>
   )

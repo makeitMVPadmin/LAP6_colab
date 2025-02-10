@@ -6,19 +6,19 @@ import { SidebarContext } from '../context/SidebarContext'
 import clsx from 'clsx'
 
 const DummyNavBar: React.FC = () => {
-  const sibebarcontext = useContext(SidebarContext)
-  if (!sibebarcontext) {
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-  const { isSidebaropen, setIsSideBarOpen } = sibebarcontext
+  const { isSidebarOpen, setIsSideBarOpen } = sideBarContext
   const handleClick = () => {
-    setIsSideBarOpen(!isSidebaropen)
+    setIsSideBarOpen(!isSidebarOpen)
   }
   return (
     <div
       className={clsx( 
         'h-[120px] mb-4 bg-[#EEEEEE]',
-        isSidebaropen && 'bg-black bg-opacity-70',
+        isSidebarOpen && 'bg-black bg-opacity-70',
       )}
     >
       <div className="flex flex-row justify-between evenly h-2/4 p-2">
@@ -33,7 +33,7 @@ const DummyNavBar: React.FC = () => {
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
       </div>
-      {isSidebaropen && <AppSidebar/>}
+      {isSidebarOpen && <AppSidebar/>}
     </div>
   )
 }

@@ -11,16 +11,16 @@ interface GoalBuddyCardProps {
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
-  const sidebarcontext = useContext(SidebarContext)
-  if (!sidebarcontext) {
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-  const { isSidebaropen } = sidebarcontext
+  const { isSidebarOpen } = sideBarContext
   return (
     <div
       className={clsx(
         'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]',
-        isSidebaropen && 'bg-black bg-opacity-70',
+        isSidebarOpen && 'bg-black bg-opacity-70',
       )}
     >
       {goalBuddyList?.map((goalBuddy) => (
