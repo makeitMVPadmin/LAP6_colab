@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BookingCalendar from "../BookingCalendar/BookingCalendar";
 import TimeSelectionList from "../TimeSelectionList/TimeSelectionList";
-import { CalendarEvents } from "@/types/types";
+import { CalendarEvents, GoalBuddy } from "@/types/types";
 
 
-export default function MeetingSetupSection(userID: string) {
+export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
 
   // Define state variables needed for creating a meeting event
   const[availability, setAvailability] = useState<Availability[] | undefined>(undefined);
@@ -14,7 +14,23 @@ export default function MeetingSetupSection(userID: string) {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
   // Get the user's availability based on their ID
+  // useEffect(() => {
+  //   const fetchGoalBuddy = async (goalBuddyId: string) => {
+  //     const data = await getGoalBuddyById(goalBuddyId);
+  //     console.log(data);
+  //     setAvailability(data.availability); 
+  //   }
+  //   fetchGoalBuddy(goalBuddyId);
+  // }, []);
 
+  useEffect(() => {
+    const fetchUserMeetings = async (userId: string) => {
+      const data = await calendarEventsByUserId(userId, Date.now());
+      console.log(data);
+      setUserMeetings(data); 
+    }
+    fetchUserMeetings()
+  }, []);
 
   // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
   function populateTimeListings(selectedDate: Date | undefined){
@@ -32,7 +48,9 @@ export default function MeetingSetupSection(userID: string) {
   }
 
   // Create the date object for the selected date and time
-  function createMeetingDate()
+  function createMeetingDate(){
+
+  }
 
 
   // Create a meeting event based on the selected date and time
