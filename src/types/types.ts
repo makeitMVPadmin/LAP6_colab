@@ -1,17 +1,18 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
+//import { Timestamp } from "firebase/firestore"
+
 export interface BaseEvents {
-  createdAt: Timestamp
+  createdAt: Timestamp,
+  updatedAt: Timestamp,
   createdUserId: string
   invitedUserId: string
   eventDescription: string
-
   eventEndTime:Timestamp
   eventStartTime: Timestamp
   eventTitle: string
-  eventStatus: 'pending' | 'completed' | 'canceled'
-
+  eventStatus: 'confirmed' | 'pending' | 'canceled'
   googleEventId: string
 }
 export interface CalendarEvents extends BaseEvents {
@@ -27,7 +28,7 @@ export interface BaseGoalBuddy {
   isAccountabilityPartner: boolean
   isMentor: boolean
   isNetworking: boolean
-  skills: []
+  skills: string[]
   timezone: string
   updatedAt: Timestamp
   userId: string
@@ -46,7 +47,7 @@ export type BaseUser = {
   discipline: string,
   email: string,
   firstName: string,
-  interests: [],
+  interests: string[],
   lastName: string,
   profilePhoto: string,
   roleId: string,
@@ -58,4 +59,15 @@ export type BaseUser = {
 
 export interface User extends BaseUser {
   id: string
+}
+
+export interface AllGoalBuddyData extends Omit<GoalBuddy, 'createdAt' | 'updatedAt'>, Omit<User, 'createdAt' | 'updatedAt'> {
+  createdAt: {
+    goalBuddy: Timestamp;
+    user: Timestamp
+  },
+  updatedAt: {
+    goalBuddy: Timestamp,
+    user: Timestamp
+  }
 }

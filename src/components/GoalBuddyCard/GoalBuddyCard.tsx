@@ -8,36 +8,49 @@ import {
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "@/components/ui/avatar";
-import Modal from '../Modal/Modal';
+import { AllGoalBuddyData } from '@/types/types';
 
-const GoalBuddyCard: React.FC = () => {
+interface GoalBuddyCardProps {
+  goalBuddyList: AllGoalBuddyData[]
+}
+
+const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
   return (
-    <div className="flex justify-center flex-wrap content-around gap-5 max-w-[1200px]">
-      {Array.from({ length: 8 }).map((_, index) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] mx-auto">
+      {goalBuddyList?.map((goalBuddy) => (
         <Card
-          key={index}
-          className="flex flex-col items-center w-1/5 max-w-[250px] h-[250px] m-4 bg-[#AAAAAA]"
+          key={goalBuddy.userId}
+          className="flex flex-row min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer transform transition-transform duration-150 hover:scale-110"
         >
-          <CardHeader className="pb-0">
+          <CardHeader className="self-start">
             <Avatar className="w-16 h-16">
+              <AvatarImage src={goalBuddy.profilePhoto} />
               <AvatarFallback className="bg-[#D9D9D9]" />
             </Avatar>
           </CardHeader>
-          <CardContent className="flex flex-col items-center w-11/12 p-4">
-            <div className="h-[8px] bg-[#757575] w-full mt-1.5 mb-1 rounded-xl"></div>
-            <div className="h-[8px] bg-[#757575] w-10/12 mt-1.5 mb-1 rounded-xl"></div>
-            <div className="h-[8px] bg-[#757575] w-7/12 mt-1.5 mb-1 rounded-xl"></div>
-            <div className="h-[8px] bg-[#757575] w-8/12 mt-1.5 mb-1 rounded-xl"></div>
-            <div>
-              <Modal />
-            </div>
-            <div className="h-[8px] bg-[#757575] w-7/12 mt-1.5 mb-1 rounded-xl"></div>
+          <CardContent className="flex flex-col justify-center p-4 w-11/12">
+            <h1 className="font-semibold text-lg sm:text-xl md:text-2xl">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
+            <span className="text-sm sm:text-base mt-2">{`Experience: ${goalBuddy.yearsOfExperience}`}</span>
+            {goalBuddy.interests.length > 0 && (
+              <ul className="text-sm sm:text-base">
+                Interests:
+                {goalBuddy.interests.map((interest, index) => (
+                  <li
+                    key={index}
+                    className="list-disc list-inside text-sm sm:text-base"
+                  >
+                    {interest}
+                  </li>
+                ))}
+              </ul>
+            )}
           </CardContent>
         </Card>
       ))}
     </div>
-  );
+  )
 };
 
 export default GoalBuddyCard;

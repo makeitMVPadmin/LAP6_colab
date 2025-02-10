@@ -17,6 +17,6 @@ export default async function getAllGoalBuddies (): Promise<GoalBuddy[]> {
     return goalBuddiesArray
   } catch (error) {
     console.error('Error getting document', error)
-    return []
+    throw error
   }
 }
