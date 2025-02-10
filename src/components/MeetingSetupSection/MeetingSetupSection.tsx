@@ -126,8 +126,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
       // Call the createCalendarEvent function to create the event in the collection
       try {
         const response = await createCalendarEvent(eventData);
-        console.log(response);
-        console.log("Creating the meeting was a success");
 
       } catch (error) {
         console.error("Error creating calendar event:", error);
