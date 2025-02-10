@@ -12,7 +12,6 @@ export default function ColabPage() {
   useEffect(() => {
     const fetchOneGoalBuddyById = async (id: string) => {
       const data = await getGoalBuddyById(id);
-      // console.log(data);
       if(data === null){
         setGoalBuddy(undefined);
       }else{
@@ -33,7 +32,7 @@ export default function ColabPage() {
      {goalBuddy === undefined ? (
         <div>No Goal Buddy found</div>
       ) : (
-        <MeetingSetupSection goalBuddy={goalBuddy} />
+        <MeetingSetupSection activeUserId="6vEljF3oaFsLWEPmQRHV" showingUser={goalBuddy} />
       )}
    </main>
  )
