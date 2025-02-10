@@ -26,20 +26,20 @@ const items = [
   },
 ]
 
-export function AppSidebar({ isOpen }: { isOpen: boolean }) {
+export function AppSidebar() {
   return (
-    <div className='w-screen h-screen flex justify-end bg-black bg-opacity-70 z-100'>
-    <div className="bg-black w-[250px] h-[80%] relative z-10 opacity-95">
+    <div className='w-[screen] h-screen flex justify-end  z-100'>
+    <div className="bg-black w-[250px] max-h-[80%] relative z-10 opacity-95">
         <Sidebar className="w-[200px] absolute h-[90%] top-[10%] bg-white rounded-xl shadow-md">
         <SidebarContent>
-          <SidebarGroup className="items-center">
-            <Avatar className="w-12 h-12 mt-2 mb-2">
-              <AvatarFallback className="bg-[#D9D9D9]" />
+          <SidebarGroup className="items-center mt-2">
+            <Avatar className="w-12 h-12 mt-2 mb-4">
+              <AvatarFallback className="bg-[#B7D9B9]" />
             </Avatar>
             <div className="w-[60%] bg-[#757575] items-center h-[8px] mb-3"></div>
             <div className="w-[60%] bg-[#757575] items-center h-[8px]"></div>
             <SidebarGroupContent>
-              <SidebarMenu className="mt-4 items-center">
+              <SidebarMenu className="mt-6 items-center">
                 {items.map((item) => (
                   <SidebarMenuItem
                     key={item.title}
