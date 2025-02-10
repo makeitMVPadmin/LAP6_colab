@@ -1,7 +1,10 @@
 
 import { Calendar } from "../ui/calendar";
 
-c
+interface BookingCalendarProps {
+    selectedDate: Date | undefined;
+    setDate: (date: Date | undefined) => void;
+}
 
 const BookingCalendar: React.FC<BookingCalendarProps> = ({ selectedDate, setDate }) => {
 

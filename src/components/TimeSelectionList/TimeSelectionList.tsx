@@ -1,44 +1,22 @@
+import { TimePeriod } from "@/types/types";
 import React, { useState } from "react";
 
-const TimeSelectionList: React.FC = () => {
+interface TimeSelectionListProps {
+    timesList: TimePeriod[];
+    selectedDate: Date | undefined;
+    setTime: (date: Date | undefined) => void;
+}
+
+const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selectedDate, setTime}) => {
   const [activeRow, setActiveRow] = useState<number | null>(null);
-
-  const generateTimeSlots = (): string[] => {
-    const times: string[] = [];
-    let hour = 0;
-    let minute = 0;
-
-    while (hour < 12) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:${minute === 0 ? "00" : "30"} AM`;
-      times.push(time);
-
-      minute = minute === 0 ? 30 : 0;
-
-      if (minute === 0) hour++;
-    }
-
-    hour = 12;
-    minute = 0;
-
-    while (hour < 24) {
-      const time = `${hour < 10 ? "0" : ""}${hour - 12}:${minute === 0 ? "00" : "30"} PM`;
-      times.push(time);
-
-      minute = minute === 0 ? 30 : 0;
-
-      if (minute === 0) hour++;
-    }
-
-    return times;
-  };
 
   return (
     <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
       <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
-        <span className="font-bold">Sunday, February 2, 2025</span>
+        <span className="font-bold">{selectedDate?.toDateString()}</span>
       </div>
-      <div className="overflow-auto scrollbar-hide max-h-[150px]">
-        {generateTimeSlots().map((time, index) => (
+      {/* <div className="overflow-auto scrollbar-hide max-h-[150px]">
+        {timesList.map((time: string, index: number) => (
           <div
             key={index}
             className={`flex items-center mb-2 border-b border-gray-600 pb-2 ${
@@ -50,7 +28,7 @@ const TimeSelectionList: React.FC = () => {
             <span className="text-lg">{time}</span>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

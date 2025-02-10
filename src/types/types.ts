@@ -1,7 +1,20 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
-//import { Timestamp } from "firebase/firestore"
+export type TimePeriod = {
+  startTime: Time
+  endTime: Time
+}
+
+export type Time = {
+  hours: number
+  minutes: number
+}
+
+export type Availabilities = {
+  day: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday',
+  timePeriod: TimePeriod[]
+}
 
 export interface BaseEvents {
   createdAt: Timestamp,
@@ -71,3 +84,4 @@ export interface AllGoalBuddyData extends Omit<GoalBuddy, 'createdAt' | 'updated
     user: Timestamp
   }
 }
+
