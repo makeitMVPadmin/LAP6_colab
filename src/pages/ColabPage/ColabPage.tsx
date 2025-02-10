@@ -7,11 +7,12 @@ import Layout from '@/components/Layout/Layout'
 export default function ColabPage() {
   
   return (
+
     <div >
     <Layout>
-      <div className="relative flex justify-center">
-        <GoalBuddyCard />
-      </div>
+      <div className="flex justify-center">
+        <GoalBuddyCard goalBuddyList={[]}/>
+        </div>
     </Layout>
     </div>
 
