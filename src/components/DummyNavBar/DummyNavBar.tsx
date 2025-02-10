@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext} from 'react'
 
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
@@ -33,7 +33,7 @@ const DummyNavBar: React.FC = () => {
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
         <div className="w-[15%] h-5 mt-[1.5%] bg-[#D9D9D9]"></div>
       </div>
-      {isSidebaropen && <AppSidebar isOpen={isSidebaropen} />}
+      {isSidebaropen && <AppSidebar/>}
     </div>
   )
 }

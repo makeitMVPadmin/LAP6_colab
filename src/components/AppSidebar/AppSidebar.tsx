@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
-// Menu items.
+
 const items = [
   {
     title: 'My Profile',
@@ -43,7 +43,7 @@ export function AppSidebar() {
                 {items.map((item) => (
                   <SidebarMenuItem
                     key={item.title}
-                    className="border w-[180px] rounded-full bg-white hover:bg-gray-200 transition duration-200 mb-4"
+                    className="border w-[180px] rounded-full bg-white hover:bg-gray-200 transition duration-200 mb-4 shadow-lg border-0"
                   >
                     <SidebarMenuButton asChild>
                       <a href={item.url}>
