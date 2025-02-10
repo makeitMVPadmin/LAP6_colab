@@ -15,8 +15,8 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
       <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
         <span className="font-bold">{selectedDate?.toDateString()}</span>
       </div>
-      {/* <div className="overflow-auto scrollbar-hide max-h-[150px]">
-        {timesList.map((time: string, index: number) => (
+      <div className="overflow-auto scrollbar-hide max-h-[150px]">
+        {timesList.map((time: TimePeriod, index: number) => (
           <div
             key={index}
             className={`flex items-center mb-2 border-b border-gray-600 pb-2 ${
@@ -25,10 +25,10 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
             onClick={() => setActiveRow(index + 1)}
           >
             <span className="mr-2">{activeRow === index + 1 ? "✔" : ""}</span>
-            <span className="text-lg">{time}</span>
+            <span className="text-lg">{time.startTime.hours + ":" + time.startTime.minutes + " - " + time.endTime.hours + ":"+ time.endTime.minutes}</span>
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };

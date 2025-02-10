@@ -6,8 +6,11 @@ import {getUserEvents} from "../../../firebase/functions/calendarEventsbyUserId"
 import { Timestamp } from "firebase/firestore";
 import {dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime} from "../../utils/dateHelpers";
 
+interface MeetingSetupSectionProps {
+  goalBuddy: GoalBuddy;
+}
 
-export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
+const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({goalBuddy}) => {
 
   // Define state variables needed for creating a meeting event
   const[availability, setAvailability] = useState<Availabilities[]>(goalBuddy.availabilities);
@@ -16,13 +19,19 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
   const [times, setTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
 
+  // console.log("See user data: ")
+  // console.log(goalBuddy);
+  // console.log("See user availability: ")
+  // console.log(availability);
+
   // Fetch the user's current meetings so they can be used to help determine availability
   useEffect(() => {
     const fetchUserMeetings = async (userId: string) => {
       // Limit the user's meetings to only those that occur on or after the current date
       const currentDate : Timestamp = Timestamp.now();
       const data = await getUserEvents(userId, currentDate);
-      console.log(data);
+      // console.log("Fetch user meetings: ")
+      // console.log(data);
       
       // If the user has no meetings, set the userMeetings state to an empty array
       if(data === 'No events found with that userId'){
@@ -39,8 +48,11 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
 
   // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
   function populateTimeListings(selectedDate: Date | undefined){
+    console.log("User selected date:" + selectedDate);
+
     // If there is no date selected then there should be no time listings
     if (selectedDate === undefined){
+      // console.log("No date selected or something went wrong as it was undefined");
       setTimes([]);
       setDate(undefined);
 
@@ -54,6 +66,7 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
       // If the user has no availability for the selected day, set the times state to an empty array as no times will be available
       if(dailyAvailability === undefined || dailyAvailability.timePeriod.length === 0){
         setTimes([]);
+        setDate(selectedDate);
 
       // Otherwise, we will create a list of available times for the selected day
       }else{
@@ -66,8 +79,9 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
           const endTime: Time = timeRange.endTime;
           
           // Add each available 30 minute interval in this TimePeriod to the availableTimes array
-          while(meetingTime !== endTime){
-            
+          while(!(meetingTime.hours === endTime.hours && meetingTime.minutes === endTime.minutes)){
+            // console.log("I enter this loop");
+
             // Create a Time object for the end of the meeting by incrementing by 30
             const meetingEndTime: Time = {hours: meetingTime.hours, minutes: meetingTime.minutes};
             if(meetingEndTime.minutes === 30){
@@ -81,9 +95,12 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
             // Check if the user already has a meeting scheduled for this time
             // If not, then add the time to the availableTimes array
             const meetingAsTimestamp: Timestamp = createTimestamp(selectedDate, meetingTime);
+            // console.log("possible meeting's timestamp: " + meetingAsTimestamp.seconds + " seconds, " + meetingAsTimestamp.nanoseconds + " nanoseconds");
+
             if(!isExistingStartTime(meetingAsTimestamp, userMeetings)){
               const meetingPeriod: TimePeriod = {startTime: meetingTime, endTime: meetingEndTime};
               availableTimes.push(meetingPeriod);
+              // console.log("Added time: " + meetingTime.hours + ":" + meetingTime.minutes + " - " + meetingEndTime.hours + ":" + meetingEndTime.minutes);
             }
 
             // Increment the meetingTime to the next 30 minute interval
@@ -91,6 +108,9 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
             meetingTime.minutes = meetingEndTime.minutes;
           }
         }
+
+        // console.log("Available times: ")
+        // console.log(availableTimes);
         setTimes(availableTimes)
         setDate(selectedDate);
       }
@@ -111,3 +131,5 @@ export default function MeetingSetupSection(goalBuddy: GoalBuddy) {
     </div>
   )
 }
+
+export default MeetingSetupSection;
