@@ -1,7 +1,10 @@
+
 export default function ColabPage() {
+
+
   return (
-    <main>
-      <h1>Welcome Colab User</h1>
-    </main>
+    <div>
+      <h1>Welcome to Colab user</h1>
+    </div>
   )
 }
