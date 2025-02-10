@@ -10,8 +10,9 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import React, { useEffect } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
-
 import { getUserById } from '../../../firebase/functions/getUserById'
+import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
+import { GoalBuddy, User } from '@/types/types'
 const items = [
   {
     title: 'My Profile',
@@ -28,15 +29,22 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const [propic, setPropic] = React.useState('')
+  const [userData, setUserData] = React.useState<User | []>()
+  const [goalBuddyData, setgoalBuddyData] = React.useState<GoalBuddy | []>()
+  useEffect(() => {
+    const getUserData = async (userId: string) => {
+      try {
+        const response = await getUserById(userId)
+        const response1 = await getGoalBuddyByUserId(userId)
+        setUserData(response)
+        setgoalBuddyData(response1)
+      } catch (error) {
+        console.error('Failed to fetch user data:', error)
+      }
+    }
+    getUserData('2KvD8l1UXZJ9sBNjG2mm')
+  }, [])
 
-  // useEffect(() => {
-  //   const getPropic = async (userId: string) => {
-  //     const response = await getUserById(userId)
-  //     setPropic(response.profilePhoto)
-  //   }
-  //   getPropic('0W31kFBEOtbCEhjXULI7')
-  // }, [])
   return (
     <div className="w-[screen] h-screen flex justify-end  z-100">
       <div className="bg-black w-[250px] max-h-[80%] relative z-10 opacity-95">
@@ -46,12 +54,16 @@ export function AppSidebar() {
               <Avatar className="w-12 h-12 mt-2 mb-4">
                 <AvatarFallback className="bg-[#B7D9B9]" />
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
+                  src={userData ? userData.profilePhoto : ''}
                   alt="@shadcn"
                 />
               </Avatar>
-              <div className="w-[60%] bg-[#757575] items-center h-[8px] mb-3"></div>
-              <div className="w-[60%] bg-[#757575] items-center h-[8px]"></div>
+              <div>
+                {' '}
+                {goalBuddyData && goalBuddyData.bio}
+              </div>
+              
+
               <SidebarGroupContent>
                 <SidebarMenu className="mt-6 items-center">
                   {items.map((item) => (

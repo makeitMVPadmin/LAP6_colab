@@ -16,9 +16,6 @@ export const getUserById = async (
     if (!userDoc.exists()) {
       throw new Error(`ID does not exist`)
     }
-
-    console.log('userDoc', userDoc)
-    console.log('userDocRef', userDocRef)
     return {
       id: userDoc.id,
       ...(userDoc.data() as BaseUser),
