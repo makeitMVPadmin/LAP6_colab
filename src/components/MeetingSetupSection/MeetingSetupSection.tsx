@@ -118,7 +118,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
         eventStartTime: createTimestamp(date, selectedTime.startTime).toDate(),
         eventEndTime: createTimestamp(date, selectedTime.endTime).toDate(),
         eventTitle: 'Goal Buddy Meeting',
-        invitedUserId: showingUser.id,
+        invitedUserId: showingUser.userId,
         eventStatus: 'confirmed',
         googleEventId: 'google-event-id-123', // Currently default - Replace with actual Google Event ID if enabled and available
       };
