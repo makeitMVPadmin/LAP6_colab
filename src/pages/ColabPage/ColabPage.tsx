@@ -10,41 +10,60 @@ import { getUserEvents } from "../../../firebase/functions/calendarEventsbyUserI
 export default function ColabPage() {
 
   const [goalBuddy, setGoalBuddy] = useState<GoalBuddy | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
+
 
   useEffect(() => {
     const fetchOneGoalBuddyById = async (id: string) => {
-      const data = await getGoalBuddyById(id);
-      if(data === null){
-        setGoalBuddy(undefined);
-      }else{
-        setGoalBuddy(data as GoalBuddy);
+      setLoading(true);
+      try{
+        const data = await getGoalBuddyById(id);
+        if(data === null){
+          setGoalBuddy(undefined);
+        }else{
+          setGoalBuddy(data as GoalBuddy);
+        }
       }
-    }
+      catch(error){
+        console.error('Failed to fetch goal buddy: ', error);
+        setGoalBuddy(undefined);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchOneGoalBuddyById('0u0Ibxw1kYuiREJGKlZk')
-  }, [])
+  }, []);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-    try {
-    const userId = goalBuddy?.userId;
-    if(userId !== undefined){
-    const todayUTC = new Date()
-    todayUTC.setFullYear(2022, 2, 2);
-    todayUTC.setUTCHours(0, 0, 0, 0) // Reset to 00:00:00 UTC
-    const dateTimestamp = Timestamp.fromDate(todayUTC)
-    const userEvents = await getUserEvents(userId, dateTimestamp);
-    console.log("Above component test");
-    console.log(userEvents);
-    }
-    } catch (error) {
-    console.error('Failed to fetch events: ', error)
-    }
-    }
-    fetchEvents()
-    }, [])
+  // useEffect(() => {
+  //   const fetchEvents = async () => {
+  //   try {
+  //   const userId = "yLVEZkRulVkRU8de8XMb";
+  //   console.log("User Id: " + userId);
+  //   const todayUTC = new Date()
+  //   todayUTC.setFullYear(2022, 2, 2);
+  //   todayUTC.setUTCHours(0, 0, 0, 0) // Reset to 00:00:00 UTC
+  //   const dateTimestamp = Timestamp.fromDate(todayUTC)
+  //   const userEvents = await getUserEvents(userId, dateTimestamp);
+  //   console.log(userEvents);
+  //   } catch (error) {
+  //   console.error('Failed to fetch events: ', error)
+  //   }
+  //   }
+  //   fetchEvents()
+  //   }, [])
 
- 
+  if (loading) {
+    return (
+      <main>
+        <DummyNavBar />
+        <div className="flex justify-center">
+          <p>Loading...</p>
+        </div>
+      </main>
+    )
+  }
+  
  return (
    <main>
     <DummyNavBar />

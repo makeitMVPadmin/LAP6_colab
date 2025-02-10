@@ -31,9 +31,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
     const fetchUserMeetings = async (userId: string) => {
       // Limit the user's meetings to only those that occur on or after the current date
       const currentDate : Timestamp = Timestamp.now();
-      const data = await getUserEvents(userId);
-      console.log("Fetch user meetings: ")
-      console.log(data);
+      const data = await getUserEvents(userId, currentDate);
+      // console.log("Fetch user meetings: ")
+      // console.log(data);
       
       // If the user has no meetings, set the userMeetings state to an empty array
       if(data === 'No events found with that userId'){
@@ -47,8 +47,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
     }
 
     setAvailability(showingUser.availabilities);
-    console.log("Goal Buddy id:" + showingUser.id);
-    fetchUserMeetings(showingUser.id);
+    // console.log("Goal Buddy user id:" + showingUser.userId);
+    fetchUserMeetings(showingUser.userId);
   }, []);
 
   // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
