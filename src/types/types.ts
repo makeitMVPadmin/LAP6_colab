@@ -1,18 +1,18 @@
 
 type Timestamp = { seconds: number; nanoseconds: number }
 
-type TimePeriod = {
+export type TimePeriod = {
   startTime: Time,
   endTime: Time
 }
 
-type Time = {
+export type Time = {
   hours: number,
   minutes: number
 }
 
 export type Availabilities = {
-  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
+  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday',
   timePeriod: TimePeriod[]
 }
 
@@ -86,3 +86,4 @@ export interface AllGoalBuddyData extends Omit<GoalBuddy, 'createdAt' | 'updated
     user: Timestamp
   }
 }
+
