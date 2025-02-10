@@ -9,9 +9,7 @@ interface TimeSelectionListProps {
 
 const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selectedDate, setTime}) => {
     const [activeRow, setActiveRow] = useState<number | null>(null);
-    // console.log("provided timesList: ");
-    // console.log(timesList);
-    
+
     // Reset activeRow when selectedDate changes
     useEffect(() => {
         setActiveRow(null);
@@ -32,13 +30,19 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
         return displayString;
     }
 
+    // Function to set the selected time and active row. If the active row is clicked again, it unselects it.
     function setSelectedTime(index: number, time: TimePeriod){
-        setActiveRow(index);
-        setTime(time);
+        if(index === activeRow){
+            setActiveRow(null);
+            setTime(undefined);
+        }else{
+            setActiveRow(index);
+            setTime(time);
+        } 
     }
 
     return (
-        <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
+        <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg w-64 my-4">
             <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
                 <span className="font-bold">{selectedDate.toDateString()}</span>
             </div>
@@ -49,7 +53,7 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
                     {timesList.map((time: TimePeriod, index: number) => (
                         <div 
                             key={index} 
-                            className={`flex items-center mb-2 border-b border-gray-600 pb-2 
+                            className={`flex items-center mb-2 border-b border-gray-600 pb-2 cursor-pointer
                             ${activeRow === index ? "bg-black text-white" : "hover:bg-gray-200"}`}
                             onClick={() => setSelectedTime(index, time)}
                         >

@@ -21,19 +21,12 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
   const [availableTimes, setAvailableTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(undefined);
 
-  // console.log("See user data: ")
-  // console.log(goalBuddy);
-  // console.log("See user availability: ")
-  // console.log(availability);
-
   // Fetch the user's current meetings so they can be used to help determine availability
   useEffect(() => {
     const fetchUserMeetings = async (userId: string) => {
       // Limit the user's meetings to only those that occur on or after the current date
       const currentDate : Timestamp = Timestamp.now();
       const data = await getUserEvents(userId, currentDate);
-      // console.log("Fetch user meetings: ")
-      // console.log(data);
       
       // If the user has no meetings, set the userMeetings state to an empty array
       if(data === 'No events found with that userId'){
@@ -47,17 +40,14 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
     }
 
     setAvailability(showingUser.availabilities);
-    // console.log("Goal Buddy user id:" + showingUser.userId);
     fetchUserMeetings(showingUser.userId);
   }, []);
 
   // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
   function populateTimeListings(selectedDate: Date | undefined){
-    // console.log("User selected date:" + selectedDate);
 
     // If there is no date selected then there should be no time listings
     if (selectedDate === undefined){
-      // console.log("No date selected or something went wrong as it was undefined");
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
@@ -100,24 +90,15 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
             // Check if the user already has a meeting scheduled for this time
             // If not, then add the time to the availableTimes array
             const meetingAsTimestamp: Timestamp = createTimestamp(selectedDate, meetingStartTime);
-            // console.log("possible meeting's timestamp: " + meetingAsTimestamp.seconds + " seconds, " + meetingAsTimestamp.nanoseconds + " nanoseconds");
             if(!isExistingStartTime(meetingAsTimestamp, userMeetings)){
-              // console.log("meeting start time");
-              // console.log(meetingStartTime);
-              // console.log("meeting end time");
-              // console.log(meetingEndTime);
               const meetingPeriod: TimePeriod = {startTime: meetingStartTime, endTime: meetingEndTime};
               availableTimes.push(meetingPeriod);
-              // console.log("Added time: ")
-              // console.log(meetingPeriod);
             }
 
             // Set the next start time to be 30 minutes later (aka the meetingEndTime)
             meetingStartTime = meetingEndTime;
           }
         }
-        // console.log("Available times: ")
-        // console.log(availableTimes);
         setAvailableTimes(availableTimes)
         setSelectedTime(undefined);
         setDate(selectedDate);
@@ -127,8 +108,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
 
   // Create a meeting event based on the selected date and time
   async function makeMeetingEvent(){
-    // console.log(date);
-    // console.log(selectedTime);
     // If the user has selected a date and time, then create a meeting event
     if (date && selectedTime) {
 
@@ -148,20 +127,18 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
       try {
         const response = await createCalendarEvent(eventData);
         console.log(response);
-        // console.log("Creating the meeting was a success");
+        console.log("Creating the meeting was a success");
 
       } catch (error) {
         console.error("Error creating calendar event:", error);
 
       }
 
-    }else{
-      console.log("Something went wrong. should be unable to click this button without both date and time selected");
     }
   }
 
   return (
-    <div>
+    <div className="border-2 border-black rounded-lg w-80 flex flex-col items-center p-5">
       <BookingCalendar selectedDate={date} setDate={populateTimeListings}/>
       {date === undefined ? (
         <div>No date selected atm</div>
@@ -171,7 +148,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({activeUserId, 
       <button
         onClick={makeMeetingEvent}
         disabled={date === undefined || selectedTime === undefined}
-        className={`px-4 py-2 rounded border border-black
+        className={`px-4 py-2 rounded border border-black my-4
           ${date === undefined || selectedTime === undefined ? "bg-gray-400 text-white" : "bg-white text-black hover:bg-black hover:text-white active:bg-black active:text-white"}`}
       >
         Confirm

@@ -43,7 +43,5 @@ export function createTimestamp(date: Date, time: {hours: number, minutes: numbe
 // author: Katrina
 export function isExistingStartTime(timestamp: Timestamp, meetings: CalendarEvents[] | undefined): boolean {
     if (!meetings) return false;
-    // console.log(meetings);
-    // console.log(timestamp);
     return meetings.some((meeting) => meeting.eventStartTime.seconds === timestamp.seconds);
 }
