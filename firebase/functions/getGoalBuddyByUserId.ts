@@ -2,8 +2,6 @@ import React from 'react'
 import { db } from '../firebase'
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   query,
   where,
