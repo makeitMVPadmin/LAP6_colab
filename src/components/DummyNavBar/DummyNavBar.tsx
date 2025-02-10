@@ -16,7 +16,7 @@ const DummyNavBar: React.FC = () => {
   }
   return (
     <div
-      className={clsx(
+      className={clsx( 
         'h-[120px] mb-4 bg-[#EEEEEE]',
         isSidebaropen && 'bg-black bg-opacity-70',
       )}

@@ -1,0 +1,9 @@
+.sidebar-with-before {
+    width: 90px; /* Set width to 100px */
+    height: 100%; /* Match the height of the parent */
+    background-color: black; /* Black background */
+    opacity: 0.9; /* 90% opacity */
+    border-top-left-radius: 8px; /* Match the sidebar's rounded corners */
+    border-bottom-left-radius: 8px;
+    z-index:120
+}

@@ -8,7 +8,7 @@ export default function ColabPage() {
   return (
     <div >
     <Layout>
-      <div className="flex justify-center">
+      <div className="relative flex justify-center">
         <GoalBuddyCard />
       </div>
     </Layout>

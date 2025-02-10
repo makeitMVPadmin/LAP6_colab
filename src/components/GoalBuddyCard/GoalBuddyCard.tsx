@@ -16,7 +16,6 @@ const GoalBuddyCard: React.FC = () => {
     <div
       className={clsx(
         'flex justify-center flex-wrap content-around gap-5 max-w-[1200px]',
-        isSidebaropen && 'bg-black bg-opacity-80',
       )}
     >
       {Array.from({ length: 8 }).map((_, index) => (
