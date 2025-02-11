@@ -1,12 +1,12 @@
-import DummyNavBar from '@/components/DummyNavBar/DummyNavBar'
+import NavBar from '@/components/NavBar/NavBar'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 
 export default function ColabPage() {
   return (
     <main>
-      <DummyNavBar />
+      <NavBar />
       <div className="flex justify-center">
-        <GoalBuddyCard goalBuddyList={[]}/>
+        <GoalBuddyCard goalBuddyList={[]} />
       </div>
     </main>
   )
