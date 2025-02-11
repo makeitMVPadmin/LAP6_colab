@@ -57,7 +57,7 @@ export function AppSidebar() {
 
   return (
     <div className="w-[screen] h-screen flex justify-end  z-100 overflow-hidden ">
-      <div className="bg-black w-[250px] max-h-[80%] relative z-10 opacity-95 overflow-hidden">
+      <div className="bg-black w-[250px] max-h-[80%] relative z-10 opacity-97 overflow-hidden">
         <Sidebar className="w-[200px] absolute h-[90%] top-[10%] bg-white rounded-xl shadow-md">
           <SidebarContent className="px-2">
             <SidebarGroup className="items-center mt-2">
