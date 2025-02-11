@@ -19,8 +19,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
   return (
     <div
       className={clsx(
-        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]',
-        isSidebarOpen && 'bg-black bg-opacity-70',
+        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]'
       )}
     >
       {goalBuddyList?.map((goalBuddy) => (
