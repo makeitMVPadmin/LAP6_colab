@@ -30,20 +30,29 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const [userData, setUserData] = React.useState<User | []>()
-  const [goalBuddyData, setgoalBuddyData] = React.useState<GoalBuddy | []>()
+  const [userData, setUserData] = React.useState<User | null>(null)
+  const [goalBuddyData, setGoalBuddyData] = React.useState<GoalBuddy | null>(null)
   useEffect(() => {
     const getUserData = async (userId: string) => {
       try {
-        const response = await getUserById(userId)
-        const response1 = await getGoalBuddyByUserId(userId)
-        setUserData(response)
-        setgoalBuddyData(response1)
+        const userResponse = await getUserById(userId)
+        setUserData(userResponse)
+   
       } catch (error) {
-        console.error('Failed to fetch user data:', error)
+        console.error('Failed to fetch userData data:', error)
       }
     }
-    getUserData('2KvD8l1UXZJ9sBNjG2mm')
+    const getGoalBuddyData = async (userId: string) => {
+      try{
+        const goalBuddyResponse=await getGoalBuddyByUserId(userId);
+        setGoalBuddyData(goalBuddyResponse);
+      }
+      catch(error){
+        console.error('Failed to fetch goalBuddy ',error)
+    }
+    }
+    getUserData('1KL05hixbzlvikTNILWv')
+    getGoalBuddyData('1KL05hixbzlvikTNILWv')
   }, [])
 
   return (
@@ -61,7 +70,7 @@ export function AppSidebar() {
               </Avatar>
               <div className="text-sm font-bold">
                 {' '}
-                {goalBuddyData && goalBuddyData.bio}
+                {goalBuddyData? goalBuddyData.bio:<p className="bg-gray-200 text-red-900 p-2 rounded-lg  motion-safe:animate-bounce "> Please provide a small bio of yours</p>}
               </div>
 
               <SidebarGroupContent>

@@ -1,11 +1,6 @@
 import React from 'react'
 import { db } from '../firebase'
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { GoalBuddy } from '../../src/types/types'
 
 /* Get a goalBuddy by their unique userId from the Firestore collection 'goal_buddies'
@@ -13,7 +8,7 @@ import { GoalBuddy } from '../../src/types/types'
 
 export const getGoalBuddyByUserId = async (
   userId: string,
-): Promise<GoalBuddy | []> => {
+): Promise<GoalBuddy | null> => {
   try {
     const goalBuddyDocRef = query(
       collection(db, 'goal_buddies'),
@@ -21,7 +16,7 @@ export const getGoalBuddyByUserId = async (
     )
     const goalBuddyDoc = await getDocs(goalBuddyDocRef)
     if (goalBuddyDoc.empty) {
-      return []
+      throw new Error('No goal buddy found with this user ID')
     }
     const goalBuddyData = goalBuddyDoc.docs[0].data()
     return goalBuddyData as GoalBuddy
