@@ -1,18 +1,28 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { AllGoalBuddyData } from '@/types/types'
+import { SidebarContext } from '../context/SidebarContext'
+import clsx from 'clsx'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen } = sideBarContext
   return (
     <Card
       key={goalBuddy.userId}
-      className="flex flex-row min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer transform transition-transform duration-150 hover:scale-110"
+      className={clsx(
+        'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer duration-150',
+        !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open
+        isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
+      )}
     >
       <CardHeader className="self-start">
         <Avatar className="w-16 h-16">
