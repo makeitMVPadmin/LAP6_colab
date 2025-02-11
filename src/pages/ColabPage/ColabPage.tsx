@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { getAllGoalBuddies } from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
 import { AllGoalBuddyData } from '../../types/types'
+import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUsers'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -16,28 +17,8 @@ export default function ColabPage() {
       const goalBuddies = await getAllGoalBuddies()
       const users = await getAllUsers()
 
-      const goalBuddiesMergedWithUsers = goalBuddies.map((goalBuddy) => {
-        const user = users.find((user) => goalBuddy.userId === user.id)
-        if (user) {
-          return {
-            ...goalBuddy,
-            ...user,
-            createdAt: {
-              goalBuddy: goalBuddy.createdAt,
-              user: user.createdAt,
-            },
-            updatedAt: {
-              goalBuddy: goalBuddy.updatedAt,
-              user: user.updatedAt,
-            },
-          }
-        } else {
-          return null
-        }
-      })
-
       setGoalBuddiesCombinedWithUsers(
-        goalBuddiesMergedWithUsers.filter((item) => item != null),
+        goalBuddiesMergedWithUsers(goalBuddies, users),
       )
 
       setIsLoading(false)
