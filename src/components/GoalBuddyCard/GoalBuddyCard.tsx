@@ -10,16 +10,20 @@ interface GoalBuddyCardProps {
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
-  const{isSidebarOpen}=useContext(SidebarContext);
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen } = sideBarContext
   return (
     <Card
-    key={goalBuddy.userId}
-    className={clsx(
-      'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer duration-150',
-      !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open
-      isSidebarOpen && ' opacity-110' // Add transparency when sidebar is open
-    )}
-  >
+      key={goalBuddy.userId}
+      className={clsx(
+        'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer duration-150',
+        !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open
+        isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
+      )}
+    >
       <CardHeader className="self-start">
         <Avatar className="w-16 h-16">
           <AvatarImage src={goalBuddy.profilePhoto} />
@@ -44,7 +48,6 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
         )}
       </CardContent>
     </Card>
-
   )
 }
 

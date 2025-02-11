@@ -13,7 +13,11 @@ export default function ColabPage() {
     useState<AllGoalBuddyData[] | []>([])
 
   const [isLoading, setIsLoading] = useState(true)
-  const { isSidebarOpen } = useContext(SidebarContext)
+    const sideBarContext = useContext(SidebarContext)
+    if (!sideBarContext) {
+      throw new Error('Sidebar context not found')
+    }
+    const { isSidebarOpen } = sideBarContext
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
