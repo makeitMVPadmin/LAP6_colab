@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import Modal from '../Modal/Modal'
 import clsx from 'clsx'
-import { SidebarContext } from '../context/SidebarContext'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { AllGoalBuddyData } from '@/types/types'
 
@@ -11,17 +11,8 @@ interface GoalBuddyCardProps {
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddyList }) => {
-  const sideBarContext = useContext(SidebarContext)
-  if (!sideBarContext) {
-    throw new Error('Sidebar context not found')
-  }
-  const { isSidebarOpen } = sideBarContext
   return (
-    <div
-      className={clsx(
-        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]'
-      )}
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px]">
       {goalBuddyList?.map((goalBuddy) => (
         <Card
           key={goalBuddy.userId}
