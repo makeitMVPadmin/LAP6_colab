@@ -37,7 +37,7 @@ export default function ColabPage() {
     <main>
       <Layout>
         <div
-          className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
+          className={clsx('flex justify-center', isSidebarOpen && 'bg-gray-900')}
         >
           {isLoading ? (
             <p>Loading goal buddies data...</p>

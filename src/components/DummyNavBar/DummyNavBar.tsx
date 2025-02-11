@@ -18,7 +18,7 @@ const DummyNavBar: React.FC = () => {
     <div
       className={clsx( 
         'h-[120px] mb-4 bg-[#EEEEEE]',
-        isSidebarOpen && 'bg-black opacity-100 z-0',
+        isSidebarOpen && 'bg-gray-900  z-0',
       )}
     >
       <div className="flex flex-row justify-between evenly h-2/4 p-2">
