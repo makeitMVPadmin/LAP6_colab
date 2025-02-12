@@ -4,13 +4,31 @@ import { AvatarImage } from '../ui/avatar'
 
 export const UserProfile: React.FC = () => {
   const interests = ['Mentor', 'GoalBuddy', 'NetWorking']
+  const initialBio = `Hi, I'm Aparna.`
   const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+  const [bio, setBio] = useState<string>(initialBio)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [buttonText, setButtonText] = useState<string>('Edit')
 
   const handleChange = (interest: string) => {
     setSelectedInterests((prev: string[]) => {
       if (prev.includes(interest)) return prev.filter((i) => i !== interest)
       else return [...prev, interest]
     })
+  }
+  const handleBioChange = (e:Event) => {
+    setBio(...bio,e.target.value)
+  }
+  const handleEditClick = () => {
+   if(isEditing===false){
+     setIsEditing(true)
+     setButtonText('Save Changes')
+   }
+   else{
+     setIsEditing(false)
+     setButtonText('Saved ')
+   }
+  
   }
   return (
     <div>
@@ -66,12 +84,12 @@ export const UserProfile: React.FC = () => {
         </section>
       </div>
       <div className="mt-6">
-        <h2 className='text-lg  font-semibold'>Area of Interest </h2>
-        <section className='mt-2'>
+        <h2 className="text-lg  font-semibold">Area of Interest </h2>
+        <section className="mt-2">
           {interests.map((interest, _index) => {
             return (
               <div key={_index} className="flex gap-20">
-                <span className='w-[150px] text-[15px]'>{interest}</span>
+                <span className="w-[150px] text-[15px]">{interest}</span>
                 <input
                   type="checkbox"
                   checked={selectedInterests.includes(interest)}
@@ -80,6 +98,15 @@ export const UserProfile: React.FC = () => {
               </div>
             )
           })}
+        </section>
+      </div>
+      <div>
+        <section>
+          <h2>My Bio</h2>
+          <form onSubmit={handleSubmit}>
+            <textarea value={bio} onChange={(e)=>handleBioChange(e)} />
+            <button onClick={handleBioClick}>{buttonText}</button>
+          </form>
         </section>
       </div>
     </div>
