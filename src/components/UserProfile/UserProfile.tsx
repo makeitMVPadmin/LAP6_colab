@@ -16,22 +16,26 @@ export const UserProfile: React.FC = () => {
       else return [...prev, interest]
     })
   }
-  const handleBioChange = (e:Event) => {
-    setBio(...bio,e.target.value)
+  const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBio(e.target.value)
   }
-  const handleEditClick = () => {
-   if(isEditing===false){
-     setIsEditing(true)
-     setButtonText('Save Changes')
-   }
-   else{
-     setIsEditing(false)
-     setButtonText('Saved ')
-   }
-  
+  const handleBioClick = () => {
+    if (isEditing === false) {
+      setIsEditing(true)
+      setButtonText('Save Changes')
+    } else {
+      setIsEditing(false)
+      setButtonText('Saved')
+    }
+  }
+  const handleSubmit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault()
+    if (buttonText === 'Saved') {
+      alert('Bio has been saved successfully.')
+    }
   }
   return (
-    <div>
+    <div className="h-full">
       <div className="relative mt-4">
         <hr className="bg-gray-600" />
         <Avatar className="w-[65px] h-[65px] absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -39,13 +43,13 @@ export const UserProfile: React.FC = () => {
         </Avatar>
       </div>
       <div className="mt-10 flex flex-col gap-3">
-        <section className="flex justify-between text-[15px]">
+        <section className="flex gap-20 text-[15px]">
           <p>
-            <label>LastName :</label>
+            <label>Lastname :</label>
             <span className="text-[13px]">&nbsp;Dhara</span>
           </p>
           <p>
-            <label htmlFor="">FirstName :</label>
+            <label htmlFor="">Firstname :</label>
             <span className="text-[13px]">&nbsp;Aparna</span>
           </p>
         </section>
@@ -69,16 +73,16 @@ export const UserProfile: React.FC = () => {
         </section>
 
         <section className="text-[15px]">
-          <p>
-            <label htmlFor="">Discipline : </label>
+          <p className="flex">
+            <label className=' w-[30%]'>Discipline : </label>
             <span className="text-[13px]">Design</span>
           </p>
-          <p>
-            <label htmlFor="">Email : </label>
+          <p className="flex">
+            <label className='w-[30%]'>Email : </label>
             <span className="text-[13px]"> aparna@example.com</span>
           </p>
-          <p>
-            <label htmlFor="">Skills : </label>
+          <p className="flex">
+            <label className='w-[30%]'>Skills : </label>
             <span className="text-[13px]">AI &nbsp;WebDev</span>
           </p>
         </section>
@@ -100,12 +104,25 @@ export const UserProfile: React.FC = () => {
           })}
         </section>
       </div>
-      <div>
-        <section>
-          <h2>My Bio</h2>
-          <form onSubmit={handleSubmit}>
-            <textarea value={bio} onChange={(e)=>handleBioChange(e)} />
-            <button onClick={handleBioClick}>{buttonText}</button>
+      <div className="h-[38%] w-[90%] mt-5">
+        <section className=" border border-gray-600 p-4 shadow-md rounded h-[100%]">
+          <h2 className='mb-2 font-semibold'>My Bio</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
+            <textarea
+              value={bio}
+              onChange={(e) => handleBioChange(e)}
+              className="w-full h-full p-2 text-sm border border-gray-300 shadow-lg"
+            />
+            <article className='flex justify-end'>
+            <button
+              className="border bg-blue-600 w-[20%] p-1 rounded text-sm text-white"
+              type="button"
+              onClick={handleBioClick}
+            >
+              {buttonText}
+            </button>
+            </article>
+            
           </form>
         </section>
       </div>
