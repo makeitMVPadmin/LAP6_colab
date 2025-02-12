@@ -6,7 +6,7 @@ import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyBy
 import { GoalBuddy, User } from '@/types/types'
 
 interface UserProfileProps {
-  userId: string,
+  userId: string
 }
 export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const interestsLabel = ['Mentor', 'GoalBuddy', 'Networking']
@@ -25,9 +25,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       ])
       setUserData(userResponse)
       setGoalBuddyData(goalBuddyResponse)
-      if(goalBuddyResponse)
-        setBio(goalBuddyResponse.bio)
-    
+      if (goalBuddyResponse) setBio(goalBuddyResponse.bio)
     }
     fetchData()
   }, [userId])
@@ -62,9 +60,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       alert('Bio has been saved successfully.')
     }
   }
-  const handleSubmit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-   
   }
 
   return (
@@ -118,8 +115,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </p>
           <p className="flex">
             <label className="w-[20%]">Skills : </label>
-            {goalBuddyData?.skills.map((index,skill) => (
-              <span key={index} className="text-[13px]">{skill},</span>
+            {goalBuddyData?.skills.map((index, skill) => (
+              <span key={index} className="text-[13px]">
+                {skill},
+              </span>
             ))}
           </p>
         </section>
@@ -146,7 +145,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           <h2 className="mb-2 font-semibold">My Bio</h2>
           <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
             <textarea
-              value={bio ?bio : ''}
+              value={bio ? bio : ''}
               onChange={(e) => handleBioChange(e)}
               className="w-full h-full p-2 text-sm border border-gray-300 shadow-lg"
               disabled={isEditing == false || buttonText === 'Saved'}
