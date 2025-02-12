@@ -115,7 +115,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </p>
           <p className="flex">
             <label className="w-[20%]">Skills : </label>
-            {goalBuddyData?.skills.map((index, skill) => (
+            {goalBuddyData?.skills.map((skill,index) => (
               <span key={index} className="text-[13px]">
                 {skill},
               </span>
