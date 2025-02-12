@@ -1,29 +1,29 @@
-import React from 'react';
-import BookingCalendar from "../BookingCalendar/BookingCalendar";
-import EventBox from '../EventBox/EventBox';
+import React from 'react'
+import BookingCalendar from '../BookingCalendar/BookingCalendar'
+import EventBox from '../EventBox/EventBox'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-  DialogTitle
-} from "@/components/ui/dialog";
-import {
-  Avatar,
-  AvatarImage,
-} from "@/components/ui/avatar";
-// import { DialogTitle } from '@radix-ui/react-dialog';
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
-// The component doesn't accept any props, so it's typed as React.FC
-const Modal: React.FC = () => {
+interface ModalProps {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  modalOpen: boolean
+  userId: string
+}
+
+const Modal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
   return (
-    <Dialog>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Book</Button>
       </DialogTrigger>
-      <DialogTitle>
-      </DialogTitle>
+
       <DialogContent className="flex flex-row w-[80vw] bg-[#EEEEEE]">
         <div className="flex flex-col w-[45%] pt-5 pl-2">
           <div>
@@ -50,7 +50,7 @@ const Modal: React.FC = () => {
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
