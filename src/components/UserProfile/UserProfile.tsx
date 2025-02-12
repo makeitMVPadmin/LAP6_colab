@@ -50,14 +50,17 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBio(e.target.value)
   }
-  const handleBioClick = () => {
+  const handleInterestAndBioClick = () => {
     if (isEditing === false) {
       setIsEditing(true)
       setButtonText('Save Changes')
     } else {
-      setIsEditing(true)
-      setButtonText('Saved')
-      alert('Bio has been saved successfully.')
+      setButtonText('Saved');
+      alert("The changes are saved")
+      setTimeout(() => {
+        setIsEditing(false)
+        setButtonText('Edit')
+      }, 1500)
     }
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -115,7 +118,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </p>
           <p className="flex">
             <label className="w-[20%]">Skills : </label>
-            {goalBuddyData?.skills.map((skill,index) => (
+            {goalBuddyData?.skills.map((skill, index) => (
               <span key={index} className="text-[13px]">
                 {skill},
               </span>
@@ -123,45 +126,46 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </p>
         </section>
       </div>
-      <div className="mt-6">
-        <h2 className="text-lg  font-semibold">Area of Interest </h2>
-        <section className="mt-2">
-          {interestsLabel.map((interest, _index) => {
-            return (
-              <div key={_index} className="flex gap-20">
-                <span className="w-[150px] text-[15px]">{interest}</span>
-                <input
-                  type="checkbox"
-                  checked={selectedInterests.includes(interest)}
-                  onChange={() => handleChange(interest)}
-                />
-              </div>
-            )
-          })}
-        </section>
-      </div>
-      <div className="h-[38%] w-[90%] mt-5">
-        <section className=" border border-gray-600 p-4 shadow-md rounded h-[100%]">
+
+      <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
+        <div className="mt-6">
+          <h2 className="text-lg  font-semibold">Area of Interest </h2>
+          <section className="mt-2">
+            {interestsLabel.map((interest, _index) => {
+              return (
+                <div key={_index} className="flex gap-20">
+                  <span className="w-[150px] text-[15px]">{interest}</span>
+                  <input
+                    type="checkbox"
+                    checked={selectedInterests.includes(interest)}
+                    onChange={() => handleChange(interest)}
+                    disabled={isEditing === false}
+                  />
+                </div>
+              )
+            })}
+          </section>
+        </div>
+        <section className=" border border-gray-600 p-2 shadow-md rounded h-[33%] w-[90%] mt-5">
           <h2 className="mb-2 font-semibold">My Bio</h2>
-          <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
-            <textarea
-              value={bio ? bio : ''}
-              onChange={(e) => handleBioChange(e)}
-              className="w-full h-full p-2 text-sm border border-gray-300 shadow-lg"
-              disabled={isEditing == false || buttonText === 'Saved'}
-            />
-            <article className="flex justify-end">
-              <button
-                className="border bg-blue-600 px-[10px] py-[5px] rounded text-sm text-white"
-                type="button"
-                onClick={handleBioClick}
-              >
-                {buttonText}
-              </button>
-            </article>
-          </form>
+          <textarea
+            value={bio ? bio : ''}
+            onChange={(e) => handleBioChange(e)}
+            className="w-[90%] h-[70%] p-2 text-sm border border-gray-300 shadow-lg"
+            disabled={isEditing == false || buttonText === 'Saved'}
+          />
         </section>
-      </div>
+
+        <article className="flex w-[90%] justify-end">
+          <button
+            className="border bg-blue-600 px-[10px] py-[5px] rounded text-sm text-white"
+            type="button"
+            onClick={handleInterestAndBioClick}
+          >
+            {buttonText}
+          </button>
+        </article>
+      </form>
     </div>
   )
 }
