@@ -7,6 +7,7 @@ import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUse
 import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
+import { Spinner } from '@/components/Spinner/Spinner'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -40,7 +41,7 @@ export default function ColabPage() {
           className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
         >
           {isLoading ? (
-            <p>Loading goal buddies data...</p>
+            <Spinner/>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
               {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
