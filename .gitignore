@@ -23,6 +23,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Test code
-src/pages/ColabPage/ColabPage.tsx
