@@ -1,24 +1,45 @@
-import DummyNavBar from "@/components/DummyNavBar/DummyNavBar"
+import { SidebarContext } from '@/components/context/SidebarContext'
+import { useContext, useEffect, useState } from 'react'
+import { getAllGoalBuddies } from '../../../firebase/functions/goalBuddies'
+import { getAllUsers } from '../../../firebase/functions/getAllUsers'
+import { AllGoalBuddyData, GoalBuddy } from '../../types/types'
+import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUsers'
 import Filter from "../../components/Filter/Filter"
-import GoalBuddyCard from "@/components/GoalBuddyCard/GoalBuddyCard"
-import { GoalBuddy } from "@/types/types"
-import getAllGoalBuddies from "../../../firebase/functions/goalBuddies"
-import { useEffect, useState } from "react"
+import Layout from '@/components/Layout/Layout'
+import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
+import clsx from 'clsx'
 
 export default function ColabPage() {
+  const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
+    useState<AllGoalBuddyData[] | []>([])
+  
   const [goalBuddyList, setGoalBuddyList] = useState<GoalBuddy[]>([])
+  
   const [filter, setFilter] = useState({
       mentor: false,
       accountability: false,
       networking: false
   })
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllGoalBuddies()
-      setGoalBuddyList(data)
+
+  const [isLoading, setIsLoading] = useState(true)
+    const sideBarContext = useContext(SidebarContext)
+    if (!sideBarContext) {
+      throw new Error('Sidebar context not found')
     }
-    fetchData()
+    const { isSidebarOpen } = sideBarContext
+  useEffect(() => {
+    const fetchGoalBuddiesCombinedWithUser = async () => {
+      const goalBuddies = await getAllGoalBuddies()
+      const users = await getAllUsers()
+
+      setGoalBuddiesCombinedWithUsers(
+        goalBuddiesMergedWithUsers(goalBuddies, users),
+      )
+
+      setIsLoading(false)
+    }
+
+    fetchGoalBuddiesCombinedWithUser()
   }, [])
 
   const filterGoalBuddies = (choice: string) => {
@@ -52,16 +73,28 @@ export default function ColabPage() {
 
   return (
     <main>
-      <DummyNavBar />
-      <section className="flex">
-        <Filter 
-          filterGoalBuddies={filterGoalBuddies} 
-          filter={filter}
-        />
-        <div className='flex justify-center'>
-          <GoalBuddyCard goalBuddyList={[]} />
+      <Layout>
+        <div
+          className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
+        >
+          {isLoading ? (
+            <p>Loading goal buddies data...</p>
+              ) : (
+            <Filter 
+              filterGoalBuddies={filterGoalBuddies} 
+              filter={filter}
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
+              {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
+                <GoalBuddyCard
+                  key={goalBuddyWithUser.id}
+                  goalBuddy={goalBuddyWithUser}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      </section>
+      </Layout>
     </main>
   )
 }
