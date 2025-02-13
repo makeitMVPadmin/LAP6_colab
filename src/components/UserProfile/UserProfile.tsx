@@ -69,10 +69,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   }
 
   return (
-    <div className="h-full">
-      <div className="relative mt-4">
-        <hr className="border border-gray-300" />
-        <Avatar className="w-[65px] h-[65px] absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="h-[100%]">
+      <div className="h-[15%] bg-yellow-300 relative">
+        <Avatar className="w-[80px] h-[80px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}
@@ -80,6 +79,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           />
         </Avatar>
       </div>
+
       <div className="mt-10 flex flex-col gap-3">
         <section className=" gap-20 text-[15px]">
           <p>
@@ -114,7 +114,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             <label className=" w-[25%]">Discipline : </label>
             <span className="text-[13px]">{userData?.discipline}</span>
           </p>
-        
+
           <p className="flex">
             <label className="w-[20%]">Skills : </label>
             {goalBuddyData?.skills.map((skill, index) => (

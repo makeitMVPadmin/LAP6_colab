@@ -14,14 +14,13 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
   return (
-    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-      <DialogContent className="flex max-w-[45vw] flex-row bg-[#EEEEEE]">
+    <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
+      <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0">
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[65%] pt-5 pl-2">
+        <div className="flex flex-col w-[50%] pt-0 pl-0">
           <UserProfile userId={userId} />
         </div>
-        <div className="flex flex-col items-center w-[45%] mb-2 pl-3 pt-3 space-y-4">
-          <div className="w-8/12 h-4 mt-3 mb-1 bg-[#757575]"></div>
+        <div className="flex flex-col items-center w-[50%]  pl-3 pt-3 space-y-4 bg-blue-600">
           <BookingCalendar />
           <EventBox />
         </div>
