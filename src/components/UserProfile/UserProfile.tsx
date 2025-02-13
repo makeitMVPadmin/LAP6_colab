@@ -13,6 +13,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([])
   const [userData, setUserData] = useState<User | null>(null)
   const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
+
   const [bio, setBio] = useState<string>()
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [buttonText, setButtonText] = useState<string>('Edit')
@@ -55,8 +56,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       setIsEditing(true)
       setButtonText('Save Changes')
     } else {
-      setButtonText('Saved');
-      alert("The changes are saved")
+      setButtonText('Saved')
+      alert('The changes are saved')
       setTimeout(() => {
         setIsEditing(false)
         setButtonText('Edit')
@@ -80,7 +81,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
         </Avatar>
       </div>
       <div className="mt-10 flex flex-col gap-3">
-        <section className="flex gap-20 text-[15px]">
+        <section className=" gap-20 text-[15px]">
           <p>
             <label>Lastname :</label>
             <span className="text-[13px]">&nbsp;{userData?.lastName}</span>
@@ -89,20 +90,21 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             <label htmlFor="">Firstname :</label>
             <span className="text-[13px]">&nbsp;{userData?.firstName}</span>
           </p>
+          <p className="flex">
+            <label className="w-[20%]">Email : </label>
+            <span className="text-[13px]"> {userData?.email}</span>
+          </p>
         </section>
         <section className="text-[15px]">
-          <label htmlFor="">Address :</label>
-          <span className="text-[13px] bg-[#D7D9B9]">&nbsp;&nbsp;</span>
-
-          <section className="flex md:gap-2 text-[15px]">
+          <p>
+            City : <span className="text-[13px]">{userData?.city}</span>
+          </p>
+          <section className="flex md:gap-10 text-[15px]">
             <p>
-              City: <span className="text-[13px]">{userData?.city}</span>
+              State : <span className="text-[13px]">{userData?.state} </span>
             </p>
             <p>
-              State: <span className="text-[13px]">{userData?.state} </span>
-            </p>
-            <p>
-              Country: <span className="text-[13px]">{userData?.country}</span>
+              Country : <span className="text-[13px]">{userData?.country}</span>
             </p>
           </section>
         </section>
@@ -112,10 +114,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             <label className=" w-[25%]">Discipline : </label>
             <span className="text-[13px]">{userData?.discipline}</span>
           </p>
-          <p className="flex">
-            <label className="w-[20%]">Email : </label>
-            <span className="text-[13px]"> {userData?.email}</span>
-          </p>
+        
           <p className="flex">
             <label className="w-[20%]">Skills : </label>
             {goalBuddyData?.skills.map((skill, index) => (
@@ -129,7 +128,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
       <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
         <div className="mt-6">
-          <h2 className="text-lg  font-semibold">Area of Interest </h2>
+          <h2 className="text-lg  font-semibold">Colab Role </h2>
           <section className="mt-2">
             {interestsLabel.map((interest, _index) => {
               return (
@@ -147,7 +146,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </section>
         </div>
         <section className=" border border-gray-600 p-2 shadow-md rounded h-[33%] w-[90%] mt-5">
-          <h2 className="mb-2 font-semibold">My Bio</h2>
+          <h2 className="mb-2 font-semibold">About</h2>
           <textarea
             value={bio ? bio : ''}
             onChange={(e) => handleBioChange(e)}

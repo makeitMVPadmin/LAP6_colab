@@ -13,11 +13,11 @@ export default function ColabPage() {
     useState<AllGoalBuddyData[] | []>([])
 
   const [isLoading, setIsLoading] = useState(true)
-    const sideBarContext = useContext(SidebarContext)
-    if (!sideBarContext) {
-      throw new Error('Sidebar context not found')
-    }
-    const { isSidebarOpen } = sideBarContext
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen } = sideBarContext
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
@@ -33,11 +33,15 @@ export default function ColabPage() {
     fetchGoalBuddiesCombinedWithUser()
   }, [])
 
+ 
   return (
     <main>
       <Layout>
         <div
-          className={clsx('flex justify-center', isSidebarOpen && 'bg-gray-900')}
+          className={clsx(
+            'flex justify-center',
+            isSidebarOpen && 'bg-gray-900',
+          )}
         >
           {isLoading ? (
             <p>Loading goal buddies data...</p>
