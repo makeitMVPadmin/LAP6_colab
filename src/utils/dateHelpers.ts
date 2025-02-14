@@ -45,3 +45,14 @@ export function isExistingStartTime(timestamp: Timestamp, meetings: CalendarEven
     if (!meetings) return false;
     return meetings.some((meeting) => meeting.eventStartTime.seconds === timestamp.seconds);
 }
+
+// Function to update the availability for a specific day
+export function updateAvailabilityForDay(newAvailability: Availabilities, availabilities: Availabilities[]): Availabilities[] {
+    const updatedAvailabilities = availabilities.map((availability) => {
+        if (availability.day === newAvailability.day) {
+            return newAvailability;
+        }
+        return availability;
+    });
+    return updatedAvailabilities;
+}

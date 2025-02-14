@@ -7,6 +7,7 @@ import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUse
 import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
+import AvailabilitySection from '@/components/AvailabilitySection/AvailabilitySection'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -42,6 +43,7 @@ export default function ColabPage() {
           {isLoading ? (
             <p>Loading goal buddies data...</p>
           ) : (
+            <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
               {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
                 <GoalBuddyCard
@@ -49,6 +51,8 @@ export default function ColabPage() {
                   goalBuddy={goalBuddyWithUser}
                 />
               ))}
+            </div>
+            <AvailabilitySection activeGoalBuddy={goalBuddiesCombinedWithUsers[0]} />
             </div>
           )}
         </div>
