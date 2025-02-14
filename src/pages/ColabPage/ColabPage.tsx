@@ -13,8 +13,7 @@ export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
     useState<AllGoalBuddyData[] | []>([])
   
-  const [goalBuddyList, setGoalBuddyList] = useState<GoalBuddy[]>([])
-  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<GoalBuddy[]>([])
+  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<AllGoalBuddyData[]>([])
   
   const [filter, setFilter] = useState({
       mentor: false,
@@ -59,7 +58,7 @@ export default function ColabPage() {
   }
 
   const applyFilter = () => {
-    const filtered = goalBuddyList.filter(goalBuddy => {
+    const filtered = goalBuddiesCombinedWithUsers.filter(goalBuddy => {
     const matchesMentor = filter.mentor && goalBuddy.isMentor
     const matchesAccountability = filter.accountability && goalBuddy.isAccountabilityPartner
     const matchesNetworking = filter.networking && goalBuddy.isNetworking
@@ -67,6 +66,10 @@ export default function ColabPage() {
     })
     setFilteredGoalBuddies(filtered)
   }
+
+  useEffect(() => {
+    setFilteredGoalBuddies(goalBuddiesCombinedWithUsers)
+  }, [goalBuddiesCombinedWithUsers, !filteredGoalBuddies])
 
   useEffect(() => {
     applyFilter()
@@ -87,7 +90,7 @@ export default function ColabPage() {
                 filter={filter}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
-                {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
+                {filteredGoalBuddies.map((goalBuddyWithUser) => (
                   <GoalBuddyCard
                     key={goalBuddyWithUser.id}
                     goalBuddy={goalBuddyWithUser}
