@@ -7,18 +7,18 @@ import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUse
 import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
-import { Spinner } from '@/components/Spinner/Spinner'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
     useState<AllGoalBuddyData[] | []>([])
 
   const [isLoading, setIsLoading] = useState(true)
-    const sideBarContext = useContext(SidebarContext)
-    if (!sideBarContext) {
-      throw new Error('Sidebar context not found')
-    }
-    const { isSidebarOpen } = sideBarContext
+  const sideBarContext = useContext(SidebarContext)
+  if (!sideBarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen } = sideBarContext
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
@@ -40,18 +40,21 @@ export default function ColabPage() {
         <div
           className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
         >
-          {isLoading ? (
-            <Spinner/>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
-              {goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
-                <GoalBuddyCard
-                  key={goalBuddyWithUser.id}
-                  goalBuddy={goalBuddyWithUser}
-                />
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
+            {isLoading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl "
+                  />
+                ))
+              : goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
+                  <GoalBuddyCard
+                    key={goalBuddyWithUser.id}
+                    goalBuddy={goalBuddyWithUser}
+                  />
+                ))}
+          </div>
         </div>
       </Layout>
     </main>
