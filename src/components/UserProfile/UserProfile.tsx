@@ -71,7 +71,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   return (
     <div className="h-[100%]">
       <div className="h-[15%] bg-yellow-300 relative">
-        <Avatar className="w-[80px] h-[80px] absolute right-[10%] top-[50%] ">
+        <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}
@@ -80,52 +80,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
         </Avatar>
       </div>
 
-      <div className="mt-10 flex flex-col gap-3">
-        <section className=" gap-20 text-[15px]">
-          <p>
-            <label>Lastname :</label>
-            <span className="text-[13px]">&nbsp;{userData?.lastName}</span>
-          </p>
-          <p>
-            <label htmlFor="">Firstname :</label>
-            <span className="text-[13px]">&nbsp;{userData?.firstName}</span>
-          </p>
-          <p className="flex">
-            <label className="w-[20%]">Email : </label>
-            <span className="text-[13px]"> {userData?.email}</span>
-          </p>
-        </section>
-        <section className="text-[15px]">
-          <p>
-            City : <span className="text-[13px]">{userData?.city}</span>
-          </p>
-          <section className="flex md:gap-10 text-[15px]">
-            <p>
-              State : <span className="text-[13px]">{userData?.state} </span>
-            </p>
-            <p>
-              Country : <span className="text-[13px]">{userData?.country}</span>
-            </p>
-          </section>
-        </section>
-
-        <section className="text-[15px]">
-          <p className="flex">
-            <label className=" w-[25%]">Discipline : </label>
-            <span className="text-[13px]">{userData?.discipline}</span>
-          </p>
-
-          <p className="flex">
-            <label className="w-[20%]">Skills : </label>
-            {goalBuddyData?.skills.map((skill, index) => (
-              <span key={index} className="text-[13px]">
-                {skill},
-              </span>
-            ))}
-          </p>
-        </section>
-      </div>
-
+      <div className=" mt-2 flex flex-col pl-2">
+        <label>FirstName: <span>Aparna</span></label>
+        <label>LastName: <span>Dhara</span></label>
+        <label>Email: <span>aparna@gmail.com</span></label>
+        <label>City:<span>Missisipi</span></label>
+      </div> 
       <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
         <div className="mt-6">
           <h2 className="text-lg  font-semibold">Colab Role </h2>
