@@ -42,11 +42,19 @@ export default function ColabPage() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
-              ? Array.from({ length: 6 }).map((_, index) => (
+              ? Array.from({ length: 9 }).map((_, index) => (
                   <Skeleton
                     key={index}
-                    className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl "
-                  />
+                    className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl flex p-3"
+                  >
+                    <Skeleton className="w-16 h-16 rounded-full m-2" />
+                    <div className="space-y-2 flex flex-col justify-center w-7/12">
+                      <Skeleton className="h-8 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                    </div>
+                  </Skeleton>
                 ))
               : goalBuddiesCombinedWithUsers.map((goalBuddyWithUser) => (
                   <GoalBuddyCard
