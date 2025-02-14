@@ -68,12 +68,18 @@ export default function ColabPage() {
   }
 
   useEffect(() => {
-    setFilteredGoalBuddies(goalBuddiesCombinedWithUsers)
-  }, [goalBuddiesCombinedWithUsers, !filteredGoalBuddies])
-
-  useEffect(() => {
     applyFilter()
   }, [filter])
+
+  const renderGoalBuddies = (goalBuddies: any[]) => {
+    goalBuddies = goalBuddies.map((goalBuddyWithUser) => (
+      <GoalBuddyCard
+        key={goalBuddyWithUser.id}
+        goalBuddy={goalBuddyWithUser}
+      />
+    ))
+    return goalBuddies
+  }
 
   return (
     <main>
@@ -90,12 +96,8 @@ export default function ColabPage() {
                 filter={filter}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
-                {filteredGoalBuddies.map((goalBuddyWithUser) => (
-                  <GoalBuddyCard
-                    key={goalBuddyWithUser.id}
-                    goalBuddy={goalBuddyWithUser}
-                  />
-                ))}
+                {renderGoalBuddies(filteredGoalBuddies.length > 0 
+                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers)}
               </div>
             </section>
           )}
