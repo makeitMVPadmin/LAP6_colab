@@ -88,7 +88,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             const testStartTime = new Date(`1970-01-01T${startTime.length === 4 ? '0' : ''}${startTime}:00`);
             const testEndTime = new Date(`1970-01-01T${endTime.length === 4 ? '0' : ''}${endTime}:00`);
             if (testEndTime < testStartTime) {
-                presentErrors.endTimeError = "End time cannot be set before the start time'";
+                presentErrors.endTimeError = "End time cannot be set before the start time";
                 presentErrors.errorsExist = true;
             }
         }

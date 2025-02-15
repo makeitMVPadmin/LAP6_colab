@@ -9,7 +9,6 @@ import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
-import AvailabilitySection from '@/components/AvailabilitySection/AvailabilitySection'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -108,7 +107,6 @@ export default function ColabPage() {
                       goalBuddy={goalBuddyWithUser}
                     />
                   ))}
-                  {!isLoading && <AvailabilitySection activeGoalBuddy={goalBuddiesCombinedWithUsers[0]} />}
             </div>
           </section>
         </div>
