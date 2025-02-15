@@ -26,14 +26,14 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({startTime, endTime
         <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
             <div>
                 <Label htmlFor="startTime">Start Time</Label>
-                <Input type="string" id="startTime" placeholder='0:00' defaultValue={startTime} onChange={handleStartTimeChange} className={`${isStartError ? "border-red-500": ""}`}/>
+                <Input type="string" id="startTime" placeholder='0:00' value={startTime} onChange={handleStartTimeChange} className={`${isStartError ? "border-red-500": ""}`}/>
                 {isStartError && 
                     <p className='text-red-500'>{isStartError}</p>
                 }
             </div>
             <div>
                 <Label htmlFor="endTime">End Time</Label>
-                <Input type="string" id="endTime" placeholder='0:00' defaultValue={endTime} onChange={handleEndTimeChange} className={`${isEndError ? "border-red-500": ""}`}/>
+                <Input type="string" id="endTime" placeholder='0:00' value={endTime} onChange={handleEndTimeChange} className={`${isEndError ? "border-red-500": ""}`}/>
                 {isEndError && 
                     <p className='text-red-500'>{isEndError}</p>
                 }
