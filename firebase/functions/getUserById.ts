@@ -5,9 +5,7 @@ import { db } from '../firebase'
 /*GetUsers by unique Id
 @author[Kevin]*/
 
-export const getUserById = async (
-  userId: string,
-): Promise<User | null > => {
+export const getUserById = async (userId: string): Promise<User | null> => {
   try {
     // Reference the document by its ID
     const userDocRef = doc(db, 'users', userId)

@@ -12,6 +12,11 @@ export const getAllUsers = async (): Promise<User[]> => {
 
     // Grab all users from the users collection and map them to an array of User objects
     const querySnapshot = await getDocs(collection(db, 'users'));
+
+    if (querySnapshot.empty) {
+      return []
+    }
+
     const usersArray = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...(doc.data() as BaseUser),

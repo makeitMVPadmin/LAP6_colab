@@ -9,6 +9,7 @@ import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
+import { createCalendarEvent } from '../../../firebase/functions/createCalendarEvent'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -44,6 +45,7 @@ export default function ColabPage() {
     }
 
     fetchGoalBuddiesCombinedWithUser()
+    // createCalendarEvent({ key: 'test'})
   }, [])
 
   const filterGoalBuddies = (choice: string) => {

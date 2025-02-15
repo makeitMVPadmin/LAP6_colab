@@ -7,10 +7,16 @@ import { BaseEvents, CalendarEvents } from '../../src/types/types'
 export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, 'calendar_events'))
+
+    if (querySnapshot.empty) {
+      return []
+    }
+
     const events = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...(doc.data() as BaseEvents),
     }))
+
     return events
   } catch (error) {
     console.error('Error fetching calendar events', error)

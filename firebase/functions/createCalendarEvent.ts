@@ -25,7 +25,7 @@ export async function createCalendarEvent(
     const docRef = await addDoc(collection(db, 'calendar_events'), eventDoc)
     return { ...eventDoc, id: docRef.id }
   } catch (error) {
-    console.error('Error creating document: ', error)
-    return null
+    console.error('Error creating calendar event: ', error)
+    throw error
   }
 }

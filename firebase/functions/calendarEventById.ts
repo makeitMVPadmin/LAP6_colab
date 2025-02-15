@@ -13,9 +13,13 @@ export const getByEventId = async (
     const eventDocRef = doc(db, 'calendar_events', eventId)
     const eventDoc = await getDoc(eventDocRef)
 
-    return {
-      id: eventDoc.id,
-      ...(eventDoc.data() as BaseEvents),
+    if (eventDoc.exists()) {
+      return {
+        id: eventDoc.id,
+        ...(eventDoc.data() as BaseEvents),
+      }
+    } else {
+      throw new Error(`Event with ID ${eventId} doesn't exist`)
     }
   } catch (err) {
     console.error('Error fetching event by ID', err)
