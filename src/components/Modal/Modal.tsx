@@ -17,10 +17,10 @@ const Modal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
     <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
       <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0">
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[50%] pt-0 pl-0">
+        <div className="flex flex-col w-[55%] pt-0 pl-0">
           <UserProfile userId={userId} />
         </div>
-        <div className="flex flex-col items-center w-[50%]  pl-3 pt-3 space-y-4 bg-blue-600">
+        <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
           <BookingCalendar />
           <EventBox />
         </div>

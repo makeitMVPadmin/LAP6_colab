@@ -10,13 +10,16 @@ interface UserProfileProps {
 }
 export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const interestsLabel = ['Mentor', 'GoalBuddy', 'Networking']
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([])
+  const [color] = useState<string[]>(['blue', 'green', 'orange'])
   const [userData, setUserData] = useState<User | null>(null)
   const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
 
-  const [bio, setBio] = useState<string>()
-  const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [buttonText, setButtonText] = useState<string>('Edit')
+  const [editData, setEditData] = useState({
+    selectedInterests: [],
+    bio: '',
+    buttonText: 'Edit',
+    isEditing: false,
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +29,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       ])
       setUserData(userResponse)
       setGoalBuddyData(goalBuddyResponse)
-      if (goalBuddyResponse) setBio(goalBuddyResponse.bio)
     }
     fetchData()
   }, [userId])
@@ -38,29 +40,38 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       if (goalBuddyData.isNetworking) interestsFromGoalBuddy.push('Networking')
       if (goalBuddyData.isAccountabilityPartner)
         interestsFromGoalBuddy.push('GoalBuddy')
-      setSelectedInterests(interestsFromGoalBuddy)
+      setEditData({
+        ...editData,
+        selectedInterests: [interestsFromGoalBuddy],
+        bio: goalBuddyData.bio,
+      })
     }
   }, [goalBuddyData])
 
   const handleChange = (interest: string) => {
-    setSelectedInterests((prev: string[]) => {
-      if (prev.includes(interest)) return prev.filter((i) => i !== interest)
-      else return [...prev, interest]
+    setEditData({
+      ...editData,
+      selectedInterests: [
+        (prev: string[]) => {
+          if (prev.includes(interest)) return prev.filter((i) => i !== interest)
+          else return [...prev, interest]
+        },
+      ],
     })
   }
   const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBio(e.target.value)
+    setEditData({ ...editData, bio: e.target.value })
   }
   const handleInterestAndBioClick = () => {
-    if (isEditing === false) {
-      setIsEditing(true)
-      setButtonText('Save Changes')
+    if (editData.isEditing === false) {
+      setEditData({ ...editData, isEditing: true })
+      setEditData({ ...editData, buttonText: 'Saved Changes' })
     } else {
-      setButtonText('Saved')
-      alert('The changes are saved')
+      setEditData({ ...editData, buttonText: 'Saved' })
+
       setTimeout(() => {
-        setIsEditing(false)
-        setButtonText('Edit')
+        setEditData({ ...editData, isEditing: false })
+        setEditData({ ...editData, buttonText: 'Edit' })
       }, 1500)
     }
   }
@@ -69,7 +80,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   }
 
   return (
-    <div className="h-[100%]">
+    <div className="h-[100%]  text-[14px]">
       <div className="h-[15%] bg-yellow-300 relative">
         <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
@@ -80,48 +91,85 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
         </Avatar>
       </div>
 
-      <div className=" mt-2 flex flex-col pl-2">
-        <label>FirstName: <span>Aparna</span></label>
-        <label>LastName: <span>Dhara</span></label>
-        <label>Email: <span>aparna@gmail.com</span></label>
-        <label>City:<span>Missisipi</span></label>
-      </div> 
-      <form onSubmit={handleSubmit} className="flex flex-col h-[90%] gap-2">
-        <div className="mt-6">
-          <h2 className="text-lg  font-semibold">Colab Role </h2>
-          <section className="mt-2">
-            {interestsLabel.map((interest, _index) => {
-              return (
-                <div key={_index} className="flex gap-20">
-                  <span className="w-[150px] text-[15px]">{interest}</span>
-                  <input
-                    type="checkbox"
-                    checked={selectedInterests.includes(interest)}
-                    onChange={() => handleChange(interest)}
-                    disabled={isEditing === false}
-                  />
+      <div className=" mt-2 flex flex-col pl-3 font-semibold ">
+        <label>
+          FirstName: <span className="font-light">{userData?.firstName}</span>
+        </label>
+        <label>
+          LastName: <span className="font-light">{userData?.lastName}</span>
+        </label>
+        <label>
+          Email: <span className="font-light">{userData?.email}</span>
+        </label>
+        <label>
+          City: <span className="font-light">{userData?.city}</span>
+        </label>
+        <p className="flex gap-3">
+          <label>
+            State: <span className="font-light"> {userData?.state}</span>
+          </label>
+          <label>
+            Country: <span className="font-light">{userData?.country}</span>
+          </label>
+        </p>
+        <label>
+          Discipline: <span className="font-light">{userData?.discipline}</span>
+        </label>
+        <label>
+          Skills:
+          {goalBuddyData?.skills.map((skill, index) => (
+            <span key={index} className="font-light">
+              &nbsp;{skill} , 
+            </span>
+          ))}
+        </label>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="h-[90%]  mt-3 pl-4 font-semibold"
+      >
+        <h2 className="text-lg font-semibold">Colab Role </h2>
+        <section className="">
+          {interestsLabel.map((interest, _index) => {
+            return (
+              <div key={_index} className="flex gap-20">
+                <div className="flex items-center gap-1 w-[30%]">
+                  <div
+                    className="w-2 h-2"
+                    style={{ backgroundColor: color[_index] }}
+                  ></div>
+                  <span>{interest}</span>
                 </div>
-              )
-            })}
-          </section>
-        </div>
-        <section className=" border border-gray-600 p-2 shadow-md rounded h-[33%] w-[90%] mt-5">
-          <h2 className="mb-2 font-semibold">About</h2>
+
+                <input
+                  type="checkbox"
+                  checked={editData.selectedInterests.includes(interest)}
+                  onChange={() => handleChange(interest)}
+                  disabled={editData.isEditing === false}
+                />
+              </div>
+            )
+          })}
+        </section>
+        <section className=" border border-gray-400 shadow-md rounded h-[32%] w-[90%] mt-3 pl-3 pt-1">
+          <h2 className="p-0 font-semibold">About</h2>
           <textarea
-            value={bio ? bio : ''}
+            value={editData.bio ? editData.bio : ''}
             onChange={(e) => handleBioChange(e)}
-            className="w-[90%] h-[70%] p-2 text-sm border border-gray-300 shadow-lg"
-            disabled={isEditing == false || buttonText === 'Saved'}
+            className="w-[90%] h-[78%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
+            disabled={
+              editData.isEditing == false || editData.buttonText === 'Saved'
+            }
           />
         </section>
 
         <article className="flex w-[90%] justify-end">
           <button
-            className="border bg-blue-600 px-[10px] py-[5px] rounded text-sm text-white"
+            className="border bg-blue-600 px-[10px] py-[5px] mt-1 rounded text-sm text-white"
             type="button"
             onClick={handleInterestAndBioClick}
           >
-            {buttonText}
+            {editData.buttonText}
           </button>
         </article>
       </form>
