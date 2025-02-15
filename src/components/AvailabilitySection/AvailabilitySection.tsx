@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {GoalBuddy, Availabilities, TimePeriod, Time, AllGoalBuddyData, DayOfWeek } from "@/types/types";
-import { Timestamp } from "firebase/firestore";
+import { Availabilities, TimePeriod, AllGoalBuddyData, DayOfWeek } from "@/types/types";
 import {editGoalBuddy} from "../../../firebase/functions/editGoalBuddy";
 import { Button } from "@/components/ui/button"
 import DaySelection from "../DaySelection/DaySelection";
-import { Label } from "@/components/ui/label";
 import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from "@/utils/dateHelpers";
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
-import { setDay } from "date-fns";
 
 
 interface AvailabilitySectionProps {
@@ -41,6 +38,9 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
             setStartTime(startString);
             setEndTime(endString);
         }
+
+        setStartTimeError(false);
+        setEndTimeError(false);
     }, [selectedDay, selectedDayAvailability]);
 
     // Function to show availability for a specific day
@@ -59,13 +59,43 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
     }
 
     // Function to handle the user trying to confirm their new availiability for a day
-    function updateGoalBuddyAvailability(){
+    async function updateGoalBuddyAvailability(){
         // Verify that a day has been selected
         if(selectedDay === null){
             setDayError(true);
+            return;
         }
-        // Verify that the time period is valid
 
+        // Verify that the time period is valid
+        // Check if matches "hh:mm" format
+        const timePattern24Hour = /^([0-9]|[01][0-9]|2[0-3]):[0-5][0-9]$/;
+        if (!timePattern24Hour.test(startTime)) {
+            setStartTimeError(true);
+            return;
+        }
+        if (!timePattern24Hour.test(endTime)) {
+            setEndTimeError(true);
+            return;
+        }
+
+        // Check that the endTime is after the startTime
+        let testStartTime : Date;
+        let testEndTime: Date;
+        if(startTime.length === 4){
+            testStartTime = new Date(`1970-01-01T0${startTime}:00`);
+        }else{
+            testStartTime = new Date(`1970-01-01T${startTime}:00`);
+        }
+        if(endTime.length === 4){
+            testEndTime = new Date(`1970-01-01T0${endTime}:00`);
+        }else{
+            testEndTime = new Date(`1970-01-01T${endTime}:00`);
+        }
+        if (testEndTime < testStartTime) {
+            console.log("Before start");
+            setEndTimeError(true);
+            return;
+        }
 
         // Create the updated Availability from the input for the selected day
         const updatedTimePeriod: TimePeriod = {startTime: createTimeFromStrings(startTime), endTime: createTimeFromStrings(endTime)};
@@ -88,9 +118,10 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
 
         // Make the call to firebase to update the user's goal_buddy document availabilities field.
         try{
-
+            await editGoalBuddy(activeGoalBuddy.id, { availabilities: updatedAvailabilities });
             setAvailability(updatedAvailabilities);
             setConfirmationState(true);
+
         }catch(error){
             // Show error state
             setBackendError(true);
@@ -100,16 +131,24 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
 
     return (
         <div>
-            <h2>Set My Availabilities</h2>
-            {/* <Label htmlFor="day">Select a day of the week:</Label> */}
-            <DaySelection setSelectedDay={showAvailability} isError={dayError}/>
-            {selectedDay && (
+            {confirmationState ? (
+                <p className="text-green-500">{`Congratulations! Your availability has been successfully updated.`}</p>
+            ) : (
                 <div>
-                    <p>{`Timezone: ${activeGoalBuddy.timezone}`}</p>
-                    <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime}/>
+                    <h2>Set My Availabilities</h2>
+                    {backendError && (
+                        <p className="text-red-500">{`Something went wrong with updating your availability. Please try again.`}</p>
+                    )}
+                    <DaySelection setSelectedDay={showAvailability} isError={dayError}/>
+                    {selectedDay && (
+                        <div>
+                            <p>{`Timezone: ${activeGoalBuddy.timezone}`}</p>
+                            <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} isStartError={startTimeError} isEndError={endTimeError}/>
+                        </div>
+                    )}
+                    <Button type="submit" onClick={updateGoalBuddyAvailability}>Confirm</Button>
                 </div>
             )}
-            <Button type="submit" onClick={updateGoalBuddyAvailability}>Confirm</Button>
         </div>
     );
 }

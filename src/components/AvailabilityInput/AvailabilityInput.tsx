@@ -1,4 +1,3 @@
-import { Time, TimePeriod } from '@/types/types';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
@@ -7,9 +6,11 @@ interface AvailabilityInputProps {
     endTime: string;
     setStartTime: (time: string) => void;
     setEndTime: (time: string) => void;
+    isStartError: boolean;
+    isEndError: boolean;
 }
 
-const AvailabilityInput: React.FC<AvailabilityInputProps> = ({startTime, endTime, setStartTime, setEndTime}) => {
+const AvailabilityInput: React.FC<AvailabilityInputProps> = ({startTime, endTime, setStartTime, setEndTime, isStartError, isEndError}) => {
     
     // Event handlers for input changes
     const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +25,11 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({startTime, endTime
         <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
             <div>
                 <Label htmlFor="startTime">Start Time</Label>
-                <Input type="string" id="startTime" placeholder='0:00' defaultValue={startTime} onChange={handleStartTimeChange}/>
+                <Input type="string" id="startTime" placeholder='0:00' defaultValue={startTime} onChange={handleStartTimeChange} className={`${isStartError ? "border-red-500": ""}`}/>
             </div>
             <div>
                 <Label htmlFor="endTime">End Time</Label>
-                <Input type="string" id="endTime" placeholder='0:00' defaultValue={endTime} onChange={handleEndTimeChange}/>
+                <Input type="string" id="endTime" placeholder='0:00' defaultValue={endTime} onChange={handleEndTimeChange} className={`${isEndError ? "border-red-500": ""}`}/>
             </div>
         </div>
     );
