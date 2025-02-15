@@ -13,14 +13,14 @@ interface filterProps {
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     return (
-        <Card className={cn("w-52 h-44")}>
-            <CardHeader>
-            <CardTitle 
-                className={cn("text-right text-xs cursor-pointer")}
+        <Card className={cn("w-52 h-44 pb-0 border-black border-b-2 border-r-2")}>
+            <CardHeader className={cn("pt-2 pr-4")}>
+            <CardDescription 
+                className={cn("text-right text-sm font-light m-0 cursor-pointer")}
                 onClick={() => filterGoalBuddies('')}>Clear All
-            </CardTitle>
+            </CardDescription>
             </CardHeader>
-            <CardContent className={cn("flex flex-col gap-4")}>
+            <CardContent className={cn("flex flex-col gap-4 pr-4 pl-4 pb-0")}>
                 <div className="flex flex-row justify-between relative">
                     <CardDescription>
                         <span className="h-3 w-3 mr-1 inline-block align-center bg-blue-600"></span>
