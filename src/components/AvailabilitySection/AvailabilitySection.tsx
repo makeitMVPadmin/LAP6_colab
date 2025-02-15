@@ -11,6 +11,13 @@ interface AvailabilitySectionProps {
   activeGoalBuddy: AllGoalBuddyData;
 }
 
+interface AvailabilityErrors{
+    dayError: string;
+    startTimeError: string;
+    endTimeError: string;
+    errorsExist: boolean
+}
+
 const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBuddy}) => {
 
     // Set state variables
@@ -19,15 +26,16 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
     const [selectedDayAvailability, setSelectedDayAvailability] = useState<Availabilities | null>(null);
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
-    const [dayError, setDayError] = useState<boolean>(false);
-    const [startTimeError, setStartTimeError] = useState<boolean>(false);
-    const [endTimeError, setEndTimeError] = useState<boolean>(false);
-    const [backendError, setBackendError] = useState<boolean>(false);
+    const [dayError, setDayError] = useState<string>("");
+    const [startTimeError, setStartTimeError] = useState<string>("");
+    const [endTimeError, setEndTimeError] = useState<string>("");
+    const [backendError, setBackendError] = useState<string>("");
     const [confirmationState, setConfirmationState] = useState<boolean>(false);
     
     useEffect(() => {
         // Clear the inputs when the selected day changes
         if (selectedDay === null || selectedDayAvailability === null) {
+            console.log("I should reset");
             setStartTime("");
             setEndTime("");
         
@@ -39,8 +47,8 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
             setEndTime(endString);
         }
 
-        setStartTimeError(false);
-        setEndTimeError(false);
+        setStartTimeError("");
+        setEndTimeError("");
     }, [selectedDay, selectedDayAvailability]);
 
     // Function to show availability for a specific day
@@ -54,46 +62,51 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
             setSelectedDayAvailability(availabilityForDay);
 
         }
-        setDayError(false);
+        setDayError("");
         setSelectedDay(day);
     }
 
-    // Function to handle the user trying to confirm their new availiability for a day
-    async function updateGoalBuddyAvailability(){
+    // Function to validate the inputs
+    function validateAvailability(): AvailabilityErrors{
+        const presentErrors = {dayError:"", startTimeError:"", endTimeError:"", errorsExist:false};
+
         // Verify that a day has been selected
         if(selectedDay === null){
-            setDayError(true);
-            return;
+            presentErrors.dayError = "Please select a date";
+            presentErrors.errorsExist = true;
         }
 
         // Verify that the time period is valid
         // Check if matches "hh:mm" format
         const timePattern24Hour = /^([0-9]|[01][0-9]|2[0-3]):[0-5][0-9]$/;
         if (!timePattern24Hour.test(startTime)) {
-            setStartTimeError(true);
-            return;
+            presentErrors.startTimeError = "Start time is not of format 'hh:mm'";
+            presentErrors.errorsExist = true;
         }
         if (!timePattern24Hour.test(endTime)) {
-            setEndTimeError(true);
-            return;
+            presentErrors.endTimeError = "End time is not of format 'hh:mm'";
+            presentErrors.errorsExist = true;
         }
 
-        // Check that the endTime is after the startTime
-        let testStartTime : Date;
-        let testEndTime: Date;
-        if(startTime.length === 4){
-            testStartTime = new Date(`1970-01-01T0${startTime}:00`);
-        }else{
-            testStartTime = new Date(`1970-01-01T${startTime}:00`);
+        if(!presentErrors.errorsExist){
+            // Check that the endTime is after the startTime
+            const testStartTime = new Date(`1970-01-01T${startTime.length === 4 ? '0' : ''}${startTime}:00`);
+            const testEndTime = new Date(`1970-01-01T${endTime.length === 4 ? '0' : ''}${endTime}:00`);
+            if (testEndTime < testStartTime) {
+                presentErrors.endTimeError = "End time is not of format 'hh:mm'";
+                presentErrors.errorsExist = true;
+            }
         }
-        if(endTime.length === 4){
-            testEndTime = new Date(`1970-01-01T0${endTime}:00`);
-        }else{
-            testEndTime = new Date(`1970-01-01T${endTime}:00`);
-        }
-        if (testEndTime < testStartTime) {
-            console.log("Before start");
-            setEndTimeError(true);
+        
+        return presentErrors;
+    }
+
+    // Function to handle the user trying to confirm their new availiability for a day
+    async function updateGoalBuddyAvailability(){
+        // Look for errors. If any are found and halt the update process and show them.
+        const errors: AvailabilityErrors = validateAvailability();
+        if(errors.errorsExist){
+            updateErrorStates(errors);
             return;
         }
 
@@ -120,30 +133,47 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({activeGoalBudd
         try{
             await editGoalBuddy(activeGoalBuddy.id, { availabilities: updatedAvailabilities });
             setAvailability(updatedAvailabilities);
+            setBackendError("");
             setConfirmationState(true);
-
         }catch(error){
             // Show error state
-            setBackendError(true);
+            setBackendError("Something went wrong with updating your availability. Please try again.");
         }
         
+    }
+
+    // Function to return component to "pristene" look after a successful update
+    function resetComponent(){
+        setSelectedDay(null);
+        setSelectedDayAvailability(null);
+        setConfirmationState(false);
+    }
+
+    function updateErrorStates(errors: AvailabilityErrors){
+        setDayError(errors.dayError);
+        setStartTimeError(errors.startTimeError);
+        setEndTimeError(errors.endTimeError);
+        setBackendError("");
     }
 
     return (
         <div>
             {confirmationState ? (
-                <p className="text-green-500">{`Congratulations! Your availability has been successfully updated.`}</p>
+                <div className="bg-green-200">
+                    <p className="text-green-500">{`Congratulations! Your availability has been successfully updated.`}</p>
+                    <Button onClick={resetComponent}>Edit</Button>
+                </div>
             ) : (
                 <div>
                     <h2>Set My Availabilities</h2>
                     {backendError && (
-                        <p className="text-red-500">{`Something went wrong with updating your availability. Please try again.`}</p>
+                        <p className="text-red-500">{backendError}</p>
                     )}
                     <DaySelection setSelectedDay={showAvailability} isError={dayError}/>
                     {selectedDay && (
                         <div>
                             <p>{`Timezone: ${activeGoalBuddy.timezone}`}</p>
-                            <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} isStartError={startTimeError} isEndError={endTimeError}/>
+                            <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} isStartError={startTimeError} isEndError={endTimeError} />
                         </div>
                     )}
                     <Button type="submit" onClick={updateGoalBuddyAvailability}>Confirm</Button>
