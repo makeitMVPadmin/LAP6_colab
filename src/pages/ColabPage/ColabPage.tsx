@@ -108,8 +108,7 @@ export default function ColabPage() {
                       goalBuddy={goalBuddyWithUser}
                     />
                   ))}
-            </div>
-            <AvailabilitySection activeGoalBuddy={goalBuddiesCombinedWithUsers[0]} />
+                  {!isLoading && <AvailabilitySection activeGoalBuddy={goalBuddiesCombinedWithUsers[0]} />}
             </div>
           </section>
         </div>
