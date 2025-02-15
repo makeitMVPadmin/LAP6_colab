@@ -31,7 +31,6 @@ export async function getUserEvents(
       getDocs(createdUserQuery),
     ])
     if (inviteeSnapshot.empty && createdSnapshot.empty) {
-      // return 'No events found with that userId';
       return []
     }
     let events1: CalendarEvents[] = []
@@ -51,6 +50,5 @@ export async function getUserEvents(
   } catch (error) {
     console.error('Error getting documents: ', error)
     throw error // Re-throw the error to handle it in the calling function
-    // return []
   }
 }
