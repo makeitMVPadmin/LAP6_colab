@@ -12,7 +12,7 @@ interface ModalProps {
   userId: string
 }
 
-const Modal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
+const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
   return (
     <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
       <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0">
@@ -29,4 +29,4 @@ const Modal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
   )
 }
 
-export default Modal
+export default UserprofileModal

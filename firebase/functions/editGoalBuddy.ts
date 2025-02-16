@@ -2,7 +2,7 @@
 
 import { doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase'; 
-import { BaseGoalBuddy } from '@/types/types';
+import { BaseGoalBuddy } from '../../src/types/types';
 import { GoalBuddySchema } from '../schemas';
 
 export const editGoalBuddy = async ( goalbuddyId: string, updatedData: Partial<BaseGoalBuddy> ) => {

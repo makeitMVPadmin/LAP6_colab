@@ -4,21 +4,30 @@ import { AvatarImage } from '../ui/avatar'
 import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
 import { GoalBuddy, User } from '@/types/types'
+import { editGoalBuddy } from '../../../firebase/functions/editGoalBuddy'
 
 interface UserProfileProps {
   userId: string
+}
+interface EditData {
+  selectedInterests: string[]
+  bio: string
+  buttonText: string
+  isEditing: boolean
 }
 export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const interestsLabel = ['Mentor', 'GoalBuddy', 'Networking']
   const [color] = useState<string[]>(['blue', 'green', 'orange'])
   const [userData, setUserData] = useState<User | null>(null)
   const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
-
-  const [editData, setEditData] = useState({
-    selectedInterests: [],
-    bio: '',
-    buttonText: 'Edit',
-    isEditing: false,
+  const [interestsFromGoalBuddy, setInterestsFromGoalBuddy] = useState<
+    string[] | []
+  >([])
+  const [editData, setEditData] = useState<EditData>({
+    selectedInterests: [] as string[],
+    bio: '' as string,
+    buttonText: 'Edit' as string,
+    isEditing: false as boolean,
   })
 
   useEffect(() => {
@@ -34,49 +43,91 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   }, [userId])
 
   useEffect(() => {
+    let newInterests = [] as string[]
     if (goalBuddyData) {
-      const interestsFromGoalBuddy: string[] = []
-      if (goalBuddyData.isMentor) interestsFromGoalBuddy.push('Mentor')
-      if (goalBuddyData.isNetworking) interestsFromGoalBuddy.push('Networking')
-      if (goalBuddyData.isAccountabilityPartner)
-        interestsFromGoalBuddy.push('GoalBuddy')
-      setEditData({
-        ...editData,
-        selectedInterests: [interestsFromGoalBuddy],
-        bio: goalBuddyData.bio,
+      if (goalBuddyData.isNetworking) {
+        newInterests.push('Networking')
+      }
+
+      if (goalBuddyData.isAccountabilityPartner) {
+        newInterests.push('GoalBuddy')
+      }
+      if (goalBuddyData.isMentor) {
+        newInterests.push('Mentor')
+      }
+
+      setEditData((prev) => {
+        return {
+          ...prev,
+          selectedInterests: newInterests,
+          bio: goalBuddyData.bio,
+        }
       })
+      setInterestsFromGoalBuddy(newInterests)
     }
   }, [goalBuddyData])
 
-  const handleChange = (interest: string) => {
-    setEditData({
-      ...editData,
-      selectedInterests: [
-        (prev: string[]) => {
-          if (prev.includes(interest)) return prev.filter((i) => i !== interest)
-          else return [...prev, interest]
-        },
-      ],
+  const handleChange = (
+    interestOrEvent: string | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    return setEditData((prev) => {
+      if (typeof interestOrEvent === 'string') {
+        return {
+          ...prev,
+          selectedInterests: prev.selectedInterests.includes(interestOrEvent)
+            ? prev.selectedInterests.filter((item) => item !== interestOrEvent)
+            : [...prev.selectedInterests, interestOrEvent],
+        }
+      } else
+        return {
+          ...prev,
+          bio: interestOrEvent.target.value as string,
+        }
     })
   }
-  const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEditData({ ...editData, bio: e.target.value })
-  }
-  const handleInterestAndBioClick = () => {
+  const handleInterestAndBioClick = async () => {
+    if (!editData.selectedInterests) {
+      console.error('selectedInterests is undefined. Setting it to an empty array.');
+      editData.selectedInterests = []; 
+    }
+  
+    if (!goalBuddyData?.id) {
+      console.error('goalBuddyData.id is missing');
+      return;
+    }
     if (editData.isEditing === false) {
-      setEditData({ ...editData, isEditing: true })
-      setEditData({ ...editData, buttonText: 'Saved Changes' })
+      setEditData({ ...editData, isEditing: true, buttonText: 'Save Changes' })
     } else {
       setEditData({ ...editData, buttonText: 'Saved' })
-
-      setTimeout(() => {
-        setEditData({ ...editData, isEditing: false })
-        setEditData({ ...editData, buttonText: 'Edit' })
-      }, 1500)
+      try {
+        const updatedData = {
+          bio: editData?.bio,
+          isAccountabilityPartner:
+            editData?.selectedInterests.includes('GoalBuddy'),
+          isMentor: editData?.selectedInterests.includes('Mentor'),
+          isNetworking: editData?.selectedInterests.includes('Networking'),
+        }
+        const response = await editGoalBuddy(goalBuddyData?.id, updatedData)
+        if (response.message === 'success') {
+          console.log(response)
+          console.log('Goal Buddy updated successfully')
+        }
+        setTimeout(() => {
+          setEditData({ ...editData, isEditing: false, buttonText: 'Edit' })
+        }, 1500)
+      } catch (error) {
+        console.error('Error updating Goal Buddy details:', error)
+        setEditData({ ...editData, buttonText: 'Not Saved' })
+        setTimeout(() => {
+          setEditData({
+            selectedInterests: interestsFromGoalBuddy,
+            bio: goalBuddyData?.bio || '',
+            isEditing: false,
+            buttonText: 'Edit',
+          })
+        }, 1500)
+      }
     }
-  }
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
   }
 
   return (
@@ -119,15 +170,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           Skills:
           {goalBuddyData?.skills.map((skill, index) => (
             <span key={index} className="font-light">
-              &nbsp;{skill} , 
+              &nbsp;{skill} ,
             </span>
           ))}
         </label>
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="h-[90%]  mt-3 pl-4 font-semibold"
-      >
+      <form className="h-[90%]  mt-3 pl-4 font-semibold">
         <h2 className="text-lg font-semibold">Colab Role </h2>
         <section className="">
           {interestsLabel.map((interest, _index) => {
@@ -155,7 +203,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           <h2 className="p-0 font-semibold">About</h2>
           <textarea
             value={editData.bio ? editData.bio : ''}
-            onChange={(e) => handleBioChange(e)}
+            onChange={(e) => handleChange(e)}
             className="w-[90%] h-[78%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
             disabled={
               editData.isEditing == false || editData.buttonText === 'Saved'
