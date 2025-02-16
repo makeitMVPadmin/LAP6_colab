@@ -20,7 +20,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [color] = useState<string[]>(['blue', 'green', 'orange'])
   const [userData, setUserData] = useState<User | null>(null)
   const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
-  const [errInterest, setErrInterest] = useState<string>()
+  const [errInterest, setErrInterest] = useState<boolean>(false)
   const [interestsFromGoalBuddy, setInterestsFromGoalBuddy] = useState<
     string[] | []
   >([])
@@ -44,6 +44,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   }, [userId])
 
   useEffect(() => {
+    if(errInterest)
+      setErrInterest(!errInterest)
     let newInterests = [] as string[]
     if (goalBuddyData) {
       if (goalBuddyData.isNetworking) {
@@ -71,6 +73,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const handleChange = (
     interestOrEvent: string | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
+    if (errInterest) setErrInterest(false)
     return setEditData((prev) => {
       if (typeof interestOrEvent === 'string') {
         let updateInterest = [] as string[]
@@ -80,8 +83,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           )
         else updateInterest = [...prev.selectedInterests, interestOrEvent]
         if (updateInterest.length === 0) {
-          setErrInterest('At least one interest should be selected')
-          return { ...prev, selectedInterests: interestsFromGoalBuddy }
+          setErrInterest(true)
+          return { ...prev, selectedInterests: [interestOrEvent ]}
         }
         return {
           ...prev,
@@ -95,6 +98,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     })
   }
   const handleInterestAndBioClick = async () => {
+    if (errInterest) setErrInterest(false)
     if (!editData.selectedInterests) {
       console.error(
         'selectedInterests is undefined. Setting it to an empty array.',
@@ -109,7 +113,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     if (editData.isEditing === false) {
       setEditData({ ...editData, isEditing: true, buttonText: 'Save Changes' })
     } else {
-      setEditData({ ...editData, buttonText: 'Saved' })
+      setEditData({ ...editData,isEditing:false, buttonText: 'Saved' })
       try {
         const updatedData = {
           bio: editData?.bio,
@@ -209,6 +213,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
               </div>
             )
           })}
+          {errInterest && <p className='text-md font-light m-0 text-red-600'>There should be one checkbox clicked</p>}
         </section>
         <section className=" border border-gray-400 shadow-md rounded h-[32%] w-[90%] mt-3 pl-3 pt-1">
           <h2 className="p-0 font-semibold">About</h2>
