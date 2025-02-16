@@ -14,7 +14,7 @@ interface filterProps {
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     return (
-        <Card className={cn("w-64 h-44 pb-0 border-black border-b-2 border-r-2")}>
+        <Card className={cn("w-64 h-44 pb-0 border-black rounded-md border-b-2 border-r-2")}>
             <CardHeader className={cn("pt-2 pr-4")}>
                 <CardDescription 
                     className={cn("text-right font-light m-0 cursor-pointer")}
