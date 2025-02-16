@@ -4,14 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { AllGoalBuddyData } from '@/types/types'
 import { SidebarContext } from '../context/SidebarContext'
 import clsx from 'clsx'
+import RoleBadge from '../Filter/RoleBadge'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
-  console.log(goalBuddy);
-  
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
@@ -32,20 +31,33 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
           <AvatarFallback className="bg-[#D9D9D9]" />
         </Avatar>
       </CardHeader>
-      <CardContent className="flex flex-col justify-center p-4 w-11/12">
-        <div>
-          
+      <CardContent className="flex-1 flex-col justify-center p-4 w-11/12 relative">
+        <div className="flex justify-end absolute top-0 right-0 p-2 mx-1 space-x-2">
+          <RoleBadge
+            colour={goalBuddy.isMentor ? 'bg-blue-600' : 'invisible'}
+          />
+          <RoleBadge
+            colour={
+              goalBuddy.isAccountabilityPartner ? 'bg-amber-600' : 'invisible'
+            }
+          />
+          <RoleBadge
+            colour={goalBuddy.isNetworking ? 'bg-green-600' : 'invisible'}
+          />
         </div>
-        <h1 className="font-semibold text-lg sm:text-xl md:text-2xl">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
+        <h1 className="font-semibold text-lg sm:text-xl md:text-2xl mt-2">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
         <span className="text-sm sm:text-base">{`${goalBuddy.discipline}`}</span>
         {goalBuddy.interests.length > 0 && (
-          <ul className="text-sm sm:text-base">
+          <div className="text-sm sm:text-base flex flex-wrap gap-1.5 mt-2">
             {goalBuddy.interests.map((interest, index) => (
-              <span key={index} className=" list-inside text-sm sm:text-base">
-                #{interest}{` `}
+              <span
+                key={index}
+                className="bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1"
+              >
+                #{interest}
               </span>
             ))}
-          </ul>
+          </div>
         )}
       </CardContent>
     </Card>
