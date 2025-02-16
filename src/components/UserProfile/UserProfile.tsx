@@ -159,10 +159,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
       <div className=" mt-2 flex flex-col pl-3 font-semibold ">
         <label>
-          FirstName: <span className="font-light">{userData?.firstName}</span>
+          First Name: <span className="font-light">{userData?.firstName}</span>
         </label>
         <label>
-          LastName: <span className="font-light">{userData?.lastName}</span>
+          Last Name: <span className="font-light">{userData?.lastName}</span>
         </label>
         <label>
           Email: <span className="font-light">{userData?.email}</span>
