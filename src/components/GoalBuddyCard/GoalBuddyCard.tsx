@@ -10,6 +10,8 @@ interface GoalBuddyCardProps {
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
+  console.log(goalBuddy);
+  
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
@@ -19,7 +21,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
     <Card
       key={goalBuddy.userId}
       className={clsx(
-        'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer duration-150',
+        'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-white cursor-pointer duration-150 border border-slate-950 rounded-md shadow-[2px_2px_5px_0px_rgba(0,_0,_0,_0.8)]',
         !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open
         isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
       )}
@@ -31,18 +33,17 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
         </Avatar>
       </CardHeader>
       <CardContent className="flex flex-col justify-center p-4 w-11/12">
+        <div>
+          
+        </div>
         <h1 className="font-semibold text-lg sm:text-xl md:text-2xl">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
-        <span className="text-sm sm:text-base mt-2">{`Experience: ${goalBuddy.yearsOfExperience}`}</span>
+        <span className="text-sm sm:text-base">{`${goalBuddy.discipline}`}</span>
         {goalBuddy.interests.length > 0 && (
           <ul className="text-sm sm:text-base">
-            Interests:
             {goalBuddy.interests.map((interest, index) => (
-              <li
-                key={index}
-                className="list-disc list-inside text-sm sm:text-base"
-              >
-                {interest}
-              </li>
+              <span key={index} className=" list-inside text-sm sm:text-base">
+                #{interest}{` `}
+              </span>
             ))}
           </ul>
         )}
