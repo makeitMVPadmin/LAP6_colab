@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Avatar, AvatarFallback } from '../ui/avatar'
-import CommunitiLogo from '../../assets/images/communiti.png'
+import CommunitiLogo from '../../assets/logo/Communiti Logo.png'
 import { SidebarContext } from '@/components/context/SidebarContext'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
 import clsx from 'clsx'
