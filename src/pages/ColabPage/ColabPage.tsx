@@ -85,7 +85,7 @@ export default function ColabPage() {
         <div
           className={clsx(
             'flex justify-center',
-            isSidebarOpen && 'bg-gray-900',
+      
           )}
         >
           <section className="flex">
