@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
 import { cn } from "../lib/utils"
-import { Checkbox } from '../ui/checkbox'
 import RoleBadge from './RoleBadge'
 
 interface filterProps {
@@ -27,19 +26,21 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                         <RoleBadge colour={"bg-blue-600"} />
                         Mentor
                     </label>
-                    <Checkbox 
-                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
-                        checked={filter.mentor}
+                    <span 
+                        className={filter.mentor
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
                         onClick={() => {filterGoalBuddies('mentor')}}
                     />
                 </div>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour={"bg-orange-600"} />Goal Buddy
+                        <RoleBadge colour={"bg-amber-500"} />Goal Buddy
                     </label>
-                    <Checkbox 
-                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
-                        checked={filter.accountability}
+                    <span 
+                        className={filter.accountability
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
                         onClick={() => {filterGoalBuddies('accountability')}}
                     />
                 </div>
@@ -48,9 +49,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                     <RoleBadge colour={"bg-green-600"} />
                         Networking
                     </label>
-                    <Checkbox 
-                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
-                        checked={filter.networking}
+                    <span 
+                        className={filter.networking
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
                         onClick={() => {filterGoalBuddies('networking')}}
                     />
                 </div>
