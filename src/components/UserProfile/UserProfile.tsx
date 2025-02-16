@@ -20,6 +20,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [color] = useState<string[]>(['blue', 'green', 'orange'])
   const [userData, setUserData] = useState<User | null>(null)
   const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
+  const [errInterest, setErrInterest] = useState<string>()
   const [interestsFromGoalBuddy, setInterestsFromGoalBuddy] = useState<
     string[] | []
   >([])
@@ -72,11 +73,19 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   ) => {
     return setEditData((prev) => {
       if (typeof interestOrEvent === 'string') {
+        let updateInterest = [] as string[]
+        if (prev.selectedInterests.includes(interestOrEvent))
+          updateInterest = prev.selectedInterests.filter(
+            (item) => item !== interestOrEvent,
+          )
+        else updateInterest = [...prev.selectedInterests, interestOrEvent]
+        if (updateInterest.length === 0) {
+          setErrInterest('At least one interest should be selected')
+          return { ...prev, selectedInterests: interestsFromGoalBuddy }
+        }
         return {
           ...prev,
-          selectedInterests: prev.selectedInterests.includes(interestOrEvent)
-            ? prev.selectedInterests.filter((item) => item !== interestOrEvent)
-            : [...prev.selectedInterests, interestOrEvent],
+          selectedInterests: updateInterest,
         }
       } else
         return {
