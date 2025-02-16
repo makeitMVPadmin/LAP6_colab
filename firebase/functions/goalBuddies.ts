@@ -7,7 +7,7 @@ import { GoalBuddy, BaseGoalBuddy } from '../../src/types/types'
  * @author [Fangfang]
  *
  */
-export const getAllGoalBuddies = async (): Promise<GoalBuddy[]> => {
+export default async function getAllGoalBuddies (): Promise<GoalBuddy[]> {
   try {
     const querySnapshot = await getDocs(collection(db, 'goal_buddies'))
     const goalBuddiesArray = querySnapshot.docs.map((doc) => ({
