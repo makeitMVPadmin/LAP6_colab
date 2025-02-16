@@ -38,7 +38,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
           />
           <RoleBadge
             colour={
-              goalBuddy.isAccountabilityPartner ? 'bg-amber-600' : 'invisible'
+              goalBuddy.isAccountabilityPartner ? 'bg-yellow-400' : 'invisible'
             }
           />
           <RoleBadge
