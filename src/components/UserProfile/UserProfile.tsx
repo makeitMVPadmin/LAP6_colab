@@ -147,7 +147,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
   return (
     <div className="h-[100%]  text-[14px]">
-      <div className="h-[15%] bg-yellow-300 relative">
+      <div className="h-[15%] bg-yellow-300 relative rounded">
         <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage

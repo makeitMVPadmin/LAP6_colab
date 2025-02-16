@@ -15,7 +15,7 @@ interface ModalProps {
 const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
   return (
     <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
-      <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0">
+      <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0 rounded">
         <DialogTitle></DialogTitle>
         <div className="flex flex-col w-[55%] pt-0 pl-0">
           <UserProfile userId={userId} />

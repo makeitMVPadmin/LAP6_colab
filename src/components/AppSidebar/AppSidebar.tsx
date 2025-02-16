@@ -37,7 +37,7 @@ export function AppSidebar() {
     null,
   )
   const [modalOpen, setModalOpen] = React.useState(false)
-  //const userId = '1KL05hixbzlvikTNILWv'
+
 const context = useContext(IdContext);
 const userId = context?.userId;
 
