@@ -13,7 +13,7 @@ interface filterProps {
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     return (
-        <Card className={cn("w-52 h-44 pb-0 border-black border-b-2 border-r-2")}>
+        <Card className={cn("w-64 h-44 pb-0 border-black border-b-2 border-r-2")}>
             <CardHeader className={cn("pt-2 pr-4")}>
             <CardDescription 
                 className={cn("text-right text-sm font-light m-0 cursor-pointer")}
@@ -22,33 +22,34 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
             </CardHeader>
             <CardContent className={cn("flex flex-col gap-4 pr-4 pl-4 pb-0")}>
                 <div className="flex flex-row justify-between relative">
-                    <CardDescription>
+                    <label className="p-0">
                         <span className="h-3 w-3 mr-1 inline-block align-center bg-blue-600"></span>
                         Mentor
-                    </CardDescription>
+                    </label>
                     <Checkbox 
+                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
                         checked={filter.mentor}
                         onClick={() => {filterGoalBuddies('mentor')}}>
                     </Checkbox>
-                    <span className="w-full border-b border-slate-700 absolute top-6"></span>
                 </div>
                 <div className="flex flex-row justify-between relative">
-                    <CardDescription>
+                    <label className="p-0">
                         <span className="h-3 w-3 mr-1 inline-block align-center bg-orange-600"></span>
                         Goal Buddy
-                    </CardDescription>
+                    </label>
                     <Checkbox 
+                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
                         checked={filter.accountability}
                         onClick={() => {filterGoalBuddies('accountability')}}>
                     </Checkbox>
-                    <span className="w-full border-b border-slate-700 absolute top-6"></span>
                 </div>
                 <div className="flex flex-row justify-between">
-                    <CardDescription>
+                    <label className="p-0">
                         <span className="h-3 w-3 mr-1 inline-block align-center bg-green-600"></span>
                         Networking
-                    </CardDescription>
+                    </label>
                     <Checkbox 
+                        className={cn("h-5 w-5 border-2 border-slate-600 rounded-sm")}
                         checked={filter.networking}
                         onClick={() => {filterGoalBuddies('networking')}}>
                     </Checkbox>
