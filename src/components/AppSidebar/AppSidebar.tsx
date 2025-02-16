@@ -8,13 +8,14 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
 import { GoalBuddy, User } from '@/types/types'
 import './AppSidebar.css'
 import UserprofileModal from '../Modal/UserprofileModal'
+import { IdContext } from '../context/IdContext'
 const items = [
   {
     title: 'My Profile',
@@ -36,14 +37,17 @@ export function AppSidebar() {
     null,
   )
   const [modalOpen, setModalOpen] = React.useState(false)
-  const userId = '1KL05hixbzlvikTNILWv'
+  //const userId = '1KL05hixbzlvikTNILWv'
+const context = useContext(IdContext);
+const userId = context?.userId;
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [userResponse, goalBuddyResponse] = await Promise.all([
-          getUserById(userId),
-          getGoalBuddyByUserId(userId),
+          getUserById(userId as string),
+          getGoalBuddyByUserId(userId as string),
         ])
         setUserData(userResponse)
         setGoalBuddyData(goalBuddyResponse)
