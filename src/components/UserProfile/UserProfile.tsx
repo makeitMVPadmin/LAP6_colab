@@ -87,13 +87,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   }
   const handleInterestAndBioClick = async () => {
     if (!editData.selectedInterests) {
-      console.error('selectedInterests is undefined. Setting it to an empty array.');
-      editData.selectedInterests = []; 
+      console.error(
+        'selectedInterests is undefined. Setting it to an empty array.',
+      )
+      editData.selectedInterests = []
     }
-  
+
     if (!goalBuddyData?.id) {
-      console.error('goalBuddyData.id is missing');
-      return;
+      console.error('goalBuddyData.id is missing')
+      return
     }
     if (editData.isEditing === false) {
       setEditData({ ...editData, isEditing: true, buttonText: 'Save Changes' })
@@ -213,7 +215,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
         <article className="flex w-[90%] justify-end">
           <button
-            className="border bg-blue-600 px-[10px] py-[5px] mt-1 rounded text-sm text-white"
+            className={`border bg-blue-600 px-[10px] py-[5px] mt-1 rounded text-sm text-white ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
             type="button"
             onClick={handleInterestAndBioClick}
           >
