@@ -1,0 +1,16 @@
+/*Applies media queries for mobile and tablet breakpoints.
+@author[Rediet]*/
+
+@import './variables';
+
+@mixin mobile {
+  @media screen and (min-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
