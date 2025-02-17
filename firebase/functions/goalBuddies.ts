@@ -7,6 +7,10 @@ import { GoalBuddy, BaseGoalBuddy } from '../../src/types/types'
  * @author [Fangfang]
  *
  */
+
+/*modified to handle case where getDocs returns an empty list, and the function returns an empty array to caller
+@author[Jeffrey]*/
+
 export default async function getAllGoalBuddies(): Promise<GoalBuddy[]> {
   try {
     const querySnapshot = await getDocs(collection(db, 'goal_buddies'))

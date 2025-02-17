@@ -7,6 +7,9 @@ Fetch and return an array of User objects from the users collection
 @author[Katrina]
 */
 
+/*modified to handle case where getDocs returns an empty list, and the function returns an empty array to caller
+@author[Jeffrey]*/
+
 export const getAllUsers = async (): Promise<User[]> => {
   try {
 

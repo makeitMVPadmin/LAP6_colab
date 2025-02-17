@@ -1,6 +1,9 @@
 /*GetEvents by unique Id
 @author[Aparna]*/
 
+/*modified to handle case where getDoc returns an unexisting doc
+@author[Jeffrey]*/
+
 import { doc, getDoc } from 'firebase/firestore'
 import { BaseEvents, CalendarEvents } from '../../src/types/types'
 import { db } from '../firebase'

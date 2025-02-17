@@ -12,6 +12,10 @@ Description:get All calendar Events by inviteeUserIds and
 we should filter events to only include those that occur on or after the specified date.
 @author[Aparna]*/
 
+/*modified to handle case where getDocs returns an empty list from all results in the Promise.all, and return an empty array to caller function
+Also modified to rethrow the error to caller in cases where getDocs return an error
+@author[Jeffrey]*/
+
 export async function getUserEvents(
   userId: string,
   date?: Timestamp,

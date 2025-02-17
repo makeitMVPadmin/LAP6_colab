@@ -3,6 +3,9 @@ import { db } from '../firebase'
 //** Description: Creating data in the calendarEvents
 // @author[Aparna] */
 
+/*modified to rethrow error to caller function
+@author[Jeffrey]*/
+
 export interface EventData {
   createdUserId: string
   eventDescription: string

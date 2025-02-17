@@ -44,6 +44,49 @@ export default function ColabPage() {
     }
 
     fetchGoalBuddiesCombinedWithUser()
+
+    try {
+      // const data = await getByEventId("0Qif3cH9YsOuupBL")
+      // const data = await getByEventId("0Qif3cH9YsOuupBLF3F2")
+      // const data = await getAllCalendarEvents()
+      // const data = await getUserEvents("7jsNQRJEJKdUVovYogsg")
+      // const data = await getUserEvents("hAOPiISWKSZdbrhxoCPE")
+      // const data = await getUserEvents("5Wa8Y1pRGq1p0AsgUA3D")
+      // const data = await getUserEvents("6eV0qsdAeQ9EJbMGOGIK")
+      // const data = await getUserEvents("Pkv7GziP1FUFyuMqvAzR")
+      // const christmas: Date = new Date(2023, 12, 25, 0, 0);
+      // const christmasEnd: Date = new Date(2023, 12, 25, 0, 30);
+      // const timeInput: Timestamp = Timestamp.fromDate(christmas)
+      // const timeInputEnd: Timestamp = Timestamp.fromDate(christmasEnd)
+      // const eventData: EventData = {
+      //         createdUserId: "Pkv7GziP1FUFyuMqvAzR",
+      //         eventDescription: 'Meeting made for DB Test',
+      //         eventStartTime: timeInput.toDate(),
+      //         eventEndTime: timeInputEnd.toDate(),
+      //         eventTitle: 'DB Test',
+      //         invitedUserId: "pSuTJe464b8q86l6whPM",
+      //         eventStatus: 'confirmed',
+      //         googleEventId: 'google-event-id-123',
+      //       }
+      // const data = await createCalendarEvent(eventData)
+      // const data = await getUserEvents("7jsNQRJEJKdUVovYogsg", timeInput)
+      // const data = await getUserEvents("hAOPiISWKSZdbrhxoCPE", timeInput)
+      // const data = await getUserEvents("6eV0qsdAeQ9EJbMGOGIK", timeInput)
+      // const data = await getUserEvents("5Wa8Y1pRGq1p0AsgUA3D", timeInput)
+      // const data = await getUserEvents("Pkv7GziP1FUFyuMqvAzR", timeInput)
+      // const data = await editGoalBuddy("5Wa8Y1pRGq1p0AsgUA3D", {isMentor: true} );
+      // const data = await getAllUsers()
+      // const data = await getGoalBuddyById("5Wa8Y1pRGq1p0AsgUA3D")
+      // const data = await getGoalBuddyById("5Wa8Y1pRGq1p0Asg")
+      // const data = await getGoalBuddyByUserId("Pkv7GziP1FUFyuMqvAzR")
+      // const data = await getGoalBuddyByUserId("Pkv7GziP1FUFyuMq")
+      // const data = await getUserById("Pkv7GziP1FUFyuMqvAzR")
+      // const data = await getUserById("Pkv7GziP1FUFyuMq")
+      // const data = await getAllGoalBuddies()
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   const filterGoalBuddies = (choice: string) => {

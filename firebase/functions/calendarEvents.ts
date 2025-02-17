@@ -4,6 +4,9 @@ import { BaseEvents, CalendarEvents } from '../../src/types/types'
 /* Description:Function to get All Calendar events from database
 @author[Aparna]*/
 
+/*modified to handle case where getDocs returns an empty list, and the function returns an empty array to caller
+@author[Jeffrey]*/
+
 export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, 'calendar_events'))
