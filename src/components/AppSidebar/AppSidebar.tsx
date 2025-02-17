@@ -14,7 +14,7 @@ import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
 import { GoalBuddy, User } from '@/types/types'
 import './AppSidebar.css'
-import UserprofileModal from '../Modal/UserprofileModal'
+import UserProfileModal from '../UserProfileModal/UserProfileModal'
 import { IdContext } from '../context/IdContext'
 import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
@@ -117,7 +117,7 @@ export function AppSidebar() {
       </div>
 
       {modalOpen && (
-        <UserprofileModal
+        <UserProfileModal
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
           userId={userId || ''}

@@ -20,8 +20,7 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userI
           <UserProfile userId={userId} />
         </div>
         <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
-          <BookingCalendar />
-          <EventBox />
+            
         </div>
       </DialogContent>
     </Dialog>
