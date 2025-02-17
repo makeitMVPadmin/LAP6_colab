@@ -73,14 +73,13 @@ export default function ColabPage() {
     applyFilter()
   }, [filter])
 
-  const renderGoalBuddies = (goalBuddies: any[]) => {
-    goalBuddies = goalBuddies.map((goalBuddyWithUser) => (
+  const renderGoalBuddies = (goalBuddies: AllGoalBuddyData[]): React.ReactNode => {
+    return goalBuddies.map((goalBuddyWithUser) => (
       <GoalBuddyCard
         key={goalBuddyWithUser.id}
         goalBuddy={goalBuddyWithUser}
       />
     ))
-    return goalBuddies
   }
 
   return (
