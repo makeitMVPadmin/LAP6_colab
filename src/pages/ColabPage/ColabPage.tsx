@@ -42,6 +42,7 @@ export default function ColabPage() {
     fetchGoalBuddiesCombinedWithUser()
   }, [])
 
+
   const filterGoalBuddies = (choice: string) => {
     setFilter((prevFilter) => {
       const newFilter = { ...prevFilter }
@@ -86,7 +87,10 @@ export default function ColabPage() {
     <main>
       <Layout>
         <div
-          className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
+          className={clsx(
+            'flex justify-center',
+      
+          )}
         >
           <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">

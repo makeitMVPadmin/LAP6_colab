@@ -9,18 +9,18 @@ export const getGoalBuddyByUserId = async (
   userId: string,
 ): Promise<GoalBuddy | null> => {
   try {
-    const goalBuddyDocRef = query(
+    const goalBuddyQuery = query(
       collection(db, 'goal_buddies'),
       where('userId', '==', userId),
     )
-    const goalBuddyDoc = await getDocs(goalBuddyDocRef)
+    const goalBuddyDoc = await getDocs(goalBuddyQuery)
     if (goalBuddyDoc.empty) {
       throw new Error('No goal buddy found with this user ID')
     }
     const goalBuddyData = goalBuddyDoc.docs[0].data()
-    return goalBuddyData as GoalBuddy
-  } catch (err) {
-    console.error('Error fetching goal buddy by ID', err)
-    throw err
+    return { id: goalBuddyDoc.docs[0].id, ...goalBuddyData } as GoalBuddy
+  } catch (error) {
+    console.error("Couldn't find goal buddy")
+    throw error
   }
 }
