@@ -82,7 +82,7 @@ export function AppSidebar() {
             <SidebarGroup className="items-center mt-2">
               <Avatar className="w-12 h-12 mt-2 mb-4">
                 <AvatarFallback className="bg-[#B7D9B9]" />
-                <AvatarImage
+                <AvatarImage className=' w-full'
                   src={userData ? userData.profilePhoto : ''}
                   alt="@shadcn"
                 />
