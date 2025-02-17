@@ -62,7 +62,7 @@ export function AppSidebar() {
   return (
     <>
       <div className="w-screen max-h-screen relative z-50">
-        <Sidebar className="w-[25%] absolute  top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
+        <Sidebar className="w-[20%] absolute  top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0">
             <div className="h-[50%] bg-yellow-400">
               <button
