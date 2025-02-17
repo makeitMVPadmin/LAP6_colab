@@ -87,19 +87,17 @@ export default function ColabPage() {
         <div
           className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
         >
+        <Filter 
+          filterGoalBuddies={filterGoalBuddies} 
+          filter={filter}
+        />
           {isLoading ? (
             <p>Loading goal buddies data...</p>
               ) : (
-            <section className="flex">
-              <Filter 
-                filterGoalBuddies={filterGoalBuddies} 
-                filter={filter}
-              />
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
                 {renderGoalBuddies(filteredGoalBuddies.length > 0 
                 ? filteredGoalBuddies : goalBuddiesCombinedWithUsers)}
               </div>
-            </section>
           )}
         </div>
       </Layout>
