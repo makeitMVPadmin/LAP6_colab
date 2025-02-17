@@ -57,9 +57,8 @@ export function AppSidebar() {
   }, [userId])
 
   const handleClick = (title: string) => {
-    if (title === 'My Profile') setModalOpen(!modalOpen)
+    if (title === 'Profile') setModalOpen(!modalOpen)
   }
-
   return (
     <>
       <div className="w-screen max-h-screen relative z-50">
