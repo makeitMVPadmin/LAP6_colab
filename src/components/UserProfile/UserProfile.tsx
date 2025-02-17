@@ -156,8 +156,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           />
         </Avatar>
       </div>
-
-      <div className=" mt-2 flex flex-col pl-3 font-semibold ">
+<div>
+      <div className="mt-2 flex flex-col pl-3 font-semibold ">
         <label>
           First Name: <span className="font-light">{userData?.firstName}</span>
         </label>
@@ -237,6 +237,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           </button>
         </article>
       </form>
+      </div>
     </div>
   )
 }
