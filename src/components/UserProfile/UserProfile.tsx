@@ -123,10 +123,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           isNetworking: editData?.selectedInterests.includes('Networking'),
         }
         const response = await editGoalBuddy(goalBuddyData?.id, updatedData)
-        if (response.message === 'success') {
-          console.log(response)
-          console.log('Goal Buddy updated successfully')
-        }
+      
         setTimeout(() => {
           setEditData({ ...editData, isEditing: false, buttonText: 'Edit' })
         }, 1500)
