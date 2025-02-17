@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
@@ -26,11 +26,11 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const [userData, setUserData] = React.useState<User | null>(null)
-  const [goalBuddyData, setGoalBuddyData] = React.useState<GoalBuddy | null>(
+  const [userData, setUserData] = useState<User | null>(null)
+  const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(
     null,
   )
-  const [modalOpen, setModalOpen] = React.useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const context = useContext(IdContext)
   const userId = context?.userId
@@ -121,6 +121,8 @@ export function AppSidebar() {
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
           userId={userId || ''}
+          goalBuddyData={goalBuddyData}
+          updateGoalBuddyData={setGoalBuddyData}
         />
       )}
     </>

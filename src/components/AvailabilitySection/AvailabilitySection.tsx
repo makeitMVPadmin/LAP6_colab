@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Availabilities, TimePeriod, AllGoalBuddyData, DayOfWeek } from "@/types/types";
+import { Availabilities, TimePeriod, GoalBuddy, DayOfWeek } from "@/types/types";
 import { editGoalBuddy } from "../../../firebase/functions/editGoalBuddy";
 import { Button } from "@/components/ui/button";
 import DaySelection from "../DaySelection/DaySelection";
@@ -7,7 +7,8 @@ import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from 
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
 
 interface AvailabilitySectionProps {
-    activeGoalBuddy: AllGoalBuddyData;
+    activeGoalBuddy: GoalBuddy,
+    updateGoalBuddy: (data: GoalBuddy) => void
 }
 
 interface AvailabilityErrors {
@@ -17,7 +18,7 @@ interface AvailabilityErrors {
     errorsExist: boolean;
 }
 
-const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBuddy }) => {
+const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBuddy, updateGoalBuddy }) => {
   // Set state variables
     const [availability, setAvailability] = useState<Availabilities[]>(activeGoalBuddy.availabilities);
     const [selectedDay, setSelectedDay] = useState<DayOfWeek | null>(null);
@@ -129,6 +130,14 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             setAvailability(updatedAvailabilities);
             setBackendError("");
             setConfirmationState(true);
+
+            // Update the goal buddy data for page rerender
+            const updatedGoalBuddy: GoalBuddy = {
+                ...activeGoalBuddy,
+                availabilities: updatedAvailabilities
+            };
+            updateGoalBuddy(updatedGoalBuddy);
+            
         } catch (error) {
             // Show error state
             setBackendError(`Something went wrong with updating your availability. ${error} Please try again.`);
