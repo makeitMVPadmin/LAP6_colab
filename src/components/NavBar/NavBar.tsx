@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Avatar, AvatarFallback } from '../ui/avatar'
-import CommunitiLogo from '../../assets/logo/Communiti Logo.png'
+import CommunitiLogo from '../../assets/Logo/communiti_logo.png'
 import { SidebarContext } from '@/components/context/SidebarContext'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
 import clsx from 'clsx'
@@ -10,7 +10,8 @@ const NavBar: React.FC = () => {
   const navigate = useNavigate()
 
   const handleLogoClick = () => {
-    navigate('/')
+    navigate('/', { replace: true })
+    window.location.reload()
   }
 
   const sideBarContext = useContext(SidebarContext)
