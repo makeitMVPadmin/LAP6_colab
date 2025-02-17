@@ -88,7 +88,6 @@ export default function ColabPage() {
         <div
           className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
         >
-<<<<<<< HEAD
           <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
@@ -110,35 +109,6 @@ export default function ColabPage() {
                 ? filteredGoalBuddies : goalBuddiesCombinedWithUsers
               )}
           </div>
-=======
-          {isLoading ? (
-            Array.from({ length: 9 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl flex p-3"
-              >
-                <Skeleton className="w-16 h-16 rounded-full m-2" />
-                <div className="space-y-2 flex flex-col justify-center w-7/12">
-                  <Skeleton className="h-8 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                </div>
-              </Skeleton>
-            ))
-              ) : (
-            <section className="flex">
-              <Filter 
-                filterGoalBuddies={filterGoalBuddies} 
-                filter={filter}
-              />
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
-                {renderGoalBuddies(filteredGoalBuddies.length > 0 
-                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers)}
-              </div>
-            </section>
-          )}
->>>>>>> c11a50f3baa4bf441c05cca3312cffcf0ca9e287
         </div>
       </Layout>
     </main>
