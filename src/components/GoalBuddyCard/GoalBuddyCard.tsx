@@ -32,7 +32,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
         </Avatar>
       </CardHeader>
       <CardContent className="flex-1 flex-col justify-center p-4 w-11/12 relative">
-        <div className="flex justify-end absolute top-0 right-0 p-2 mx-1 space-x-2">
+        <div className="flex justify-end absolute top-0 right-0 p-2 mx-1 ">
           <RoleBadge
             colour={goalBuddy.isMentor ? 'bg-blue-600' : 'invisible'}
           />
