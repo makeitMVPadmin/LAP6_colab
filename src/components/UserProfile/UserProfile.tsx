@@ -123,6 +123,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           isNetworking: editData?.selectedInterests.includes('Networking'),
         }
         const response = await editGoalBuddy(goalBuddyData?.id, updatedData)
+
+        if(response){
+          // use response to get rid of build error
+        }
       
         setTimeout(() => {
           setEditData({ ...editData, isEditing: false, buttonText: 'Edit' })
