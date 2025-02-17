@@ -42,6 +42,7 @@ export default function ColabPage() {
     fetchGoalBuddiesCombinedWithUser()
   }, [])
 
+
   const filterGoalBuddies = (choice: string) => {
     setFilter((prevFilter) => {
       const newFilter = { ...prevFilter }
@@ -72,49 +73,45 @@ export default function ColabPage() {
     applyFilter()
   }, [filter])
 
-  const renderGoalBuddies = (goalBuddies: any[]) => {
-    goalBuddies = goalBuddies.map((goalBuddyWithUser) => (
+  const renderGoalBuddies = (goalBuddies: AllGoalBuddyData[]): React.ReactNode => {
+    return goalBuddies.map((goalBuddyWithUser) => (
       <GoalBuddyCard
         key={goalBuddyWithUser.id}
         goalBuddy={goalBuddyWithUser}
       />
     ))
-    return goalBuddies
   }
 
   return (
     <main>
       <Layout>
         <div
-          className={clsx('flex justify-center', isSidebarOpen && 'bg-black')}
-        >
-          {isLoading ? (
-            Array.from({ length: 9 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl flex p-3"
-              >
-                <Skeleton className="w-16 h-16 rounded-full m-2" />
-                <div className="space-y-2 flex flex-col justify-center w-7/12">
-                  <Skeleton className="h-8 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                  <Skeleton className="h-4 max-w-[200px]" />
-                </div>
-              </Skeleton>
-            ))
-              ) : (
-            <section className="flex">
-              <Filter 
-                filterGoalBuddies={filterGoalBuddies} 
-                filter={filter}
-              />
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
-                {renderGoalBuddies(filteredGoalBuddies.length > 0 
-                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers)}
-              </div>
-            </section>
+          className={clsx(
+            'flex justify-center',
+      
           )}
+        >
+          <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
+            {isLoading
+              ? Array.from({ length: 9 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="min-w-60 max-w-96 min-h-[150px] m-4 rounded-xl flex p-3"
+                  >
+                    <Skeleton className="w-16 h-16 rounded-full m-2" />
+                    <div className="space-y-2 flex flex-col justify-center w-7/12">
+                      <Skeleton className="h-8 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                      <Skeleton className="h-4 max-w-[200px]" />
+                    </div>
+                  </Skeleton>
+                ))
+              : renderGoalBuddies(filteredGoalBuddies.length > 0
+                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers
+              )}
+          </div>
         </div>
       </Layout>
     </main>
