@@ -7,11 +7,11 @@ import {
   Availabilities,
   TimePeriod,
   Time,
+  EventData,
 } from '@/types/types'
 import { getUserEvents } from '../../../firebase/functions/calendarEventsbyUserId'
 import {
   createCalendarEvent,
-  EventData,
 } from '../../../firebase/functions/createCalendarEvent'
 import { Timestamp } from 'firebase/firestore'
 import {

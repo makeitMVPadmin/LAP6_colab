@@ -1,21 +1,12 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { EventData } from '@/types/types'
 //** Description: Creating data in the calendarEvents
 // @author[Aparna] */
 
 /*modified to rethrow error to caller function
 @author[Jeffrey]*/
 
-export interface EventData {
-  createdUserId: string
-  eventDescription: string
-  eventStartTime: Date
-  eventEndTime: Date
-  eventTitle: string
-  invitedUserId: string
-  eventStatus: 'confirmed' | 'pending' | 'canceled'
-  googleEventId: string
-}
 export async function createCalendarEvent(
   eventData: EventData,
 ): Promise<object | null> {
