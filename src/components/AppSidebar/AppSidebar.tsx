@@ -91,7 +91,7 @@ export function AppSidebar() {
                 </div>
                 <div> {userData?.discipline}</div>
                 <div>
-                  {goalBuddyData?.skills.map((skill) => <span>#{skill} </span>)}
+                  {goalBuddyData?.skills.map((skill,index) => <span key={index}>#{skill} </span>)}
                 </div>
                 <SidebarMenu className="mt-1 items-center">
                   {items.map((item) => (

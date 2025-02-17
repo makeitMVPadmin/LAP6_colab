@@ -156,7 +156,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           />
         </Avatar>
       </div>
-<div>
+<div className="h-[85%]">
       <div className="mt-2 flex flex-col pl-3 font-semibold ">
         <label>
           First Name: <span className="font-light">{userData?.firstName}</span>
@@ -215,7 +215,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           })}
           {errInterest && <p className='text-md font-light m-0 text-red-600'>There should be one checkbox clicked</p>}
         </section>
-        <section className=" border border-gray-400 shadow-md rounded h-[32%] w-[90%] mt-3 pl-3 pt-1">
+        <section className=" border border-gray-400 shadow-md rounded h-[40%] w-[90%] mt-3 pl-3 pt-1">
           <h2 className="p-0 font-semibold">About</h2>
           <textarea
             value={editData.bio ? editData.bio : ''}
