@@ -20,8 +20,8 @@ import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
 const items = [
   {
-    title: 'My Profile',
-    url: '#',
+    title: 'Profile',
+
   },
 ]
 
@@ -63,57 +63,58 @@ export function AppSidebar() {
   return (
     <>
       <div className="w-screen max-h-screen relative z-50">
-        <Sidebar className="w-[250px] absolute h-[70%] top-[1%] right-7 rounded-xl shadow-md p-2 bg-white">
-          
-          <SidebarContent className="h-[40%] bg-yellow-600  gap-0">
-          <button
-            className={clsx('text-red-600 text-left pl-3')}
-            onClick={() => setIsSideBarOpen(!isSidebarOpen)}
-          >
-            X
-          </button>
-            <SidebarGroup className="items-center mt-0">
-              <Avatar className="w-20 h-20 mt-2 mb-2">
-                <AvatarFallback className="bg-[#B7D9B9]" />
-                <AvatarImage
-                  className=" w-full"
-                  src={userData ? userData.profilePhoto : ''}
-                  alt="@shadcn"
-                />
-              </Avatar>
-              <div className="text-lg font-bold">
-                {userData && (
-                  <>
-                    {userData.firstName} {userData.lastName}
-                  </>
+        <Sidebar className="w-[25%] absolute  top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
+          <SidebarContent className="gap-0">
+            <div className="h-[50%] bg-yellow-400">
+              <button
+                className={clsx(
+                  'text-red-600 text-left pl-3 pt-1 font-semibold',
                 )}
-              </div>
-              <div> {userData?.discipline}</div>
-              <div>
-                {goalBuddyData?.skills.map((skill) => <span>#{skill} </span>)}
-              </div>
-              <SidebarMenu className="mt-1 items-center">
-                {items.map((item) => (
-                  <SidebarMenuItem
-                    key={item.title}
-                    className="border w-[180px] rounded-full bg-white hover:bg-gray-200 transition duration-200 shadow-lg border-0"
-                  >
-                    <SidebarMenuButton asChild>
-                      <a
-                        href={item.url}
-                        onClick={() => handleClick(item.title)}
-                      >
-                        <span className="">{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroup>
+                onClick={() => setIsSideBarOpen(!isSidebarOpen)}
+              >
+                X
+              </button>
+              <SidebarGroup className="items-center mt-2 ">
+                <Avatar className="w-20 h-20 mt-2 mb-2">
+                  <AvatarFallback className="bg-[#B7D9B9]" />
+                  <AvatarImage
+                    className=" w-full"
+                    src={userData ? userData.profilePhoto : ''}
+                    alt="@shadcn"
+                  />
+                </Avatar>
+                <div className="text-lg font-bold">
+                  {userData && (
+                    <>
+                      {userData.firstName} {userData.lastName}
+                    </>
+                  )}
+                </div>
+                <div> {userData?.discipline}</div>
+                <div>
+                  {goalBuddyData?.skills.map((skill) => <span>#{skill} </span>)}
+                </div>
+                <SidebarMenu className="mt-1 items-center">
+                  {items.map((item) => (
+                    <SidebarMenuItem
+                      key={item.title}
+                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border border-gray-600"
+                    >
+                      <SidebarMenuButton asChild>
+                        <a onClick={() => handleClick(item.title)}>
+                          <span >
+                            {item.title}
+                          </span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroup>
+            </div>
+            <div className="bg-blue-600 h-[50%]"></div>
           </SidebarContent>
-          <div className='bg-blue-600 h-[50%]'></div>
         </Sidebar>
-     
       </div>
 
       {modalOpen && (
