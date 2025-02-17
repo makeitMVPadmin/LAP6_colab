@@ -23,7 +23,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
             <CardContent className={cn("flex flex-col gap-4 pr-4 pl-4 pb-0")}>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour={"bg-blue-600"} />
+                        <RoleBadge colour={"blue-600"} />
                         Mentor
                     </label>
                     <span 
@@ -35,7 +35,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour={"bg-amber-500"} />Goal Buddy
+                        <RoleBadge colour={"#amber-500"} />Goal Buddy
                     </label>
                     <span 
                         className={filter.accountability
@@ -46,7 +46,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between">
                     <label>
-                    <RoleBadge colour={"bg-green-600"} />
+                    <RoleBadge colour={"green-600"} />
                         Networking
                     </label>
                     <span 
