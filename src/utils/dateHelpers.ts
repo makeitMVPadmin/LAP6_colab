@@ -1,6 +1,6 @@
 // Date Helpers Functions
 
-import { Availabilities, CalendarEvents } from "@/types/types";
+import { Availabilities, CalendarEvents, Time } from "@/types/types";
 import { Timestamp } from "firebase/firestore";
 
 // Function to convert the day number returned from Date's .getDay() to a string
@@ -45,3 +45,30 @@ export function isExistingStartTime(timestamp: Timestamp, meetings: CalendarEven
     if (!meetings) return false;
     return meetings.some((meeting) => meeting.eventStartTime.seconds === timestamp.seconds);
 }
+
+// Function to update the availability for a specific day
+// author: Katrina
+export function updateAvailabilityForDay(newAvailability: Availabilities, availabilities: Availabilities[]): Availabilities[] {
+    const updatedAvailabilities = availabilities.map((availability) => {
+        if (availability.day === newAvailability.day) {
+            return newAvailability;
+        }
+        return availability;
+    });
+    return updatedAvailabilities;
+}
+
+// Function to convert a time string "hh:mm" to a Time object
+// author: Katrina
+export function createTimeFromStrings(timeString: string): Time{
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return {hours: hours, minutes: minutes};
+}
+
+// Function to format the Time object as a string "hh:mm"
+// author: Katrina
+export function formatTimeString(time: {hours: number, minutes: number}): string {
+    const hours = time.hours.toString().padStart(2, '0');
+    const minutes = time.minutes.toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+};

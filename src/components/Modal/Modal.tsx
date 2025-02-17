@@ -1,6 +1,4 @@
 import React from 'react';
-import BookingCalendar from "../BookingCalendar/BookingCalendar";
-import EventBox from '../EventBox/EventBox';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -45,8 +43,7 @@ const Modal: React.FC = () => {
         </div>
         <div className="flex flex-col items-center w-[65%] mb-2 pl-3 pt-3 space-y-4">
           <div className="w-8/12 h-4 mt-3 mb-1 bg-[#757575]"></div>
-          <BookingCalendar />
-          <EventBox />
+          
         </div>
       </DialogContent>
     </Dialog>
