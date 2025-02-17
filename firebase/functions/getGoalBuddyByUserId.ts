@@ -1,4 +1,3 @@
-import React from 'react'
 import { db } from '../firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { GoalBuddy } from '../../src/types/types'

@@ -10,8 +10,11 @@ export type Time = {
   minutes: number
 }
 
+// Define a type for the days of the week
+export type DayOfWeek = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
+
 export type Availabilities = {
-  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday',
+  day: DayOfWeek,
   timePeriod: TimePeriod[]
 }
 

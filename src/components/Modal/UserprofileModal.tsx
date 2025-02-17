@@ -1,7 +1,6 @@
 import React from 'react'
 import BookingCalendar from '../BookingCalendar/BookingCalendar'
 import EventBox from '../EventBox/EventBox'
-
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '@radix-ui/react-dialog'
