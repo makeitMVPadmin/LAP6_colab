@@ -5,7 +5,7 @@
   }
   
   .scrollbar-hidden {
-    -ms-overflow-style: none; /* For Internet Explorer 10+ */
-    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
   
