@@ -117,7 +117,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       try {
         const updatedData = {
           bio: editData?.bio,
-          height:"",
           isAccountabilityPartner:
             editData?.selectedInterests.includes('GoalBuddy'),
           isMentor: editData?.selectedInterests.includes('Mentor'),
