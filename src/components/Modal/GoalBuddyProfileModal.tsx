@@ -27,7 +27,7 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
         <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
-          <BookingCalendar />
+          <BookingCalendar selectedDate={new Date()} setDate={() => {}} />
           <EventBox />
         </div>
       </DialogContent>
