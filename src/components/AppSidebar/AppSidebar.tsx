@@ -8,91 +8,121 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
 import { GoalBuddy, User } from '@/types/types'
 import './AppSidebar.css'
+import UserprofileModal from '../Modal/UserprofileModal'
+import { IdContext } from '../context/IdContext'
+import clsx from 'clsx'
+import { SidebarContext } from '../context/SidebarContext'
 const items = [
   {
-    title: 'My Profile',
-    url: '#',
-  },
-  {
-    title: 'NetWork',
-    url: '#',
-  },
-  {
-    title: 'Events',
-    url: '#',
+    title: 'Profile',
+
   },
 ]
 
 export function AppSidebar() {
   const [userData, setUserData] = React.useState<User | null>(null)
-  const [goalBuddyData, setGoalBuddyData] = React.useState<GoalBuddy | null>(null)
+  const [goalBuddyData, setGoalBuddyData] = React.useState<GoalBuddy | null>(
+    null,
+  )
+  const [modalOpen, setModalOpen] = React.useState(false)
+
+  const context = useContext(IdContext)
+  const userId = context?.userId
+  const sidebarContext = useContext(SidebarContext)
+  if (!sidebarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen, setIsSideBarOpen } = sidebarContext
+
   useEffect(() => {
-    const getUserData = async (userId: string) => {
+    const fetchData = async () => {
       try {
-        const userResponse = await getUserById(userId)
+        const [userResponse, goalBuddyResponse] = await Promise.all([
+          getUserById(userId as string),
+          getGoalBuddyByUserId(userId as string),
+        ])
         setUserData(userResponse)
-   
+        setGoalBuddyData(goalBuddyResponse)
       } catch (error) {
-        console.error('Failed to fetch userData data:', error)
+        console.error('Failed to fetch data', error)
       }
     }
-    const getGoalBuddyData = async (userId: string) => {
-      try{
-        const goalBuddyResponse=await getGoalBuddyByUserId(userId);
-        setGoalBuddyData(goalBuddyResponse);
-      }
-      catch(error){
-        console.error('Failed to fetch goalBuddy ',error)
-    }
-    }
-    getUserData('1KL05hixbzlvikTNILWv')
-    getGoalBuddyData('1KL05hixbzlvikTNILWv')
-  }, [])
+    fetchData()
+  }, [userId])
 
+  const handleClick = (title: string) => {
+    if (title === 'Profile') setModalOpen(!modalOpen)
+  }
   return (
-    <div className="w-[screen] h-screen flex justify-end">
-      <div className="bg-black w-[250px] max-h-[80%] relative overflow-hidden z-50">
-        <Sidebar className="w-[200px] absolute h-[90%] top-[10%] bg-white rounded-xl shadow-md">
-          <SidebarContent className="px-2">
-            <SidebarGroup className="items-center mt-2">
-              <Avatar className="w-12 h-12 mt-2 mb-4">
-                <AvatarFallback className="bg-[#B7D9B9]" />
-                <AvatarImage
-                  src={userData ? userData.profilePhoto : ''}
-                  alt="@shadcn"
-                />
-              </Avatar>
-              <div className="text-sm font-bold">
-                {' '}
-                {goalBuddyData? goalBuddyData.bio:<p className="bg-gray-200 text-red-900 p-2 rounded-lg  motion-safe:animate-bounce "> Please provide a small bio of yours</p>}
-              </div>
-
-              <SidebarGroupContent>
-                <SidebarMenu className="mt-6 items-center">
+    <>
+      <div className="w-screen max-h-screen relative z-50">
+        <Sidebar className="w-[20%] absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
+          <SidebarContent className="gap-0">
+            <div className="h-[50%] bg-yellow-400">
+              <button
+                className={clsx(
+                  'text-red-600 text-left pl-3 pt-1 font-semibold',
+                )}
+                onClick={() => setIsSideBarOpen(!isSidebarOpen)}
+              >
+                X
+              </button>
+              <SidebarGroup className="items-center mt-2 ">
+                <Avatar className="w-20 h-20 mt-2 mb-2">
+                  <AvatarFallback className="bg-[#B7D9B9]" />
+                  <AvatarImage
+                    className=" w-full"
+                    src={userData ? userData.profilePhoto : ''}
+                    alt="@shadcn"
+                  />
+                </Avatar>
+                <div className="text-lg font-bold">
+                  {userData && (
+                    <>
+                      {userData.firstName} {userData.lastName}
+                    </>
+                  )}
+                </div>
+                <div> {userData?.discipline}</div>
+                <div>
+                  {goalBuddyData?.skills.map((skill,index) => <span key={index}>#{skill} </span>)}
+                </div>
+                <SidebarMenu className="mt-1 items-center">
                   {items.map((item) => (
                     <SidebarMenuItem
                       key={item.title}
-                      className="border w-[180px] rounded-full bg-white hover:bg-gray-200 transition duration-200 mb-4 shadow-lg border-0"
+                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border border-gray-600"
                     >
                       <SidebarMenuButton asChild>
-                        <a href={item.url}>
-                          <span className="">{item.title}</span>
+                        <a onClick={() => handleClick(item.title)}>
+                          <span >
+                            {item.title}
+                          </span>
                         </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
                 </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
+              </SidebarGroup>
+            </div>
+            <div className="bg-blue-600 h-[50%]"></div>
           </SidebarContent>
         </Sidebar>
       </div>
-    </div>
+
+      {modalOpen && (
+        <UserprofileModal
+          setModalOpen={setModalOpen}
+          modalOpen={modalOpen}
+          userId={userId || ''}
+        />
+      )}
+    </>
   )
 }
