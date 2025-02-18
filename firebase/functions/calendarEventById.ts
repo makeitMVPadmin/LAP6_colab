@@ -1,6 +1,9 @@
 /*GetEvents by unique Id
 @author[Aparna]*/
 
+/*modified to handle case where getDoc returns an unexisting doc
+@author[Jeffrey]*/
+
 import { doc, getDoc } from 'firebase/firestore'
 import { BaseEvents, CalendarEvents } from '../../src/types/types'
 import { db } from '../firebase'
@@ -13,9 +16,13 @@ export const getByEventId = async (
     const eventDocRef = doc(db, 'calendar_events', eventId)
     const eventDoc = await getDoc(eventDocRef)
 
-    return {
-      id: eventDoc.id,
-      ...(eventDoc.data() as BaseEvents),
+    if (eventDoc.exists()) {
+      return {
+        id: eventDoc.id,
+        ...(eventDoc.data() as BaseEvents),
+      }
+    } else {
+      throw new Error(`Event with ID ${eventId} doesn't exist`)
     }
   } catch (err) {
     console.error('Error fetching event by ID', err)
