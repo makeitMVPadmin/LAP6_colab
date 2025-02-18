@@ -9,12 +9,15 @@ import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
+import GoalBuddyProfileModal from '@/components/Modal/GoalBuddyProfileModal'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
     useState<AllGoalBuddyData[] | []>([])
-  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<AllGoalBuddyData[]>([])
-  
+  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<
+    AllGoalBuddyData[]
+  >([])
+
   const [filter, setFilter] = useState({
     mentor: false,
     accountability: false,
@@ -42,7 +45,6 @@ export default function ColabPage() {
     fetchGoalBuddiesCombinedWithUser()
   }, [])
 
-
   const filterGoalBuddies = (choice: string) => {
     setFilter((prevFilter) => {
       const newFilter = { ...prevFilter }
@@ -60,11 +62,12 @@ export default function ColabPage() {
   }
 
   const applyFilter = () => {
-    const filtered = goalBuddiesCombinedWithUsers.filter(goalBuddy => {
-    const matchesMentor = filter.mentor && goalBuddy.isMentor
-    const matchesAccountability = filter.accountability && goalBuddy.isAccountabilityPartner
-    const matchesNetworking = filter.networking && goalBuddy.isNetworking
-    return matchesMentor || matchesAccountability || matchesNetworking
+    const filtered = goalBuddiesCombinedWithUsers.filter((goalBuddy) => {
+      const matchesMentor = filter.mentor && goalBuddy.isMentor
+      const matchesAccountability =
+        filter.accountability && goalBuddy.isAccountabilityPartner
+      const matchesNetworking = filter.networking && goalBuddy.isNetworking
+      return matchesMentor || matchesAccountability || matchesNetworking
     })
     setFilteredGoalBuddies(filtered)
   }
@@ -72,25 +75,33 @@ export default function ColabPage() {
   useEffect(() => {
     applyFilter()
   }, [filter])
+  //const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const[selectedGoalBuddy,setSelectedGoalBuddy]=useState<object|null>(null)
+  const handleClick = (goalBuddyWithUser:object) => {
+ setSelectedGoalBuddy(goalBuddyWithUser)
+  }
 
-  const renderGoalBuddies = (goalBuddies: AllGoalBuddyData[]): React.ReactNode => {
-    return goalBuddies.map((goalBuddyWithUser) => (
-      <GoalBuddyCard
-        key={goalBuddyWithUser.id}
-        goalBuddy={goalBuddyWithUser}
-      />
-    ))
+  const renderGoalBuddies = (
+    goalBuddies: AllGoalBuddyData[],
+  ): React.ReactNode => {
+    return goalBuddies.map((goalBuddyWithUser) => {
+      return (
+        <>
+          <GoalBuddyCard
+            key={goalBuddyWithUser.id}
+            goalBuddy={goalBuddyWithUser}
+            onClick={()=>handleClick(goalBuddyWithUser)}
+          />
+          {}
+        </>
+      )
+    })
   }
 
   return (
     <main>
       <Layout>
-        <div
-          className={clsx(
-            'flex justify-center',
-      
-          )}
-        >
+        <div className={clsx('flex justify-center')}>
           <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
@@ -108,10 +119,19 @@ export default function ColabPage() {
                     </div>
                   </Skeleton>
                 ))
-              : renderGoalBuddies(filteredGoalBuddies.length > 0
-                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers
-              )}
+              : renderGoalBuddies(
+                  filteredGoalBuddies.length > 0
+                    ? filteredGoalBuddies
+                    : goalBuddiesCombinedWithUsers,
+                )}
           </div>
+          {selectedGoalBuddy && (
+            <GoalBuddyProfileModal
+              isModalOpen={true}
+              setIsModalOpen={() => setSelectedGoalBuddy(null)}
+              goalBuddy={selectedGoalBuddy}
+            />
+          )}
         </div>
       </Layout>
     </main>

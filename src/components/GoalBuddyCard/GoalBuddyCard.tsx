@@ -7,9 +7,13 @@ import clsx from 'clsx'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
+  onClick: () => void
 }
 
-const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
+const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
+  goalBuddy,
+  onClick,
+}) => {
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
@@ -17,7 +21,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
   const { isSidebarOpen } = sideBarContext
   return (
     <Card
-      key={goalBuddy.userId}
+      key={goalBuddy.userId} onClick={onClick}
       className={clsx(
         'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-[#AAAAAA] cursor-pointer duration-150',
         !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open
