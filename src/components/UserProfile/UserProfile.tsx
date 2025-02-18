@@ -113,22 +113,25 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     if (editData.isEditing === false) {
       setEditData({ ...editData, isEditing: true, buttonText: 'Save Changes' })
     } else {
-      setEditData({ ...editData,isEditing:false, buttonText: 'Saved' })
+      
       try {
         const updatedData = {
           bio: editData?.bio,
+          height:"",
           isAccountabilityPartner:
             editData?.selectedInterests.includes('GoalBuddy'),
           isMentor: editData?.selectedInterests.includes('Mentor'),
           isNetworking: editData?.selectedInterests.includes('Networking'),
         }
+        setEditData({ ...editData,isEditing:false, buttonText: 'Saved' })
         await editGoalBuddy(goalBuddyData?.id, updatedData)
       
         setTimeout(() => {
           setEditData({ ...editData, isEditing: false, buttonText: 'Edit' })
         }, 1500)
+
       } catch (error) {
-        console.error('Error updating Goal Buddy details:', error)
+        console.error(error)
         setEditData({ ...editData, buttonText: 'Not Saved' })
         setTimeout(() => {
           setEditData({
@@ -137,7 +140,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             isEditing: false,
             buttonText: 'Edit',
           })
-        }, 1500)
+        }, 2000)
       }
     }
   }
@@ -226,7 +229,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
         <article className="flex w-[90%] justify-end">
           <button
-            className={`border bg-blue-600 px-[10px] py-[5px] mt-1 rounded text-sm text-white ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+            className={`bg-blue-600 px-[10px] py-[5px] mt-1 rounded text-sm text-white ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
             type="button"
             onClick={handleInterestAndBioClick}
           >
