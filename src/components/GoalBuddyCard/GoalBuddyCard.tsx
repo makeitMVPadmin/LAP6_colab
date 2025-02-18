@@ -33,17 +33,11 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
       </CardHeader>
       <CardContent className="flex-1 flex-col justify-center p-4 w-11/12 relative">
         <div className="flex justify-end absolute top-0 right-0 p-2 mx-1 ">
-          <RoleBadge
-            colour={goalBuddy.isMentor ? 'bg-blue-600' : 'invisible'}
-          />
-          <RoleBadge
-            colour={
-              goalBuddy.isAccountabilityPartner ? 'bg-yellow-400' : 'invisible'
-            }
-          />
-          <RoleBadge
-            colour={goalBuddy.isNetworking ? 'bg-green-600' : 'invisible'}
-          />
+          {goalBuddy.isMentor && <RoleBadge colour={'bg-[#0264D4]'} />}
+          {goalBuddy.isAccountabilityPartner && (
+            <RoleBadge colour={'bg-[#FFA629]'} />
+          )}
+          {goalBuddy.isNetworking && <RoleBadge colour={'bg-[#4CAF50]'} />}
         </div>
         <h1 className="font-semibold text-lg sm:text-xl md:text-2xl mt-2">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
         <span className="text-sm sm:text-base">{`${goalBuddy.discipline}`}</span>
