@@ -82,13 +82,13 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <section>
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
-                <p key={colabRole.key} className="flex items-center gap-6 ">
+                <div key={colabRole.key} className="flex items-center gap-6 ">
                   <p className="w-[30%]">{colabRole.label}</p>
                   <p
                     className="w-2 h-2"
                     style={{ backgroundColor: colabRole.color }}
                   ></p>
-                </p>
+                </div>
               ) : null
             })}
           </section>
