@@ -2,7 +2,7 @@ import { SidebarContext } from '@/components/context/SidebarContext'
 import { useContext, useEffect, useState } from 'react'
 import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
-import { AllGoalBuddyData } from '../../types/types'
+import { AllGoalBuddyData} from '../../types/types'
 import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUsers'
 import Filter from '../../components/Filter/Filter'
 import Layout from '@/components/Layout/Layout'
@@ -76,8 +76,8 @@ export default function ColabPage() {
     applyFilter()
   }, [filter])
 
-  const[selectedGoalBuddy,setSelectedGoalBuddy]=useState<object|null>(null)
-  const handleClick = (goalBuddyWithUser:object) => {
+  const[selectedGoalBuddy,setSelectedGoalBuddy]=useState<AllGoalBuddyData|null>(null)
+  const handleClick = (goalBuddyWithUser: AllGoalBuddyData) => {
  setSelectedGoalBuddy(goalBuddyWithUser)
   }
 

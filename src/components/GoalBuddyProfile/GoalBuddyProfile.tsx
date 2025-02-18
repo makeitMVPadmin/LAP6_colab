@@ -11,7 +11,6 @@ export interface GoalBuddy {
   country: string
   discipline: string
   skills: string[]
-  colabRole: object
   isAccountabilityPartner?: boolean
   isMentor?: boolean
   isNetworking?: boolean
