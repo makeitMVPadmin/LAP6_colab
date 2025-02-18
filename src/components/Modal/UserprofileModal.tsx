@@ -4,7 +4,7 @@ import EventBox from '../EventBox/EventBox'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '@radix-ui/react-dialog'
-
+import "./Modal.css"
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   modalOpen: boolean
@@ -16,7 +16,7 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userI
     <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
       <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0 rounded"  aria-describedby={undefined}>
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[55%] pt-0 pl-0">
+        <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden">
           <UserProfile userId={userId} />
         </div>
         <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">

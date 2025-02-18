@@ -1,0 +1,11 @@
+
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hidden {
+    -ms-overflow-style: none; /* For Internet Explorer 10+ */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
