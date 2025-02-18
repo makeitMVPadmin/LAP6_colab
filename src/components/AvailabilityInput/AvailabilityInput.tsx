@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { TimePeriodDisplay, AvailabilityErrors } from "@/types/types";
 import { Button } from '../ui/button';
+import { TimePeriodDisplay, AvailabilityErrors } from "@/types/types";
+
 
 interface AvailabilityInputProps {
     index: number;

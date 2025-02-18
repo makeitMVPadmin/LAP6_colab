@@ -68,6 +68,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         
     }
 
+    // Function to delete the TimePeriod from the index'th spot in timePeriodInputs
     function deleteTimePeriod(index: number){
         if(timePeriodInputs.length <= 1){
             setTimeErrors([]);
@@ -86,6 +87,14 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             setTimeErrors(timeErrorsWithRemoval);
             setTimePeriodInputs(timePeriodsWithRemoval);
         }
+    }
+
+    // Function
+    function addTimeRow(){
+        const oneMoreTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
+        oneMoreTimePeriodInputs.push({startTime: "", endTime: ""})
+        setTimePeriodInputs(oneMoreTimePeriodInputs);
+
     }
 
     // Function to validate the time inputs of one time period display
@@ -214,15 +223,18 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
           {backendError && <p className="text-red-500">{backendError}</p>}
           <DaySelection setSelectedDay={showAvailability} isError={dayError} />
           {selectedDay && (
-            <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
-                <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
-                    <p className="font-bold">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
+            <div>
+                <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
+                    <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
+                        <p className="font-bold">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
+                    </div>
+                    <div className="overflow-auto scrollbar-hide max-h-[150px]">
+                        {timePeriodInputs.map((period, index) => (
+                            <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
+                        ))}
+                    </div>
                 </div>
-                <div className="overflow-auto scrollbar-hide max-h-[150px]">
-                    {timePeriodInputs.map((period, index) => (
-                        <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
-                    ))}
-                </div>
+                <Button onClick={addTimeRow}>Add</Button>
             </div>
           )}
           <Button type="submit" onClick={updateGoalBuddyAvailability}>
