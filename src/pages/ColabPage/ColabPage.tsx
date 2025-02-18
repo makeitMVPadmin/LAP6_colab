@@ -75,7 +75,7 @@ export default function ColabPage() {
   useEffect(() => {
     applyFilter()
   }, [filter])
-  //const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const[selectedGoalBuddy,setSelectedGoalBuddy]=useState<object|null>(null)
   const handleClick = (goalBuddyWithUser:object) => {
  setSelectedGoalBuddy(goalBuddyWithUser)
