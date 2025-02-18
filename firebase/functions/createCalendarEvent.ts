@@ -1,18 +1,12 @@
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { EventData } from '@/types/types'
 //** Description: Creating data in the calendarEvents
 // @author[Aparna] */
 
-export interface EventData {
-  createdUserId: string
-  eventDescription: string
-  eventStartTime: Date
-  eventEndTime: Date
-  eventTitle: string
-  invitedUserId: string
-  eventStatus: 'confirmed' | 'pending' | 'canceled'
-  googleEventId: string
-}
+/*modified to rethrow error to caller function
+@author[Jeffrey]*/
+
 export async function createCalendarEvent(
   eventData: EventData,
 ): Promise<object | null> {
@@ -25,7 +19,7 @@ export async function createCalendarEvent(
     const docRef = await addDoc(collection(db, 'calendar_events'), eventDoc)
     return { ...eventDoc, id: docRef.id }
   } catch (error) {
-    console.error('Error creating document: ', error)
-    return null
+    console.error('Error creating calendar event: ', error)
+    throw error
   }
 }
