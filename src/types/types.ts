@@ -36,6 +36,17 @@ export interface CalendarEvents extends BaseEvents {
   id: string
 }
 
+export interface EventData {
+  createdUserId: string
+  eventDescription: string
+  eventStartTime: Date
+  eventEndTime: Date
+  eventTitle: string
+  invitedUserId: string
+  eventStatus: 'confirmed' | 'pending' | 'canceled'
+  googleEventId: string
+}
+
 export interface BaseGoalBuddy {
   availabilities: Availabilities[]
   bio: string

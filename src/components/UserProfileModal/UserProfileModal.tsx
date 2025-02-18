@@ -1,17 +1,20 @@
 import React from 'react'
-import BookingCalendar from '../BookingCalendar/BookingCalendar'
-import EventBox from '../EventBox/EventBox'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import "./Modal.css"
+import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
+import { GoalBuddy } from '../../types/types'
+
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   modalOpen: boolean
   userId: string
+  goalBuddyData: GoalBuddy | null
+  updateGoalBuddyData: (data: GoalBuddy) => void
+  
 }
 
-const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId }) => {
+const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userId, goalBuddyData, updateGoalBuddyData }) => {
   return (
     <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
       <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0 rounded"  aria-describedby={undefined}>
@@ -20,8 +23,13 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userI
           <UserProfile userId={userId} />
         </div>
         <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
-          <BookingCalendar />
-          <EventBox />
+            {goalBuddyData ? (
+              <AvailabilitySection activeGoalBuddy={goalBuddyData} updateGoalBuddy={updateGoalBuddyData} />
+            ) : (
+              <p>{`No user data was provided`}</p>
+            )
+            }
+            
         </div>
       </DialogContent>
     </Dialog>
