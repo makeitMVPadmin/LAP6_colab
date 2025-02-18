@@ -3,7 +3,7 @@ interface ColourProps {
 }
 
 const RoleBadge: React.FC<ColourProps> = ({ colour }) => {
-  return(
+  return (
     <span className={`h-3 w-3 mr-1 inline-block align-center ${colour}`}></span>
   )
 }
