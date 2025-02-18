@@ -9,7 +9,7 @@ import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
-import GoalBuddyProfileModal from '@/components/Modal/GoalBuddyProfileModal'
+import GoalBuddyProfileModal from '../../../src/components/Modal/GoalBuddyProfileModal'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =

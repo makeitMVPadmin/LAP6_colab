@@ -73,7 +73,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             Skills:
             {goalBuddy?.skills.map((skill, index) => (
               <span key={index} className="font-light">
-                &nbsp;{skill} ,
+                {skill} {index != goalBuddy?.skills.length - 1 ? ', ' : ''}
               </span>
             ))}
           </label>
@@ -86,7 +86,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
                 <p key={colabRole.key} className="flex items-center gap-6 ">
                   <p className="w-[30%]">{colabRole.label}</p>
                   <p
-                    className="w-2 h-2 "
+                    className="w-2 h-2"
                     style={{ backgroundColor: colabRole.color }}
                   ></p>
                 </p>
