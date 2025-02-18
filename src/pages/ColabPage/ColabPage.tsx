@@ -2,7 +2,7 @@ import { SidebarContext } from '@/components/context/SidebarContext'
 import { useContext, useEffect, useState } from 'react'
 import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
-import { AllGoalBuddyData} from '../../types/types'
+import { AllGoalBuddyData } from '../../types/types'
 import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUsers'
 import Filter from '../../components/Filter/Filter'
 import Layout from '@/components/Layout/Layout'
@@ -18,6 +18,9 @@ export default function ColabPage() {
     AllGoalBuddyData[]
   >([])
 
+  const [selectedGoalBuddy, setSelectedGoalBuddy] =
+    useState<AllGoalBuddyData | null>(null)
+
   const [filter, setFilter] = useState({
     mentor: false,
     accountability: false,
@@ -29,7 +32,7 @@ export default function ColabPage() {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-  
+
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
@@ -76,9 +79,8 @@ export default function ColabPage() {
     applyFilter()
   }, [filter])
 
-  const[selectedGoalBuddy,setSelectedGoalBuddy]=useState<AllGoalBuddyData|null>(null)
   const handleClick = (goalBuddyWithUser: AllGoalBuddyData) => {
- setSelectedGoalBuddy(goalBuddyWithUser)
+    setSelectedGoalBuddy(goalBuddyWithUser)
   }
 
   const renderGoalBuddies = (
@@ -86,14 +88,11 @@ export default function ColabPage() {
   ): React.ReactNode => {
     return goalBuddies.map((goalBuddyWithUser) => {
       return (
-        <>
-          <GoalBuddyCard
-            key={goalBuddyWithUser.id}
-            goalBuddy={goalBuddyWithUser}
-            onClick={()=>handleClick(goalBuddyWithUser)}
-          />
-          {}
-        </>
+        <GoalBuddyCard
+          key={goalBuddyWithUser.id}
+          goalBuddy={goalBuddyWithUser}
+          onClick={() => handleClick(goalBuddyWithUser)}
+        />
       )
     })
   }
