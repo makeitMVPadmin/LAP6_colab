@@ -1,41 +1,54 @@
+import { useEffect, useState } from 'react';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { TimePeriodDisplay, AvailabilityErrors } from "@/types/types";
 
 interface AvailabilityInputProps {
-    startTime: string;
-    endTime: string;
-    setStartTime: (time: string) => void;
-    setEndTime: (time: string) => void;
-    isStartError: string;
-    isEndError: string;
+    index: number;
+    timePeriod: TimePeriodDisplay;
+    errors: AvailabilityErrors[];
+    setTimePeriod: (index: number, time: string, isStart: boolean) => void;
 }
 
-const AvailabilityInput: React.FC<AvailabilityInputProps> = ({startTime, endTime, setStartTime, setEndTime, isStartError, isEndError}) => {
+const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod, errors, setTimePeriod}) => {
+
+    const [startError, setStartError] = useState<string>("");
+    const [endError, setEndError] = useState<string>("")
+
+    useEffect(() => {
+        if(errors.length !== 0){
+            setStartError(errors[index].startTimeError);
+            setEndError(errors[index].endTimeError);
+        }else{
+            setStartError("");
+            setEndError("");
+        }
+    }, [errors]);
     
     // Event handlers for input changes
     const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStartTime(e.target.value);
+        setTimePeriod(index, e.target.value, true);
 
     };
 
     const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEndTime(e.target.value);
+        setTimePeriod(index, e.target.value, false);
     };
 
     return (
         <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
             <div>
                 <Label htmlFor="startTime">Start Time</Label>
-                <Input type="string" id="startTime" placeholder='0:00' value={startTime} onChange={handleStartTimeChange} className={`${isStartError ? "border-red-500": ""}`}/>
-                {isStartError && 
-                    <p className='text-red-500'>{isStartError}</p>
+                <Input type="string" id="startTime" placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`${startError ? "border-red-500": ""}`}/>
+                {startError && 
+                    <p className='text-red-500'>{startError}</p>
                 }
             </div>
             <div>
                 <Label htmlFor="endTime">End Time</Label>
-                <Input type="string" id="endTime" placeholder='0:00' value={endTime} onChange={handleEndTimeChange} className={`${isEndError ? "border-red-500": ""}`}/>
-                {isEndError && 
-                    <p className='text-red-500'>{isEndError}</p>
+                <Input type="string" id="endTime" placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`${endError ? "border-red-500": ""}`}/>
+                {endError && 
+                    <p className='text-red-500'>{endError}</p>
                 }
             </div>
         </div>

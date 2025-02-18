@@ -98,3 +98,14 @@ export interface AllGoalBuddyData
     user: Timestamp
   }
 }
+
+export interface TimePeriodDisplay {
+  startTime: string;
+  endTime: string;
+}
+
+export interface AvailabilityErrors {
+  startTimeError: string;
+  endTimeError: string;
+  errorsExist: boolean;
+}

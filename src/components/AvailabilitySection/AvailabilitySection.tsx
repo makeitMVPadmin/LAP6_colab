@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Availabilities, TimePeriod, GoalBuddy, DayOfWeek } from "@/types/types";
+import { Availabilities, TimePeriod, GoalBuddy, DayOfWeek, TimePeriodDisplay, AvailabilityErrors } from "@/types/types";
 import { editGoalBuddy } from "../../../firebase/functions/editGoalBuddy";
 import { Button } from "@/components/ui/button";
 import DaySelection from "../DaySelection/DaySelection";
@@ -11,42 +11,34 @@ interface AvailabilitySectionProps {
     updateGoalBuddy: (data: GoalBuddy) => void
 }
 
-interface AvailabilityErrors {
-    dayError: string;
-    startTimeError: string;
-    endTimeError: string;
-    errorsExist: boolean;
-}
-
 const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBuddy, updateGoalBuddy }) => {
-  // Set state variables
+    // Set state variables
     const [availability, setAvailability] = useState<Availabilities[]>(activeGoalBuddy.availabilities);
     const [selectedDay, setSelectedDay] = useState<DayOfWeek | null>(null);
     const [selectedDayAvailability, setSelectedDayAvailability] = useState<Availabilities | null>(null);
-    const [startTime, setStartTime] = useState<string>("");
-    const [endTime, setEndTime] = useState<string>("");
     const [dayError, setDayError] = useState<string>("");
-    const [startTimeError, setStartTimeError] = useState<string>("");
-    const [endTimeError, setEndTimeError] = useState<string>("");
+    const [timePeriodInputs, setTimePeriodInputs] = useState<TimePeriodDisplay[]>([]);
+    const [timeErrors, setTimeErrors] = useState<AvailabilityErrors[]>([]);
     const [backendError, setBackendError] = useState<string>("");
     const [confirmationState, setConfirmationState] = useState<boolean>(false);
 
     useEffect(() => {
-        // Clear the inputs when the selected day changes
+        // Clear the inputs when there is no selected day or any availabilities on that day
         if (selectedDay === null || selectedDayAvailability === null) {
-            setStartTime("");
-            setEndTime("");
+            setTimePeriodInputs([]);
 
         // Populate the inputs when the selected day changes to one with times
         } else {
-            const startString = formatTimeString(selectedDayAvailability.timePeriod[0].startTime);
-            const endString = formatTimeString(selectedDayAvailability.timePeriod[0].endTime);
-            setStartTime(startString);
-            setEndTime(endString);
+            const currentTimePeriods: TimePeriodDisplay[] = [];      
+            selectedDayAvailability.timePeriod.forEach((period) => {
+                const startString: string = formatTimeString(period.startTime);
+                const endString: string = formatTimeString(period.endTime);
+                currentTimePeriods.push({startTime: startString, endTime: endString})
+            });
+            setTimePeriodInputs(currentTimePeriods);
         }
-
-        setStartTimeError("");
-        setEndTimeError("");
+        // // Erase previous time errors
+        // setTimeErrors([]);
     }, [selectedDay, selectedDayAvailability]);
 
     // Function to show availability for a specific day
@@ -59,18 +51,26 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             setSelectedDayAvailability(availabilityForDay);
         }
         setDayError("");
+        setTimeErrors([]);
         setSelectedDay(day);
     }
 
-    // Function to validate the inputs
-    function validateAvailability(): AvailabilityErrors {
-        const presentErrors = { dayError: "", startTimeError: "", endTimeError: "", errorsExist: false };
-
-        // Verify that a day has been selected
-        if (selectedDay === null) {
-            presentErrors.dayError = "Please select a date";
-            presentErrors.errorsExist = true;
+    // Function to update the time period input for start or end time in one row
+    function updateTimePeriod(index: number, input: string, isStartTime: boolean){
+        const updatedTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
+        if(isStartTime){
+            updatedTimePeriodInputs[index].startTime = input;
+        }else{
+            updatedTimePeriodInputs[index].endTime = input;
         }
+
+        setTimePeriodInputs(updatedTimePeriodInputs);
+        
+    }
+
+    // Function to validate the time inputs of one time period display
+    function validateAvailability(startTime: string, endTime: string): AvailabilityErrors {
+        const presentErrors = {startTimeError: "", endTimeError: "", errorsExist: false };
 
         // Verify that the time period is valid
         // Check if matches "hh:mm" format
@@ -98,16 +98,32 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
 
     // Function to handle the user trying to confirm their new availability for a day
     async function updateGoalBuddyAvailability() {
-        // Look for errors. If any are found and halt the update process and show them.
-        const errors: AvailabilityErrors = validateAvailability();
-        if (errors.errorsExist) {
-            updateErrorStates(errors);
+        
+        // Verify that a day has been selected
+        let isDayError: string = "";
+        if (selectedDay === null) {
+            isDayError = "Please select a date";
+        }
+        
+        // Look for errors in the time period fields.
+        const errors: AvailabilityErrors[] = [];
+        timePeriodInputs.forEach((period) => {
+            errors.push(validateAvailability(period.startTime, period.endTime));
+        });
+
+        //  If any errors are found, halt the update process and show them.
+        const hasErrors = errors.some(error => error.errorsExist);
+        if (hasErrors || isDayError) {
+            updateErrorStates(isDayError, errors);
             return;
         }
 
-        // Create the updated Availability from the input for the selected day
-        const updatedTimePeriod: TimePeriod = { startTime: createTimeFromStrings(startTime), endTime: createTimeFromStrings(endTime) };
-        const createdAvailability: Availabilities = { day: selectedDay!, timePeriod: [updatedTimePeriod] };
+        // Create the new Availabilities object with the current input
+        const updatedTimePeriods: TimePeriod[] = [];
+        timePeriodInputs.forEach((period) => {
+            updatedTimePeriods.push({ startTime: createTimeFromStrings(period.startTime), endTime: createTimeFromStrings(period.endTime) });
+        });
+        const createdAvailability: Availabilities = { day: selectedDay!, timePeriod: updatedTimePeriods };
 
         // Copy the availability items to updatedAvailabilities
         let selectDayExists: boolean = false;
@@ -148,13 +164,15 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     function resetComponent() {
         setSelectedDay(null);
         setSelectedDayAvailability(null);
+        setDayError("");
+        setTimeErrors([]);
+        setBackendError("")
         setConfirmationState(false);
     }
 
-    function updateErrorStates(errors: AvailabilityErrors) {
-        setDayError(errors.dayError);
-        setStartTimeError(errors.startTimeError);
-        setEndTimeError(errors.endTimeError);
+    function updateErrorStates(dayError: string, timeErrors: AvailabilityErrors[]) {
+        setDayError(dayError);
+        setTimeErrors(timeErrors);
         setBackendError("");
     }
 
@@ -171,13 +189,19 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
           {backendError && <p className="text-red-500">{backendError}</p>}
           <DaySelection setSelectedDay={showAvailability} isError={dayError} />
           {selectedDay && (
-            <div>
-              <p>{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
-              <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} isStartError={startTimeError} isEndError={endTimeError} />
+            <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
+                <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
+                    <p className="font-bold">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
+                </div>
+                <div className="overflow-auto scrollbar-hide max-h-[150px]">
+                    {timePeriodInputs.map((period, index) => (
+                        <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} errors={timeErrors} />
+                    ))}
+                </div>
             </div>
           )}
           <Button type="submit" onClick={updateGoalBuddyAvailability}>
-            Confirm
+            {selectedDay ? "Confirm" : "Edit"}
           </Button>
           
         </div>
