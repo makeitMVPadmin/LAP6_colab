@@ -2,19 +2,18 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { getUserById } from '../../../firebase/functions/getUserById'
 import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
 import { GoalBuddy, User } from '@/types/types'
 import './AppSidebar.css'
-import UserprofileModal from '../Modal/UserprofileModal'
+import UserProfileModal from '../UserProfileModal/UserProfileModal'
 import { IdContext } from '../context/IdContext'
 import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
@@ -26,11 +25,11 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const [userData, setUserData] = React.useState<User | null>(null)
-  const [goalBuddyData, setGoalBuddyData] = React.useState<GoalBuddy | null>(
+  const [userData, setUserData] = useState<User | null>(null)
+  const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(
     null,
   )
-  const [modalOpen, setModalOpen] = React.useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const context = useContext(IdContext)
   const userId = context?.userId
@@ -117,10 +116,12 @@ export function AppSidebar() {
       </div>
 
       {modalOpen && (
-        <UserprofileModal
+        <UserProfileModal
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
           userId={userId || ''}
+          goalBuddyData={goalBuddyData}
+          updateGoalBuddyData={setGoalBuddyData}
         />
       )}
     </>
