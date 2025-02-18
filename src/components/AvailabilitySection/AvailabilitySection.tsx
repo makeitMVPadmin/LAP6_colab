@@ -68,6 +68,26 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         
     }
 
+    function deleteTimePeriod(index: number){
+        if(timePeriodInputs.length <= 1){
+            setTimeErrors([]);
+            setTimePeriodInputs([]);
+        }else{
+            const timePeriodsWithRemoval: TimePeriodDisplay[] = [];
+            const timeErrorsWithRemoval: AvailabilityErrors[] = [];
+            for(let i: number = 0; i < timePeriodInputs.length; i++){
+                if(i !== index){
+                    timePeriodsWithRemoval.push(timePeriodInputs[i]);
+                    if(timeErrors.length !== 0){
+                        timeErrorsWithRemoval.push(timeErrors[i]);
+                    }
+                }
+            }
+            setTimeErrors(timeErrorsWithRemoval);
+            setTimePeriodInputs(timePeriodsWithRemoval);
+        }
+    }
+
     // Function to validate the time inputs of one time period display
     function validateAvailability(startTime: string, endTime: string): AvailabilityErrors {
         const presentErrors = {startTimeError: "", endTimeError: "", errorsExist: false };
@@ -127,14 +147,19 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
 
         // Copy the availability items to updatedAvailabilities
         let selectDayExists: boolean = false;
-        const updatedAvailabilities: Availabilities[] = availability.map((dailyAvailability) => {
-            // If the selected day already has a set TimePeriod, replace it with new one
-            if (dailyAvailability.day === selectedDay) {
+        const updatedAvailabilities: Availabilities[] = [];
+        availability.forEach((dailyAvailability)=> {
+            if (dailyAvailability.day === selectedDay){
                 selectDayExists = true;
-                return createdAvailability;
+                // Remove the edited availability if it has no time periods
+                if(updatedTimePeriods.length !== 0) {
+                    updatedAvailabilities.push(createdAvailability);
+                }
+            }else{
+                updatedAvailabilities.push(dailyAvailability);
             }
-            return dailyAvailability;
         });
+
         // If there was no availability to update, then push the new daily availability to the array
         if (!selectDayExists) {
             updatedAvailabilities.push(createdAvailability);
@@ -195,7 +220,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                 </div>
                 <div className="overflow-auto scrollbar-hide max-h-[150px]">
                     {timePeriodInputs.map((period, index) => (
-                        <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} errors={timeErrors} />
+                        <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                     ))}
                 </div>
             </div>
