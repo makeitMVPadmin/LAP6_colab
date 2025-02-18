@@ -172,13 +172,14 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
           <DaySelection setSelectedDay={showAvailability} isError={dayError} />
           {selectedDay && (
             <div>
-              <p>{`Timezone: ${activeGoalBuddy.timezone}`}</p>
+              <p>{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
               <AvailabilityInput startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} isStartError={startTimeError} isEndError={endTimeError} />
             </div>
           )}
           <Button type="submit" onClick={updateGoalBuddyAvailability}>
             Confirm
           </Button>
+          
         </div>
       )}
     </div>
