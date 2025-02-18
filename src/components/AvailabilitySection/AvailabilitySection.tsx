@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import DaySelection from "../DaySelection/DaySelection";
 import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from "@/utils/dateHelpers";
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
+import { hasOverlap, validateAllAvailabilities } from "@/utils/timePeriodValidation";
 
 interface AvailabilitySectionProps {
     activeGoalBuddy: GoalBuddy,
@@ -19,6 +20,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     const [dayError, setDayError] = useState<string>("");
     const [timePeriodInputs, setTimePeriodInputs] = useState<TimePeriodDisplay[]>([]);
     const [timeErrors, setTimeErrors] = useState<AvailabilityErrors[]>([]);
+    const [overlapError, setOverlapError] = useState<string>("");
     const [backendError, setBackendError] = useState<string>("");
     const [confirmationState, setConfirmationState] = useState<boolean>(false);
 
@@ -89,40 +91,12 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         }
     }
 
-    // Function
+    // Function to add another row for time period inputs
     function addTimeRow(){
         const oneMoreTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
         oneMoreTimePeriodInputs.push({startTime: "", endTime: ""})
         setTimePeriodInputs(oneMoreTimePeriodInputs);
 
-    }
-
-    // Function to validate the time inputs of one time period display
-    function validateAvailability(startTime: string, endTime: string): AvailabilityErrors {
-        const presentErrors = {startTimeError: "", endTimeError: "", errorsExist: false };
-
-        // Verify that the time period is valid
-        // Check if matches "hh:mm" format
-        const timePattern24Hour = /^([0-9]|[01][0-9]|2[0-3]):[0-5][0-9]$/;
-        if (!timePattern24Hour.test(startTime)) {
-            presentErrors.startTimeError = "Start time is not of format 'hh:mm'";
-            presentErrors.errorsExist = true;
-        }
-        if (!timePattern24Hour.test(endTime)) {
-            presentErrors.endTimeError = "End time is not of format 'hh:mm'";
-            presentErrors.errorsExist = true;
-        }
-
-        // Check that the endTime is after the startTime if there were no format errors
-        if (!presentErrors.errorsExist) {
-            const testStartTime = new Date(`1970-01-01T${startTime.length === 4 ? '0' : ''}${startTime}:00`);
-            const testEndTime = new Date(`1970-01-01T${endTime.length === 4 ? '0' : ''}${endTime}:00`);
-            if (testEndTime < testStartTime) {
-                presentErrors.endTimeError = "End time cannot be set before the start time";
-                presentErrors.errorsExist = true;
-            }
-        }
-        return presentErrors;
     }
 
     // Function to handle the user trying to confirm their new availability for a day
@@ -135,15 +109,18 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         }
         
         // Look for errors in the time period fields.
-        const errors: AvailabilityErrors[] = [];
-        timePeriodInputs.forEach((period) => {
-            errors.push(validateAvailability(period.startTime, period.endTime));
-        });
+        const errors: AvailabilityErrors[] = validateAllAvailabilities(timePeriodInputs);
 
         //  If any errors are found, halt the update process and show them.
         const hasErrors = errors.some(error => error.errorsExist);
         if (hasErrors || isDayError) {
-            updateErrorStates(isDayError, errors);
+            updateErrorStates(isDayError, errors, "");
+            return;
+        }
+
+        // Check if any of the time periods overlap
+        if(hasOverlap(timePeriodInputs)){
+            updateErrorStates("", [], "Time periods cannot overlap");
             return;
         }
 
@@ -200,13 +177,15 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         setSelectedDayAvailability(null);
         setDayError("");
         setTimeErrors([]);
-        setBackendError("")
+        setOverlapError("");
+        setBackendError("");
         setConfirmationState(false);
     }
 
-    function updateErrorStates(dayError: string, timeErrors: AvailabilityErrors[]) {
+    function updateErrorStates(dayError: string, timeErrors: AvailabilityErrors[], overlapError: string) {
         setDayError(dayError);
         setTimeErrors(timeErrors);
+        setOverlapError(overlapError);
         setBackendError("");
     }
 
@@ -219,22 +198,25 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         </div>
       ) : (
         <div>
-          <h2>Set My Availabilities</h2>
+          <h2>{`Set My Availabilities`}</h2>
           {backendError && <p className="text-red-500">{backendError}</p>}
           <DaySelection setSelectedDay={showAvailability} isError={dayError} />
           {selectedDay && (
             <div>
-                <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
+                <div className="p-5 max-h-[400px] bg-white border-2 border-black rounded-lg">
                     <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
                         <p className="font-bold">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
                     </div>
-                    <div className="overflow-auto scrollbar-hide max-h-[150px]">
+                    <div className="overflow-auto scrollbar-hide max-h-[300px]">
                         {timePeriodInputs.map((period, index) => (
                             <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                         ))}
                     </div>
+                    {overlapError && 
+                        <p className='text-red-500'>{overlapError}</p>
+                    }
                 </div>
-                <Button onClick={addTimeRow}>Add</Button>
+                <Button onClick={addTimeRow}>{`Add`}</Button>
             </div>
           )}
           <Button type="submit" onClick={updateGoalBuddyAvailability}>
