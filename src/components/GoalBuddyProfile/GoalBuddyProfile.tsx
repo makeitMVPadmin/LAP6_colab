@@ -72,7 +72,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             Skills:
             {goalBuddy?.skills.map((skill, index) => (
               <span key={index} className="font-light">
-                {skill} {index != goalBuddy?.skills.length - 1 ? ', ' : ''}
+               &nbsp;{skill} {index != goalBuddy?.skills.length - 1 ? ',' : ''}
               </span>
             ))}
           </label>
