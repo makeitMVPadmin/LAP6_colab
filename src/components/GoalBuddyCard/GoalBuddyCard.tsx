@@ -8,9 +8,13 @@ import RoleBadge from '../Filter/RoleBadge'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
+  onClick: () => void
 }
 
-const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
+const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
+  goalBuddy,
+  onClick,
+}) => {
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
@@ -18,7 +22,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({ goalBuddy }) => {
   const { isSidebarOpen } = sideBarContext
   return (
     <Card
-      key={goalBuddy.userId}
+      key={goalBuddy.userId} onClick={onClick}
       className={clsx(
         'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-white cursor-pointer duration-150 border border-slate-950 rounded-md shadow-[2px_2px_5px_0px_rgba(0,_0,_0,_0.8)]',
         !isSidebarOpen && 'hover:scale-110', // Disable hover when sidebar is open

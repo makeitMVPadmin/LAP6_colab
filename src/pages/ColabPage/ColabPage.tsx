@@ -9,12 +9,18 @@ import Layout from '@/components/Layout/Layout'
 import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
+import GoalBuddyProfileModal from '../../../src/components/Modal/GoalBuddyProfileModal'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
     useState<AllGoalBuddyData[] | []>([])
-  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<AllGoalBuddyData[]>([])
-  
+  const [filteredGoalBuddies, setFilteredGoalBuddies] = useState<
+    AllGoalBuddyData[]
+  >([])
+
+  const [selectedGoalBuddy, setSelectedGoalBuddy] =
+    useState<AllGoalBuddyData | null>(null)
+
   const [filter, setFilter] = useState({
     mentor: false,
     accountability: false,
@@ -26,7 +32,7 @@ export default function ColabPage() {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-  
+
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
@@ -41,7 +47,6 @@ export default function ColabPage() {
 
     fetchGoalBuddiesCombinedWithUser()
   }, [])
-
 
   const filterGoalBuddies = (choice: string) => {
     setFilter((prevFilter) => {
@@ -60,11 +65,12 @@ export default function ColabPage() {
   }
 
   const applyFilter = () => {
-    const filtered = goalBuddiesCombinedWithUsers.filter(goalBuddy => {
-    const matchesMentor = filter.mentor && goalBuddy.isMentor
-    const matchesAccountability = filter.accountability && goalBuddy.isAccountabilityPartner
-    const matchesNetworking = filter.networking && goalBuddy.isNetworking
-    return matchesMentor || matchesAccountability || matchesNetworking
+    const filtered = goalBuddiesCombinedWithUsers.filter((goalBuddy) => {
+      const matchesMentor = filter.mentor && goalBuddy.isMentor
+      const matchesAccountability =
+        filter.accountability && goalBuddy.isAccountabilityPartner
+      const matchesNetworking = filter.networking && goalBuddy.isNetworking
+      return matchesMentor || matchesAccountability || matchesNetworking
     })
     setFilteredGoalBuddies(filtered)
   }
@@ -73,24 +79,28 @@ export default function ColabPage() {
     applyFilter()
   }, [filter])
 
-  const renderGoalBuddies = (goalBuddies: AllGoalBuddyData[]): React.ReactNode => {
-    return goalBuddies.map((goalBuddyWithUser) => (
-      <GoalBuddyCard
-        key={goalBuddyWithUser.id}
-        goalBuddy={goalBuddyWithUser}
-      />
-    ))
+  const handleClick = (goalBuddyWithUser: AllGoalBuddyData) => {
+    setSelectedGoalBuddy(goalBuddyWithUser)
+  }
+
+  const renderGoalBuddies = (
+    goalBuddies: AllGoalBuddyData[],
+  ): React.ReactNode => {
+    return goalBuddies.map((goalBuddyWithUser) => {
+      return (
+        <GoalBuddyCard
+          key={goalBuddyWithUser.id}
+          goalBuddy={goalBuddyWithUser}
+          onClick={() => handleClick(goalBuddyWithUser)}
+        />
+      )
+    })
   }
 
   return (
     <main>
       <Layout>
-        <div
-          className={clsx(
-            'flex justify-center',
-      
-          )}
-        >
+        <div className={clsx('flex justify-center')}>
           <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
@@ -108,10 +118,19 @@ export default function ColabPage() {
                     </div>
                   </Skeleton>
                 ))
-              : renderGoalBuddies(filteredGoalBuddies.length > 0
-                ? filteredGoalBuddies : goalBuddiesCombinedWithUsers
-              )}
+              : renderGoalBuddies(
+                  filteredGoalBuddies.length > 0
+                    ? filteredGoalBuddies
+                    : goalBuddiesCombinedWithUsers,
+                )}
           </div>
+          {selectedGoalBuddy && (
+            <GoalBuddyProfileModal
+              isModalOpen={true}
+              setIsModalOpen={() => setSelectedGoalBuddy(null)}
+              goalBuddy={selectedGoalBuddy}
+            />
+          )}
         </div>
       </Layout>
     </main>
