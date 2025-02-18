@@ -26,8 +26,6 @@ export default function ColabPage() {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-
-  // const { isSidebarOpen } = sideBarContext
   
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
