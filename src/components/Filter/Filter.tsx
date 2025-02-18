@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
+import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
 import { cn } from "../lib/utils"
-import { Checkbox } from '../ui/checkbox'
+import RoleBadge from './RoleBadge'
 
 interface filterProps {
     filterGoalBuddies: Function,
@@ -13,38 +13,50 @@ interface filterProps {
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     return (
-        <Card className={cn("w-52 h-44")}>
-            <CardHeader>
-            <CardTitle 
-                className={cn("text-right text-xs cursor-pointer")}
-                onClick={() => filterGoalBuddies('')}>Clear All
-            </CardTitle>
+        <Card className={cn("w-64 h-44 pb-0 border-black rounded-md border-b-2 border-r-2")}>
+            <CardHeader className={cn("pt-2 pr-4")}>
+                <CardDescription 
+                    className={cn("text-right font-light m-0 cursor-pointer")}
+                    onClick={() => filterGoalBuddies('')}>Clear All
+                </CardDescription>
             </CardHeader>
-            <CardContent className={cn("flex flex-col gap-4")}>
+            <CardContent className={cn("flex flex-col gap-4 pr-4 pl-4 pb-0")}>
                 <div className="flex flex-row justify-between relative">
-                    <CardDescription>#Mentors</CardDescription>
-                    <Checkbox 
-                        checked={filter.mentor}
-                        onClick={() => {filterGoalBuddies('mentor')}}>
-                    </Checkbox>
-                    <span className="w-full border-b border-slate-700 absolute top-6"></span>
+                    <label>
+                        <RoleBadge colour={"bg-blue-600"} />
+                        Mentor
+                    </label>
+                    <span 
+                        className={filter.mentor
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                        onClick={() => {filterGoalBuddies('mentor')}}
+                    />
                 </div>
                 <div className="flex flex-row justify-between relative">
-                    <CardDescription>#Goal Buddies</CardDescription>
-                    <Checkbox 
-                        checked={filter.accountability}
-                        onClick={() => {filterGoalBuddies('accountability')}}>
-                    </Checkbox>
-                    <span className="w-full border-b border-slate-700 absolute top-6"></span>
+                    <label>
+                        <RoleBadge colour={"bg-amber-500"} />Goal Buddy
+                    </label>
+                    <span 
+                        className={filter.accountability
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                        onClick={() => {filterGoalBuddies('accountability')}}
+                    />
                 </div>
                 <div className="flex flex-row justify-between">
-                    <CardDescription>#Networking</CardDescription>
-                    <Checkbox 
-                        checked={filter.networking}
-                        onClick={() => {filterGoalBuddies('networking')}}>
-                    </Checkbox>
+                    <label>
+                    <RoleBadge colour={"bg-green-600"} />
+                        Networking
+                    </label>
+                    <span 
+                        className={filter.networking
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                        onClick={() => {filterGoalBuddies('networking')}}
+                    />
                 </div>
-                </CardContent>
+            </CardContent>
         </Card>
     )
 }
