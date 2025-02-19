@@ -98,3 +98,8 @@ export interface AllGoalBuddyData
     user: Timestamp
   }
 }
+
+export interface IdType{
+    userId:string,
+    goalBuddyId:string
+}

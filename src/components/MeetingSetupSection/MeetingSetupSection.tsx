@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import BookingCalendar from '../BookingCalendar/BookingCalendar'
 import TimeSelectionList from '../TimeSelectionList/TimeSelectionList'
 import {
   CalendarEvents,
-  GoalBuddy,
+  AllGoalBuddyData,
   Availabilities,
   TimePeriod,
   Time,
   EventData,
+  IdType,
 } from '@/types/types'
 import { getUserEvents } from '../../../firebase/functions/calendarEventsbyUserId'
 import {
@@ -20,15 +21,14 @@ import {
   createTimestamp,
   isExistingStartTime,
 } from '../../utils/dateHelpers'
+import { IdContext } from '../context/IdContext'
 
 interface MeetingSetupSectionProps {
-  activeUserId: string
-  showingUser: GoalBuddy
+  showingUser: AllGoalBuddyData
 }
 
 const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
-  activeUserId,
-  showingUser,
+  showingUser
 }) => {
   // Define state variables needed for creating a meeting event
   const [availability, setAvailability] = useState<Availabilities[]>([])
@@ -40,6 +40,14 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(
     undefined,
   )
+
+  const context: IdType | undefined = useContext(IdContext)
+  let activeUserId: string = "";
+  // let activeGoalBuddyId: string = "";
+  if(context){
+    activeUserId = context.userId;
+    // activeGoalBuddyId = context.goalBuddyId;
+  } 
 
   // Fetch the user's current meetings so they can be used to help determine availability
   useEffect(() => {
