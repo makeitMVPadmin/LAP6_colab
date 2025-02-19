@@ -29,6 +29,23 @@ function endIsAfterStart(startTime: string, endTime: string): boolean{
 }
 
 /*
+* A function that looks at two "hh:mm" strings and checks that the end time at least 30 minutes after the start time
+* @author: Katrina
+*/
+function isEnd30MinuutesLater(startTime: string, endTime: string): boolean{
+    const testStartTime: Date = getTimeStringAsDefaultDate(startTime);
+    const testEndTime: Date = getTimeStringAsDefaultDate(endTime);
+    let startPlus30Time: Date = new Date(testStartTime);
+    startPlus30Time.setMinutes(testStartTime.getMinutes() + 30);
+
+    if (testEndTime >= startPlus30Time) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/*
 * Helper function that returns a date from 01/01/1970 with the given time string input of "hh:mm"
 * @author: Katrina
 */
@@ -102,9 +119,17 @@ function validateAnAvailability(startTime: string, endTime: string): Availabilit
 
     // Check that the endTime is after the startTime if there were no format errors
     if (!presentErrors.errorsExist){
-            if(!endIsAfterStart(startTime, endTime)) {
-                presentErrors.endTimeError = "End time cannot be set before the start time";
-                presentErrors.errorsExist = true;
+        if(!endIsAfterStart(startTime, endTime)) {
+            presentErrors.endTimeError = "End time cannot be set before the start time";
+            presentErrors.errorsExist = true;
+        }
+    }
+
+    // Check that the end time is at least 30 mins after the start time
+    if(!presentErrors.errorsExist){
+        if(!isEnd30MinuutesLater(startTime, endTime)){
+            presentErrors.endTimeError = "End time should be at least 30 minutes after start time";
+            presentErrors.errorsExist = true;
         }
     }
 
