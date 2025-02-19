@@ -44,24 +44,24 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
     }
 
     return (
-        <div>
+        <div className="w-full flex flex-col mb-2">
             <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg">
-                <div>
-                    <Label htmlFor="startTime">Start Time</Label>
-                    <Input type="string" id="startTime" placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`${startError ? "border-red-500": ""}`}/>
+                <div className="w-full flex flex-row justify-between items-center mb-2">
+                    <Label className="" htmlFor={`startTime`+{index}}>Start Time</Label>
+                    <Input type="string" id={`startTime`+{index}} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[45%] h-[1.75rem] ${startError ? "border-red-500": ""}`}/>
                     {startError && 
                         <p className='text-red-500'>{startError}</p>
                     }
                 </div>
-                <div>
-                    <Label htmlFor="endTime">End Time</Label>
-                    <Input type="string" id="endTime" placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`${endError ? "border-red-500": ""}`}/>
+                <div className="w-full flex flex-row justify-between items-center mb-2">
+                    <Label className="" htmlFor={`endTime`+{index}}>End Time</Label>
+                    <Input type="string" id={`endTime`+{index}} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[45%] h-[1.75rem] ${endError ? "border-red-500": ""}`}/>
                     {endError && 
                         <p className='text-red-500'>{endError}</p>
                     }
                 </div>
             </div>
-            <Button onClick={handleDeleteClick}>{`Delete`}</Button>
+            <Button className="w-[4rem] h-[1.5rem] my-1 bg-white text-black" onClick={handleDeleteClick}>{`Delete`}</Button>
         </div>
     );
 }
