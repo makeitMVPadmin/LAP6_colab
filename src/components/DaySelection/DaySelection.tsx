@@ -14,7 +14,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({setSelectedDay, isError}) =>
     return (
         <div className="w-[100%]">
             <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
-                <SelectTrigger className={`bg-white ${isError ? "border-red-500": ""}`}>
+                <SelectTrigger className={`bg-white ${isError ? "border-[#e53935]": ""}`}>
                     <SelectValue placeholder="Select a day" />
                 </SelectTrigger>
                 <SelectContent>
@@ -26,7 +26,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({setSelectedDay, isError}) =>
                 </SelectContent>
             </Select>
             {isError && 
-                <p className='text-red-500'>{isError}</p>
+                <p className='text-xs text-[#e53935] bg-red-100 rounded pl-1'>{isError}</p>
             }
         </div>
     );

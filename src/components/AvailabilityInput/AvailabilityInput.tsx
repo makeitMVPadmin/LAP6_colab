@@ -46,18 +46,22 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
     return (
         <div className="w-full flex flex-col mb-2">
             <div className="p-3 max-h-[500px] bg-white border-2 border-black rounded-lg">
-                <div className="w-full flex flex-row justify-between items-center my-3">
-                    <Label className="" htmlFor={`startTime`+{index}}>Start Time</Label>
-                    <Input type="string" id={`startTime`+{index}} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[45%] h-[1.75rem] ${startError ? "border-red-500": ""}`}/>
+                <div className="w-full flex flex-col my-3">
+                    <div className="w-full flex flex-row justify-between items-center">
+                        <Label className="" htmlFor={`startTime`+{index}}>Start Time</Label>
+                        <Input type="string" id={`startTime`+{index}} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[45%] h-[1.75rem] ${startError ? "border-[#e53935]": ""}`}/>
+                    </div>
                     {startError && 
-                        <p className='text-red-500'>{startError}</p>
+                        <p className='text-xs text-[#e53935]'>{startError}</p>
                     }
                 </div>
-                <div className="w-full flex flex-row justify-between items-center my-3">
-                    <Label className="" htmlFor={`endTime`+{index}}>End Time</Label>
-                    <Input type="string" id={`endTime`+{index}} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[45%] h-[1.75rem] ${endError ? "border-red-500": ""}`}/>
+                <div className="w-full flex flex-col my-3">
+                    <div className="w-full flex flex-row justify-between items-center">
+                        <Label className="" htmlFor={`endTime`+{index}}>End Time</Label>
+                        <Input type="string" id={`endTime`+{index}} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[45%] h-[1.75rem] ${endError ? "border-[#e53935]": ""}`}/>
+                    </div>
                     {endError && 
-                        <p className='text-red-500'>{endError}</p>
+                        <p className='text-xs text-[#e53935]'>{endError}</p>
                     }
                 </div>
             </div>

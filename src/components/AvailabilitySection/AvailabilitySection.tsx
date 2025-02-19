@@ -200,7 +200,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             <div className="w-full h-full flex flex-col items-center justify-between">
                 <div className="w-full h-full flex flex-col items-center">
                     <h2 className="font-bold text-center text-xl mb-4">{`Set My Availabilities`}</h2>
-                    {backendError && <p className="text-red-500 mb-2">{backendError}</p>}
+                    {backendError && <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>}
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
                         <div className="w-full h-full flex flex-col">
@@ -214,7 +214,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     ))}
                                 </div>
                                 {overlapError && 
-                                    <p className="text-red-500 my-1">{overlapError}</p>
+                                    <p className="text-xs text-[#e53935] my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
                             <Button className="w-[4rem] h-[1.5rem] my-1 hover:bg-white hover:text-black" onClick={addTimeRow}>{`+ Add`}</Button>
