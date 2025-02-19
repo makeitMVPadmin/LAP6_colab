@@ -198,17 +198,17 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             </div>
         ) : (
             <div className="w-full h-full flex flex-col items-center justify-between">
-                <div className="w-full h-full flex flex-col items-center">
+                <div className="w-full h-[90%] flex flex-col items-center">
                     <h2 className="font-bold text-center text-xl mb-4">{`Set My Availabilities`}</h2>
                     {backendError && <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>}
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
-                        <div className="w-full h-full flex flex-col">
-                            <div>
+                        <div className="w-full h-full flex flex-col justiy-start">
+                            <div className="w-full max-h-[75%] flex flex-col">
                                 <div className="sticky top-0 z-10">
                                     <h3 className="font-bold text-sm my-1">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</h3>
                                 </div>
-                                <div className="overflow-auto scrollbar-hide max-h-[16rem]">
+                                <div className="overflow-auto scrollbar-hide">
                                     {timePeriodInputs.map((period, index) => (
                                     <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
