@@ -217,7 +217,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     <p className="text-red-500 my-1">{overlapError}</p>
                                 }
                             </div>
-                            <Button className="w-[4rem] h-[1.5rem] my-1" onClick={addTimeRow}>{`+ Add`}</Button>
+                            <Button className="w-[4rem] h-[1.5rem] my-1 hover:bg-white hover:text-black" onClick={addTimeRow}>{`+ Add`}</Button>
                         </div>
                     )}
                 </div>
