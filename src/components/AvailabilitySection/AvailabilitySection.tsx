@@ -190,11 +190,11 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div>
+    <div className="w-full h-full flex justify-center py-8 px-4">
       {confirmationState ? (
-        <div className="bg-green-200">
-          <p className="text-green-500">{`Congratulations! Your availability has been successfully updated.`}</p>
-          <Button onClick={resetComponent}>Edit</Button>
+        <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
+          <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
+          <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>Edit</Button>
         </div>
       ) : (
         <div>
