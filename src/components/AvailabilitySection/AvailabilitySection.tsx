@@ -190,41 +190,42 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full h-full flex justify-center py-8 px-4">
-      {confirmationState ? (
-        <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
-          <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
-          <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>Edit</Button>
-        </div>
-      ) : (
-        <div>
-          <h2>{`Set My Availabilities`}</h2>
-          {backendError && <p className="text-red-500">{backendError}</p>}
-          <DaySelection setSelectedDay={showAvailability} isError={dayError} />
-          {selectedDay && (
-            <div>
-                <div className="p-5 max-h-[400px] bg-white border-2 border-black rounded-lg">
-                    <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
-                        <p className="font-bold">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</p>
-                    </div>
-                    <div className="overflow-auto scrollbar-hide max-h-[300px]">
-                        {timePeriodInputs.map((period, index) => (
-                            <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
-                        ))}
-                    </div>
-                    {overlapError && 
-                        <p className='text-red-500'>{overlapError}</p>
-                    }
-                </div>
-                <Button onClick={addTimeRow}>{`Add`}</Button>
+    <div className="w-full h-full flex flex-col justify-center pt-12 pb-6 px-6">
+        {confirmationState ? (
+            <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
+                <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
+                <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>{`Edit`}</Button>
             </div>
-          )}
-          <Button type="submit" onClick={updateGoalBuddyAvailability}>
-            {selectedDay ? "Confirm" : "Edit"}
-          </Button>
-          
-        </div>
-      )}
+        ) : (
+            <div className="w-full h-full flex flex-col items-center justify-between">
+                <div className="w-full h-full flex flex-col items-center">
+                    <h2 className="font-bold text-center text-xl mb-4">{`Set My Availabilities`}</h2>
+                    {backendError && <p className="text-red-500 mb-2">{backendError}</p>}
+                    <DaySelection setSelectedDay={showAvailability} isError={dayError} />
+                    {selectedDay && (
+                        <div className="w-full h-full flex flex-col">
+                            <div>
+                                <div className="sticky top-0 z-10">
+                                    <h3 className="font-bold text-sm my-1">{`Timezone: ${activeGoalBuddy.timezone} - 24 hour clock`}</h3>
+                                </div>
+                                <div className="overflow-auto scrollbar-hide max-h-[16rem]">
+                                    {timePeriodInputs.map((period, index) => (
+                                    <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
+                                    ))}
+                                </div>
+                                {overlapError && 
+                                    <p className='text-red-500'>{overlapError}</p>
+                                }
+                            </div>
+                            <Button className="w-[4rem] h-[1.5rem] my-1" onClick={addTimeRow}>{`+ Add`}</Button>
+                        </div>
+                    )}
+                </div>
+                <Button variant="secondary" className="bg-[#ffd22f] color-black" onClick={updateGoalBuddyAvailability}>
+                {selectedDay ? "Confirm" : "Edit"}
+                </Button>
+            </div>
+        )}
     </div>
   );
 };
