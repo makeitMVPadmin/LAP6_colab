@@ -15,6 +15,12 @@ export const editGoalBuddy = async (
 ) => {
   try {
     GoalBuddySchema.parse(updatedData)
+    const allowedFields = GoalBuddySchema.shape
+    Object.keys(updatedData).forEach((key) => {
+      if (!allowedFields.hasOwnProperty(key)) {
+        throw new Error(`Invalid field: ${key}`)
+      }
+    })
   } catch (error) {
     console.error('Invalid data is passed', error)
     throw new Error('Invalid data is passed for updating Goal Buddy')
