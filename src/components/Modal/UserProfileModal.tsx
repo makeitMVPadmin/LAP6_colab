@@ -22,7 +22,7 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, userI
         <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden">
           <UserProfile userId={userId} />
         </div>
-        <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
+        <div className="flex flex-col items-center w-[45%] bg-[#23A8E7] p-0  overflow-hidden rounded">
             {goalBuddyData ? (
               <AvailabilitySection activeGoalBuddy={goalBuddyData} updateGoalBuddy={updateGoalBuddyData} />
             ) : (
