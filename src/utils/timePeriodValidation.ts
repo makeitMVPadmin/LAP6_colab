@@ -17,14 +17,22 @@ function is24HourTimeFormat(time: string): boolean{
 * A function that looks at two "hh:mm" strings and checks that the end time is later than the start time
 * @author: Katrina
 */
-function endIsAfterStart(startTime: string, endTime: string): boolean{
+function endIsAfterStart(startTime: string, endTime: string, strictly: boolean): boolean{
     const testStartTime: Date = getTimeStringAsDefaultDate(startTime);
     const testEndTime: Date = getTimeStringAsDefaultDate(endTime);
-
-    if (testEndTime < testStartTime) {
-        return false;
+     
+    if(strictly){
+        if (testEndTime < testStartTime) {
+            return false;
+        }else{
+            return true;
+        }
     }else{
-        return true;
+        if (testEndTime <= testStartTime) {
+            return false;
+        }else{
+            return true;
+        }
     }
 }
 
@@ -32,7 +40,7 @@ function endIsAfterStart(startTime: string, endTime: string): boolean{
 * A function that looks at two "hh:mm" strings and checks that the end time at least 30 minutes after the start time
 * @author: Katrina
 */
-function isEnd30MinuutesLater(startTime: string, endTime: string): boolean{
+function isEnd30MinutesLater(startTime: string, endTime: string): boolean{
     const testStartTime: Date = getTimeStringAsDefaultDate(startTime);
     const testEndTime: Date = getTimeStringAsDefaultDate(endTime);
     let startPlus30Time: Date = new Date(testStartTime);
@@ -74,7 +82,7 @@ export function hasOverlap(timePeriods: TimePeriodDisplay[]): boolean{
     for (let i:number = 0; i < sortedTimePeriods.length - 1; i++) {
         const currentEnd: string = sortedTimePeriods[i].endTime;
         const nextStart: string = sortedTimePeriods[i + 1].startTime;
-        if (endIsAfterStart(nextStart, currentEnd)) {
+        if (endIsAfterStart(nextStart, currentEnd, false)) {
             return true;
         }
     }
@@ -119,7 +127,7 @@ function validateAnAvailability(startTime: string, endTime: string): Availabilit
 
     // Check that the endTime is after the startTime if there were no format errors
     if (!presentErrors.errorsExist){
-        if(!endIsAfterStart(startTime, endTime)) {
+        if(!endIsAfterStart(startTime, endTime, true)) {
             presentErrors.endTimeError = "End time cannot be set before the start time";
             presentErrors.errorsExist = true;
         }
@@ -127,7 +135,7 @@ function validateAnAvailability(startTime: string, endTime: string): Availabilit
 
     // Check that the end time is at least 30 mins after the start time
     if(!presentErrors.errorsExist){
-        if(!isEnd30MinuutesLater(startTime, endTime)){
+        if(!isEnd30MinutesLater(startTime, endTime)){
             presentErrors.endTimeError = "End time should be at least 30 minutes after start time";
             presentErrors.errorsExist = true;
         }
