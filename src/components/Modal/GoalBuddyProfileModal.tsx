@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog'
 import GoalBuddyProfile from '../GoalBuddyProfile/GoalBuddyProfile'
-import { AllGoalBuddyData } from '@/types/types'
+import { AllGoalBuddyData, IdType } from '@/types/types'
 import "./Modal.css"
 import MeetingSetupSection from '../MeetingSetupSection/MeetingSetupSection'
+import { IdContext } from '../context/IdContext'
 
 interface ModalProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,6 +16,14 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   isModalOpen,
   goalBuddy,
 }) => {
+
+  const context: IdType | undefined = useContext(IdContext)
+  let activeUserId: string = "";
+
+  if(context){
+    activeUserId = context.userId;
+  }
+  
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent
@@ -25,8 +34,12 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
         <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
-        <div className="flex flex-col items-center w-[45%]  pl-3 pt-3 space-y-4 bg-blue-600">
-          <MeetingSetupSection showingUser={goalBuddy} />
+        <div className="flex flex-col items-center h-full w-[45%] bg-[#279af1] p-0 overflow-hidden rounded">
+          {context ? (
+            <MeetingSetupSection activeUserId={activeUserId} showingUser={goalBuddy} />
+          ) : (
+            <p>{`Context for the Active User not found.`}</p>
+          )}
         </div>
       </DialogContent>
     </Dialog>
