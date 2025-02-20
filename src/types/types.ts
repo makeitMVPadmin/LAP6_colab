@@ -99,6 +99,16 @@ export interface AllGoalBuddyData
   }
 }
 
+export interface TimePeriodDisplay {
+  startTime: string;
+  endTime: string;
+}
+
+export interface AvailabilityErrors {
+  startTimeError: string;
+  endTimeError: string;
+  errorsExist: boolean;
+}
 export interface IdType{
     userId:string,
     goalBuddyId:string
