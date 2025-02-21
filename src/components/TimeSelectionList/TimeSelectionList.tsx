@@ -42,7 +42,7 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
     }
 
     return (
-        <div className="flex flex-col justify-start w-full p-1 bg-white border-2 border-black rounded-lg my-1 max-h-[12rem] overflow-auto">
+        <div className="flex flex-col justify-start w-full p-1 bg-white border-2 border-black rounded-lg my-1 max-h-[10rem] overflow-auto">
             <div className="sticky top-0 bg-white z-10 p-2 pb-0">
                 <p className="font-bold">{`Select a time`}</p>
             </div>

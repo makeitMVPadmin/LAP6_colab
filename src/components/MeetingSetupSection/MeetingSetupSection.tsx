@@ -5,7 +5,7 @@ import { CalendarEvents, AllGoalBuddyData, Availabilities, TimePeriod, Time, Eve
 import { getUserEvents } from '../../../firebase/functions/calendarEventsbyUserId'
 import { createCalendarEvent } from '../../../firebase/functions/createCalendarEvent'
 import { Timestamp } from 'firebase/firestore'
-import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime } from '../../utils/dateHelpers'
+import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
 import { Button } from '../ui/button'
 
 interface MeetingSetupSectionProps {
@@ -186,11 +186,15 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   return (
     <div className="flex flex-col w-full h-full">
       {confirmationState ? (
-        <div className="flex flex-col items-center justify-between p-3 h-full w-full">
-          <div className="flex flex-col items-center justify-center py-4 px-2 bg-green-200 rounded">
-            <h3 className="text-green-500 text-align-center">{`Meeting has been scheduled`}</h3>
-            <p className="text-green-500 text-align-center">{`${date}`}</p>
-            <p className="text-green-500 text-align-center">{`at ${selectedTime}`}</p>
+        <div className="flex flex-col items-center justify-between p-4 h-full w-full">
+          <div className="flex flex-col items-center justify-center h-full w-full">
+            <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-center bg-green-100 rounded">
+              <h3 className="text-green-700 text-center text-lg my-2">{`Meeting has been scheduled`}</h3>
+              <p className="text-green-700 text-center text-base">{`${date!.toDateString()}`}</p>
+              <p className="text-green-700 text-center text-base">
+                {`at ${formatTimeString(selectedTime!.startTime)} - ${formatTimeString(selectedTime!.endTime)}`}
+              </p>
+            </div>
           </div>
           <Button
             onClick={resetState}
