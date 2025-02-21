@@ -21,6 +21,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [availability, setAvailability] = useState<Availabilities[]>([]);
   const [userMeetings, setUserMeetings] = useState<CalendarEvents[] | undefined>(undefined);
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [dateError, setDateError] = useState<string>("");
   const [availableTimes, setAvailableTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(undefined);
   const [confirmationState, setConfirmationState] = useState<boolean>(false);
@@ -48,18 +49,28 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       }
     }
 
-    console.log(showingUser.availabilities);
     setAvailability(showingUser.availabilities);
     fetchUserMeetings(showingUser.userId);
-  }, [])
+  }, [confirmationState])
 
   // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
   function populateTimeListings(selectedDate: Date | undefined) {
+    const currentDate: Date = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
     // If there is no date selected then there should be no time listings
     if (selectedDate === undefined) {
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
+      setDateError("");
+
+    //Check that the user hasn't chosen a date in the past
+    }else if(selectedDate < currentDate){
+      setAvailableTimes([]);
+      setSelectedTime(undefined);
+      setDate(undefined);
+      setDateError("Cannot make a meeting for a date in the past");
 
     //Otherwise, we will look at the user's availability and their current meetings for that date and make a list of available times in 30 minute intervals
     } else {
@@ -76,6 +87,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
+        setDateError("");
 
       // Otherwise, we will create a list of available times for the selected day
       } else {
@@ -129,6 +141,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes(availableTimes);
         setSelectedTime(undefined);
         setDate(selectedDate);
+        setDateError("");
       }
     }
   }
@@ -161,8 +174,12 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     }
   }
 
+  // Function to reset the meeting inputs
   function resetState(){
-
+    setDate(undefined);
+    setAvailableTimes([]);
+    setSelectedTime(undefined);
+    setDateError("");
     setConfirmationState(false);
   }
 
@@ -189,6 +206,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
           {date &&
             <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
+          }
+          {dateError &&
+            <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
           }
           <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
           {date &&
