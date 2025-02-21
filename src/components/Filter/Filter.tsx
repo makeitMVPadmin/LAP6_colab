@@ -13,17 +13,17 @@ interface filterProps {
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     return (
-        <Card className={cn("w-64 h-44 pb-0 border-black rounded-md border-b-2 border-r-2")}>
-            <CardHeader className={cn("pt-2 pr-4")}>
+        <Card className={cn("lg:w-64 h-16 lg:h-44 mt-4 ml-4 pb-0 md:border-1 md:border-black md:rounded-md md:border-b-2 md:border-r-2 shadow-none")}>
+            <CardHeader className={cn("pb-1 pt-2 pr-4")}>
                 <CardDescription 
                     className={cn("text-right font-light m-0 cursor-pointer")}
                     onClick={() => filterGoalBuddies('')}>Clear All
                 </CardDescription>
             </CardHeader>
-            <CardContent className={cn("flex flex-col gap-4 pr-4 pl-4 pb-0")}>
+            <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour={"bg-blue-600"} />
+                        <RoleBadge colour="bg-blue-600" letter="M" />
                         Mentor
                     </label>
                     <span 
@@ -35,7 +35,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour={"bg-amber-500"} />Goal Buddy
+                        <RoleBadge colour="bg-amber-500" letter="G" />Goal Buddy
                     </label>
                     <span 
                         className={filter.accountability
@@ -46,7 +46,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between">
                     <label>
-                    <RoleBadge colour={"bg-green-600"} />
+                    <RoleBadge colour="bg-green-600" letter="N" />
                         Networking
                     </label>
                     <span 
