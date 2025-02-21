@@ -1,8 +1,7 @@
+import { IdType } from "@/types/types";
 import { createContext } from "react";
-interface IdType{
-    userId:string,
-    goalBuddyId:string
-}
+
+
 export const IdContext=createContext<IdType|undefined>(undefined)
 import { ReactNode } from "react";
 

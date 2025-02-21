@@ -9,7 +9,7 @@ interface BookingCalendarProps {
 const BookingCalendar: React.FC<BookingCalendarProps> = ({ selectedDate, setDate }) => {
 
   return (
-    <div className="border-2 border-black rounded-lg w-64 my-4">
+    <div className="border-2 border-black rounded-lg mt-1 mb-3 mx-2">
       <Calendar
         mode="single"
         selected={selectedDate}
