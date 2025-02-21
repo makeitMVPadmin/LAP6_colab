@@ -25,6 +25,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [availableTimes, setAvailableTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(undefined);
   const [confirmationState, setConfirmationState] = useState<boolean>(false);
+  const [backendError, setBackendError] = useState<string>("");
 
   // Fetch the user's current meetings so they can be used to help determine availability
   useEffect(() => {
@@ -33,8 +34,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       try {
         const currentDate: Timestamp = Timestamp.now()
         const data = await getUserEvents(userId, currentDate);
-        console.log(userId);
-        console.log(data);
 
         // If the user has no meetings, set the userMeetings state to an empty array
         if (data.length === 0) {
@@ -46,6 +45,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         }
       } catch (error) {
         console.error(`Error in fetching meetings with user ID ${userId}:`, error);
+        setBackendError("An error occured while trying to get this user's meeting schedule. Please close and try again.");
       }
     }
 
@@ -142,6 +142,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setSelectedTime(undefined);
         setDate(selectedDate);
         setDateError("");
+        setBackendError("");
       }
     }
   }
@@ -164,12 +165,12 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
 
       // Call the createCalendarEvent function to create the event in the collection
       try {
-        const response = await createCalendarEvent(eventData)
-        console.log(response);
+        await createCalendarEvent(eventData)
         setConfirmationState(true);
 
       } catch (error) {
         console.error('Error creating calendar event:', error)
+        setBackendError("An error occured while trying to book this meeting. Please close and try again.");
       }
     }
   }
@@ -188,7 +189,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       {confirmationState ? (
         <div className="flex flex-col items-center justify-between p-4 h-full w-full">
           <div className="flex flex-col items-center justify-center h-full w-full">
-            <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-center bg-green-100 rounded">
+            <div className="w-full h-[60%] flex flex-col items-center justify-center bg-green-100 rounded">
               <h3 className="text-green-700 text-center text-lg my-2">{`Meeting has been scheduled`}</h3>
               <p className="text-green-700 text-center text-base">{`${date!.toDateString()}`}</p>
               <p className="text-green-700 text-center text-base">
@@ -205,36 +206,46 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           </Button>
         </div>
       ) : (
-      <div className="flex flex-col items-center justify-between p-3 h-full w-full">
-        <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
-          <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
-          {date &&
-            <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
-          }
-          {dateError &&
-            <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
-          }
-          <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
-          {date &&
-            <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-              <h3 className="font-bold text-sm my-1">{`Timezone: ${showingUser.timezone}`}</h3>
-              <TimeSelectionList
-                timesList={availableTimes}
-                selectedDate={date}
-                setTime={setSelectedTime}
-              />
+        <div className="flex flex-col items-center justify-center h-full w-full">
+        {backendError ? (
+          <div className="flex flex-col items-center justify-center h-full w-full">
+            <div className="w-full h-[60%] flex flex-col items-center justify-center bg-red-100 rounded">
+              <h3 className="text-red-700 text-center text-lg my-2">{`${backendError}`}</h3>
             </div>
-          }
-        </div>
-        <Button
-          onClick={makeMeetingEvent}
-          disabled={date === undefined || selectedTime === undefined}
-          variant="secondary"
-          className={`my-1 
-            ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-[#ffd22f] text-black hover:bg-black hover:text-white active:bg-black active:text-white'}`}
-        >
-          {`Confirm`}
-        </Button>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-between p-3 h-full w-full">
+            <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
+              <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
+              {date &&
+                <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
+              }
+              {dateError &&
+                <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
+              }
+              <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
+              {date &&
+                <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
+                  <h3 className="font-bold text-sm my-1">{`Timezone: ${showingUser.timezone}`}</h3>
+                  <TimeSelectionList
+                    timesList={availableTimes}
+                    selectedDate={date}
+                    setTime={setSelectedTime}
+                  />
+                </div>
+              }
+            </div>
+            <Button
+              onClick={makeMeetingEvent}
+              disabled={date === undefined || selectedTime === undefined}
+              variant="secondary"
+              className={`my-1 
+                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-[#ffd22f] text-black hover:bg-black hover:text-white active:bg-black active:text-white'}`}
+            >
+              {`Confirm`}
+            </Button>
+          </div>
+        )}
       </div>
     )}
   </div>
