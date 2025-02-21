@@ -215,7 +215,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-between p-3 h-full w-full">
-            <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
+            <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
               <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
               {date &&
                 <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
