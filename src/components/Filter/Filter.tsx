@@ -1,6 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
 import { cn } from "../lib/utils"
 import RoleBadge from './RoleBadge'
+import MentorBadge from './MentorBadge'
+import GoalBuddyBadge from './GoalBuddyBadge'
+import NetworkingBadge from './NetworkingBadge'
 
 interface filterProps {
     filterGoalBuddies: Function,
@@ -23,7 +26,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
             <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour="bg-blue-600" letter="M" />
+                        <MentorBadge />
                         Mentor
                     </label>
                     <span 
@@ -35,7 +38,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between relative">
                     <label>
-                        <RoleBadge colour="bg-amber-500" letter="G" />Goal Buddy
+                        <GoalBuddyBadge />Goal Buddy
                     </label>
                     <span 
                         className={filter.accountability
@@ -46,7 +49,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </div>
                 <div className="flex flex-row justify-between">
                     <label>
-                    <RoleBadge colour="bg-green-600" letter="N" />
+                    <NetworkingBadge />
                         Networking
                     </label>
                     <span 
