@@ -16,7 +16,7 @@ export async function createCalendarEvent(
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     }
-    const docRef = await addDoc(collection(db, 'calendar_events'), eventDoc)
+    const docRef = await addDoc(collection(db, 'calendarEvents'), eventDoc)
     return { ...eventDoc, id: docRef.id }
   } catch (error) {
     console.error('Error creating calendar event: ', error)
