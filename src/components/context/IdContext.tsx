@@ -12,13 +12,7 @@ export const IdProvider = ({ children }: { children: ReactNode }) => {
 	
 	const userId = 'oPpkEtk18BefnQNijnUU'
 
-	console.log(userData);
-	console.log(goalBuddyData);
-	
-
   useEffect(() => {
-		console.log('called');
-		
     const fetchUserData = async () => {
       try {
         const [userResponse, goalBuddyResponse] = await Promise.all([
