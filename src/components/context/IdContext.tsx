@@ -1,16 +1,44 @@
-import { IdType } from "@/types/types";
-import { createContext } from "react";
+import { GoalBuddy, IdType, User } from '@/types/types'
+import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
+import { getUserById } from '../../../firebase/functions/getUserById'
+import { createContext, useEffect, useState } from 'react'
 
+export const IdContext = createContext<IdType | undefined>(undefined)
+import { ReactNode } from 'react'
 
-export const IdContext=createContext<IdType|undefined>(undefined)
-import { ReactNode } from "react";
+export const IdProvider = ({ children }: { children: ReactNode }) => {
+	const [userData, setUserData] = useState<User | null>(null)
+	const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
+	
+	const userId = 'oPpkEtk18BefnQNijnUU'
 
-export const IdProvider=({children}: {children: ReactNode})=>{
-    const userId="pSuTJe464b8q86l6whPM";
-    const goalBuddyId="yfKMqgkDsrPxWc1jUoU9";
-    return(
-        <IdContext.Provider value={{userId,goalBuddyId}}>
-            {children}
-        </IdContext.Provider>
-    )
+	console.log(userData);
+	console.log(goalBuddyData);
+	
+
+  useEffect(() => {
+		console.log('called');
+		
+    const fetchUserData = async () => {
+      try {
+        const [userResponse, goalBuddyResponse] = await Promise.all([
+          getUserById(userId),
+          getGoalBuddyByUserId(userId),
+        ])
+        setUserData(userResponse)
+        setGoalBuddyData(goalBuddyResponse)
+      } catch (error) {
+        console.error('Failed to fetch data', error)
+      }
+    }
+    fetchUserData()
+  }, [userId])
+
+  return (
+    <IdContext.Provider
+      value={{ userData, setUserData, goalBuddyData, setGoalBuddyData }}
+    >
+      {children}
+    </IdContext.Provider>
+  )
 }

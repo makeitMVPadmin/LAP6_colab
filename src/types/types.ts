@@ -109,7 +109,9 @@ export interface AvailabilityErrors {
   endTimeError: string;
   errorsExist: boolean;
 }
-export interface IdType{
-    userId:string,
-    goalBuddyId:string
+export interface IdType {
+  userData: User | null
+  setUserData: (userData: User | null) => void
+  goalBuddyData: GoalBuddy | null
+  setGoalBuddyData: (goalBuddyData: GoalBuddy | null) => void
 }

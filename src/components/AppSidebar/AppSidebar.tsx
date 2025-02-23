@@ -7,11 +7,8 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
-import { getUserById } from '../../../firebase/functions/getUserById'
-import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
-import { GoalBuddy, User } from '@/types/types'
 import './AppSidebar.css'
 import UserProfileModal from '../Modal/UserProfileModal'
 import { IdContext } from '../context/IdContext'
@@ -25,35 +22,19 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const [userData, setUserData] = useState<User | null>(null)
-  const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(
-    null,
-  )
   const [modalOpen, setModalOpen] = useState(false)
 
-  const context = useContext(IdContext)
-  const userId = context?.userId
+  const userContext = useContext(IdContext)
+  if (!userContext) {
+    throw new Error('IdContext not found')
+  }
+  const { userData, goalBuddyData, setGoalBuddyData } = userContext
+
   const sidebarContext = useContext(SidebarContext)
   if (!sidebarContext) {
     throw new Error('Sidebar context not found')
   }
   const { isSidebarOpen, setIsSideBarOpen } = sidebarContext
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [userResponse, goalBuddyResponse] = await Promise.all([
-          getUserById(userId as string),
-          getGoalBuddyByUserId(userId as string),
-        ])
-        setUserData(userResponse)
-        setGoalBuddyData(goalBuddyResponse)
-      } catch (error) {
-        console.error('Failed to fetch data', error)
-      }
-    }
-    fetchData()
-  }, [userId])
 
   const handleClick = (title: string) => {
     if (title === 'Profile') setModalOpen(!modalOpen)
@@ -119,7 +100,6 @@ export function AppSidebar() {
         <UserProfileModal
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
-          userId={userId || ''}
           goalBuddyData={goalBuddyData}
           updateGoalBuddyData={setGoalBuddyData}
         />
