@@ -17,12 +17,12 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   goalBuddy,
 }) => {
 
-  const context: IdType | undefined = useContext(IdContext)
-  let activeUserId: string = "";
-
-  if(context){
-    activeUserId = context.userId;
+  const userContext: IdType | undefined = useContext(IdContext)
+  if (!userContext) {
+    throw new Error('IdContext not found')
   }
+  const { userData } = userContext
+  
   
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -35,8 +35,8 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
         <div className="flex flex-col items-center h-full w-[45%] bg-[#279af1] p-0 overflow-hidden rounded">
-          {context ? (
-            <MeetingSetupSection activeUserId={activeUserId} showingUser={goalBuddy} />
+          {userContext && userData ? (
+            <MeetingSetupSection activeUserId={userData.id} showingUser={goalBuddy} />
           ) : (
             <p>{`Context for the Active User not found.`}</p>
           )}
