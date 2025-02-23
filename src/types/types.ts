@@ -109,3 +109,7 @@ export interface AvailabilityErrors {
   endTimeError: string;
   errorsExist: boolean;
 }
+export interface IdType{
+    userId:string,
+    goalBuddyId:string
+}

@@ -42,22 +42,22 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
     }
 
     return (
-        <div className="p-5 max-h-[500px] bg-white border-2 border-black rounded-lg w-64 my-4">
-            <div className="sticky top-0 bg-white z-10 p-2 border-b border-gray-600">
-                <span className="font-bold">{selectedDate.toDateString()}</span>
+        <div className="flex flex-col justify-start w-full p-1 bg-white border-2 border-black rounded-lg my-1 max-h-[9rem] overflow-auto">
+            <div className="sticky top-0 bg-white z-10 p-2 pb-0">
+                <p className="font-bold">{`Select a time`}</p>
             </div>
             {timesList.length === 0 ? (
-                <div>No Availability for this Date</div>
+                <p className="bg-white rounded p-1">{`No Availability for this Date`}</p>
             ) : (
-                <div className="overflow-auto scrollbar-hide max-h-[150px]">
+                <div className="overflow-auto scrollbar-hide">
                     {timesList.map((time: TimePeriod, index: number) => (
                         <div 
                             key={index} 
-                            className={`flex items-center mb-2 border-b border-gray-600 pb-2 cursor-pointer
+                            className={`flex items-center justify-center m-2 rounded cursor-pointer border border-gray-200
                             ${activeRow === index ? "bg-black text-white" : "hover:bg-gray-200"}`}
                             onClick={() => setSelectedTime(index, time)}
                         >
-                            <span className="text-lg">{createMeetingDisplayString(time)}</span>
+                            <p className="text-sm text-center">{createMeetingDisplayString(time)}</p>
                         </div>
                     ))}
                 </div>
