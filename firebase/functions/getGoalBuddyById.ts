@@ -12,7 +12,7 @@ export const getGoalBuddyById = async (
 ): Promise<GoalBuddy | null> => {
   try {
     // Reference the document by its ID
-    const goalBuddyDocRef = doc(db, 'goal_buddies', id)
+    const goalBuddyDocRef = doc(db, 'goalBuddies', id)
     const goalBuddyDocSnapshot = await getDoc(goalBuddyDocRef)
 
     if (!goalBuddyDocSnapshot.exists()) {

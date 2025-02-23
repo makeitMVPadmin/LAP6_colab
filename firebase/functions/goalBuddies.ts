@@ -13,7 +13,7 @@ import { GoalBuddy, BaseGoalBuddy } from '../../src/types/types'
 
 export default async function getAllGoalBuddies(): Promise<GoalBuddy[]> {
   try {
-    const querySnapshot = await getDocs(collection(db, 'goal_buddies'))
+    const querySnapshot = await getDocs(collection(db, 'goalBuddies'))
 
     if (querySnapshot.empty) {
       return []
