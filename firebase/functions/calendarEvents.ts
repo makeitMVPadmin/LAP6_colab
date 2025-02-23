@@ -9,7 +9,7 @@ import { BaseEvents, CalendarEvents } from '../../src/types/types'
 
 export const getAllCalendarEvents = async (): Promise<CalendarEvents[]> => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'calendar_events'))
+    const querySnapshot = await getDocs(collection(db, 'calendarEvents'))
 
     if (querySnapshot.empty) {
       return []

@@ -22,11 +22,11 @@ export async function getUserEvents(
 ): Promise<CalendarEvents[]> {
   try {
     const inviteeUserQuery = query(
-      collection(db, 'calendar_events'),
+      collection(db, 'calendarEvents'),
       where('invitedUserId', '==', userId),
     )
     const createdUserQuery = query(
-      collection(db, 'calendar_events'),
+      collection(db, 'calendarEvents'),
       where('createdUserId', '==', userId),
     )
 
