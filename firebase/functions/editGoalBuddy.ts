@@ -26,7 +26,7 @@ export const editGoalBuddy = async (
     throw new Error('Invalid data is passed for updating Goal Buddy')
   }
 
-  const goalBuddyRef = doc(db, 'goal_buddies', goalbuddyId)
+  const goalBuddyRef = doc(db, 'goalBuddies', goalbuddyId)
 
   try {
     await updateDoc(goalBuddyRef, {
