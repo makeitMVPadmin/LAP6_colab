@@ -25,14 +25,14 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
             </CardHeader>
             <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
                 <div className="flex flex-row justify-between relative">
-                    <label>
+                    <label className="rounded-lg border-2 border-black w-10/12">
                         <MentorBadge />
                         Mentor
                     </label>
                     <span 
                         className={filter.mentor
-                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
-                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black self-center")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white self-center")}
                         onClick={() => {filterGoalBuddies('mentor')}}
                     />
                 </div>
@@ -42,8 +42,8 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                     </label>
                     <span 
                         className={filter.accountability
-                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
-                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black self-center")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white self-center")}
                         onClick={() => {filterGoalBuddies('accountability')}}
                     />
                 </div>
@@ -54,8 +54,8 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                     </label>
                     <span 
                         className={filter.networking
-                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black")
-                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white")}
+                            ? cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-black self-center")
+                            : cn("cursor-pointer h-5 w-5 rounded-sm border-2 border-slate-600 bg-white self-center")}
                         onClick={() => {filterGoalBuddies('networking')}}
                     />
                 </div>
