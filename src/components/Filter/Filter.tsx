@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
 import { cn } from "../lib/utils"
-import RoleBadge from './RoleBadge'
 import MentorBadge from './MentorBadge'
 import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
@@ -24,10 +23,9 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                 </CardDescription>
             </CardHeader>
             <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
-                <div className="flex flex-row justify-between relative">
-                    <label className="rounded-lg border-2 border-black w-10/12">
-                        <MentorBadge />
-                        Mentor
+                <div className="flex flex-row justify-between relative h-8">
+                    <label className="rounded-lg border border-r-2 border-b-2 border-black w-10/12 pl-2 ">
+                        <MentorBadge /> Mentor
                     </label>
                     <span 
                         className={filter.mentor
@@ -36,9 +34,9 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                         onClick={() => {filterGoalBuddies('mentor')}}
                     />
                 </div>
-                <div className="flex flex-row justify-between relative">
-                    <label>
-                        <GoalBuddyBadge />Goal Buddy
+                <div className="flex flex-row justify-between relative h-8">
+                <label className="rounded-lg border border-r-2 border-b-2 border-black w-10/12 pl-2">
+                        <GoalBuddyBadge /> Goal Buddy
                     </label>
                     <span 
                         className={filter.accountability
@@ -47,10 +45,9 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
                         onClick={() => {filterGoalBuddies('accountability')}}
                     />
                 </div>
-                <div className="flex flex-row justify-between">
-                    <label>
-                    <NetworkingBadge />
-                        Networking
+                <div className="flex flex-row justify-between h-8">
+                <label className="rounded-lg border border-r-2 border-b-2 border-black w-10/12 pl-2">
+                    <NetworkingBadge /> Networking
                     </label>
                     <span 
                         className={filter.networking

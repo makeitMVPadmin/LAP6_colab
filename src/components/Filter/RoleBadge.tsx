@@ -1,9 +1,8 @@
 interface ColourProps {
-  colour: string,
-  letter: string
+  colour: string
 }
 
-const RoleBadge: React.FC<ColourProps> = ({ colour, letter }) => {
+const RoleBadge: React.FC<ColourProps> = ({ colour }) => {
   return (
     <span className={`h-3 w-3 mr-1 p-0 inline-block align-center text-xs text-center ${colour}`}>{letter}</span>
   )
