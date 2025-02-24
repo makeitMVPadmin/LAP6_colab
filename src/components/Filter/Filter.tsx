@@ -1,9 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader } from '../ui/card'
 import { cn } from '../lib/utils'
 import RoleBadge from './RoleBadge'
-import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
-import { TooltipContentWrapper } from '../Tooltip/TooltipContentWrapper'
-import { roleItems } from '../../utils/data'
 
 interface filterProps {
   filterGoalBuddies: Function
@@ -31,26 +28,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       </CardHeader>
       <CardContent className={cn('flex flex-col gap-4 pr-4 pl-4 pb-0')}>
         <div className="flex flex-row justify-between relative">
-          <TooltipWrapper
-            content={
-              <TooltipContentWrapper>
-                <img
-                  className="w-[30px]"
-                  src={roleItems[0].icon}
-                  alt="mentor-icon"
-                />
-                <p className="font-semibold text-[20px]">{roleItems[0].role}</p>
-                <p className="text-center text-[16px]">
-                  {roleItems[0].description}
-                </p>
-              </TooltipContentWrapper>
-            }
-          >
-            <label>
-              <RoleBadge colour={'bg-blue-600'} />
-              Mentor
-            </label>
-          </TooltipWrapper>
+          <label>
+            <RoleBadge colour={'bg-blue-600'} />
+            Mentor
+          </label>
           <span
             className={
               filter.mentor
@@ -67,26 +48,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           />
         </div>
         <div className="flex flex-row justify-between relative">
-          <TooltipWrapper
-            content={
-              <TooltipContentWrapper>
-                <img
-                  className="w-[30px]"
-                  src={roleItems[1].icon}
-                  alt="mentor-icon"
-                />
-                <p className="font-semibold text-[20px]">{roleItems[1].role}</p>
-                <p className="text-center text-[16px]">
-                  {roleItems[1].description}
-                </p>
-              </TooltipContentWrapper>
-            }
-          >
-            <label>
-              <RoleBadge colour={'bg-amber-500'} />
-              Goal Buddy
-            </label>
-          </TooltipWrapper>
+          <label>
+            <RoleBadge colour={'bg-amber-500'} />
+            Goal Buddy
+          </label>
           <span
             className={
               filter.accountability
@@ -103,26 +68,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           />
         </div>
         <div className="flex flex-row justify-between">
-          <TooltipWrapper
-            content={
-              <TooltipContentWrapper>
-                <img
-                  className="w-[30px]"
-                  src={roleItems[2].icon}
-                  alt="mentor-icon"
-                />
-                <p className="font-semibold text-[20px]">{roleItems[2].role}</p>
-                <p className="text-center text-[16px]">
-                  {roleItems[2].description}
-                </p>
-              </TooltipContentWrapper>
-            }
-          >
-            <label>
-              <RoleBadge colour={'bg-green-600'} />
-              Networking
-            </label>
-          </TooltipWrapper>
+          <label>
+            <RoleBadge colour={'bg-green-600'} />
+            Networking
+          </label>
           <span
             className={
               filter.networking
