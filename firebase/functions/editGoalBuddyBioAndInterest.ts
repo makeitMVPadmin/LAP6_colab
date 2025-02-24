@@ -22,7 +22,7 @@ export const editGoalBuddyBioAndInterest = async (
 ): Promise<GoalBuddy> => {
   try {
     const goalBuddyQuery = query(
-      collection(db, 'goal_buddies'),
+      collection(db, 'goalBuddies'),
       where('userId', '==', userId),
     )
     const goalBuddySnapshot = await getDocs(goalBuddyQuery)
@@ -30,7 +30,7 @@ export const editGoalBuddyBioAndInterest = async (
       throw new Error('No goal buddy found with this user ID')
     }
 
-    const docRef = doc(db, 'goal_buddies', goalBuddySnapshot.docs[0].id)
+    const docRef = doc(db, 'goalBuddies', goalBuddySnapshot.docs[0].id)
     const updatedAt = Timestamp.now()
     const updates: Partial<GoalBuddy> = { updatedAt }
 

@@ -10,7 +10,7 @@ export const getGoalBuddyByUserId = async (
 ): Promise<GoalBuddy | null> => {
   try {
     const goalBuddyQuery = query(
-      collection(db, 'goal_buddies'),
+      collection(db, 'goalBuddies'),
       where('userId', '==', userId),
     )
     const goalBuddyDoc = await getDocs(goalBuddyQuery)
