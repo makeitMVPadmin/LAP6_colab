@@ -34,8 +34,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       try {
         const currentDate: Timestamp = Timestamp.now()
         const data = await getUserEvents(userId, currentDate);
-        console.log("grabbed meetings");
-        console.log(data);
+
         // If the user has no meetings, set the userMeetings state to an empty array
         if (data.length === 0) {
           setUserMeetings([]);
@@ -167,8 +166,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
 
       // Call the createCalendarEvent function to create the event in the collection
       try {
-        const response = await createCalendarEvent(eventData)
-        console.log(response);
+        await createCalendarEvent(eventData)
         setConfirmationState(true);
 
       } catch (error) {

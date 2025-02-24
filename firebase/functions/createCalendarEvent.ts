@@ -7,12 +7,17 @@ import { EventData } from '@/types/types'
 /*modified to rethrow error to caller function
 @author[Jeffrey]*/
 
+/*
+* @editor[Katrina]
+* Fixed error that stored new events with an eventData field with sub-fields rather than making each data point stored in eventData its own field.
+*/
+
 export async function createCalendarEvent(
   eventData: EventData,
 ): Promise<object | null> {
   try {
     const eventDoc = {
-      eventData,
+      ...eventData,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     }

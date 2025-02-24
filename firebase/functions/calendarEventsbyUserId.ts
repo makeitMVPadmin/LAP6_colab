@@ -40,7 +40,6 @@ export async function getUserEvents(
       getDocs(createdUserQuery),
     ])
     if (inviteeSnapshot.empty && createdSnapshot.empty) {
-      console.log("Both invitee and creator empty");
       return []
     }
 
@@ -48,8 +47,6 @@ export async function getUserEvents(
     let creatorEvents: CalendarEvents[] = []
 
     if (date) {
-      console.log(date);
-
       inviteeEvents = inviteeSnapshot.docs
         .filter((item) => item.data().eventStartTime >= date)
         .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
@@ -67,8 +64,6 @@ export async function getUserEvents(
     }
 
     const mergeArray: CalendarEvents[] = [...inviteeEvents, ...creatorEvents];
-    console.log("final output");
-    console.log(mergeArray);
     return mergeArray;
 
   } catch (error) {
