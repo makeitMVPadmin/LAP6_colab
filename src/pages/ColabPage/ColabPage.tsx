@@ -10,6 +10,7 @@ import GoalBuddyCard from '@/components/GoalBuddyCard/GoalBuddyCard'
 import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
 import GoalBuddyProfileModal from '../../../src/components/Modal/GoalBuddyProfileModal'
+import { IdContext } from '@/components/context/IdContext'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -33,20 +34,31 @@ export default function ColabPage() {
     throw new Error('Sidebar context not found')
   }
 
+  const userContext = useContext(IdContext)
+  if (!userContext) {
+    throw new Error('IdContext not found')
+  }
+  const { userData, isActiveUserFetched } = userContext
+
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies = await getAllGoalBuddies()
       const users = await getAllUsers()
 
-      setGoalBuddiesCombinedWithUsers(
-        goalBuddiesMergedWithUsers(goalBuddies, users),
-      )
+      const excludeActiveUserList = goalBuddiesMergedWithUsers(
+        goalBuddies,
+        users,
+      ).filter( user => user.userId !== userData?.id)
+
+      setGoalBuddiesCombinedWithUsers(excludeActiveUserList)
 
       setIsLoading(false)
     }
 
-    fetchGoalBuddiesCombinedWithUser()
-  }, [])
+    if (isActiveUserFetched) {
+      fetchGoalBuddiesCombinedWithUser()
+    }
+  }, [isActiveUserFetched])
 
   const filterGoalBuddies = (choice: string) => {
     setFilter((prevFilter) => {

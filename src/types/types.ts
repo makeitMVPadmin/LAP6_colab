@@ -113,5 +113,6 @@ export interface IdType {
   userData: User | null
   setUserData: (userData: User | null) => void
   goalBuddyData: GoalBuddy | null
-  setGoalBuddyData: (goalBuddyData: GoalBuddy | null) => void
+  setGoalBuddyData: (goalBuddyData: GoalBuddy | null) => void,
+  isActiveUserFetched: boolean
 }
