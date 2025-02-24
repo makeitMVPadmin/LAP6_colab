@@ -13,7 +13,7 @@ export const getByEventId = async (
 ): Promise<CalendarEvents> => {
   try {
     // Reference the document by its ID
-    const eventDocRef = doc(db, 'calendar_events', eventId)
+    const eventDocRef = doc(db, 'calendarEvents', eventId)
     const eventDoc = await getDoc(eventDocRef)
 
     if (eventDoc.exists()) {
