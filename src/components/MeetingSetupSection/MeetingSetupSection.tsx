@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BookingCalendar from '../BookingCalendar/BookingCalendar'
 import TimeSelectionList from '../TimeSelectionList/TimeSelectionList'
 import { CalendarEvents, AllGoalBuddyData, Availabilities, TimePeriod, Time, EventData } from '@/types/types'
-import { getUserEvents } from '../../../firebase/functions/calendarEventsbyUserId'
+import { getUserEvents } from '../../../firebase/functions/calendarEventsByUserId'
 import { createCalendarEvent } from '../../../firebase/functions/createCalendarEvent'
 import { Timestamp } from 'firebase/firestore'
 import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
@@ -165,7 +165,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
 
       // Call the createCalendarEvent function to create the event in the collection
       try {
-        await createCalendarEvent(eventData)
+        const response = await createCalendarEvent(eventData)
+        console.log(response);
         setConfirmationState(true);
 
       } catch (error) {
