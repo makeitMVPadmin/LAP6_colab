@@ -5,12 +5,12 @@ import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
 
 interface filterProps {
-    filterGoalBuddies: Function,
-    filter: {
-        mentor: boolean,
-        accountability: boolean,
-        networking: boolean
-    }
+  filterGoalBuddies: Function
+  filter: {
+    mentor: boolean
+    accountability: boolean
+    networking: boolean
+  }
 }
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
@@ -60,4 +60,4 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     )
 }
 
-export default Filter;
+export default Filter
