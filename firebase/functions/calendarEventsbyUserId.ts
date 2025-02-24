@@ -16,6 +16,11 @@ we should filter events to only include those that occur on or after the specifi
 Also modified to rethrow the error to caller in cases where getDocs return an error
 @author[Jeffrey]*/
 
+/*
+* @editor [Katrina]
+* Function previously returned an empty array if no date was provided, regardless of other data found. Fixed so that it now returns the merged list of invitee and creator events without applying the date filter.
+*/
+
 export async function getUserEvents(
   userId: string,
   date?: Timestamp,
@@ -37,20 +42,30 @@ export async function getUserEvents(
     if (inviteeSnapshot.empty && createdSnapshot.empty) {
       return []
     }
-    let events1: CalendarEvents[] = []
-    let events2: CalendarEvents[] = []
+
+    let inviteeEvents: CalendarEvents[] = []
+    let creatorEvents: CalendarEvents[] = []
 
     if (date) {
-      events1 = inviteeSnapshot.docs
+      inviteeEvents = inviteeSnapshot.docs
         .filter((item) => item.data().eventStartTime >= date)
         .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
-      events2 = createdSnapshot.docs
+      
+        creatorEvents = createdSnapshot.docs
         .filter((item) => item.data().eventStartTime >= date)
+        .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
+
+    }else{
+      inviteeEvents = inviteeSnapshot.docs
+        .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
+      
+        creatorEvents = createdSnapshot.docs
         .map((item) => ({ id: item.id, ...(item.data() as BaseEvents) }))
     }
 
-    const mergeArray = [...events1, ...events2]
-    return mergeArray
+    const mergeArray: CalendarEvents[] = [...inviteeEvents, ...creatorEvents];
+    return mergeArray;
+
   } catch (error) {
     console.error('Error getting documents: ', error)
     throw error // Re-throw the error to handle it in the calling function

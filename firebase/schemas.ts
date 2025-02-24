@@ -25,7 +25,7 @@ export const AvailabilitiesSchema = z.object({
       'Saturday',
       'Sunday',
   ]),
-  timePeriod: z.array(TimePeriodSchema)
+  timePeriods: z.array(TimePeriodSchema)
 })
 
 export const GoalBuddySchema = z.object({

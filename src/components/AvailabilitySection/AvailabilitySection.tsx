@@ -32,7 +32,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         // Populate the inputs when the selected day changes to one with times
         } else {
             const currentTimePeriods: TimePeriodDisplay[] = [];      
-            selectedDayAvailability.timePeriod?.forEach((period) => {
+            selectedDayAvailability.timePeriods.forEach((period) => {
                 const startString: string = formatTimeString(period.startTime);
                 const endString: string = formatTimeString(period.endTime);
                 currentTimePeriods.push({startTime: startString, endTime: endString})
@@ -129,7 +129,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         timePeriodInputs?.forEach((period) => {
             updatedTimePeriods.push({ startTime: createTimeFromStrings(period.startTime), endTime: createTimeFromStrings(period.endTime) });
         });
-        const createdAvailability: Availabilities = { day: selectedDay!, timePeriod: updatedTimePeriods };
+        const createdAvailability: Availabilities = { day: selectedDay!, timePeriods: updatedTimePeriods };
 
         // Copy the availability items to updatedAvailabilities
         let selectDayExists: boolean = false;

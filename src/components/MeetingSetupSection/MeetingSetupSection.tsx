@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BookingCalendar from '../BookingCalendar/BookingCalendar'
 import TimeSelectionList from '../TimeSelectionList/TimeSelectionList'
 import { CalendarEvents, AllGoalBuddyData, Availabilities, TimePeriod, Time, EventData } from '@/types/types'
-import { getUserEvents } from '../../../firebase/functions/calendarEventsbyUserId'
+import { getUserEvents } from '../../../firebase/functions/calendarEventsByUserId'
 import { createCalendarEvent } from '../../../firebase/functions/createCalendarEvent'
 import { Timestamp } from 'firebase/firestore'
 import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
@@ -82,8 +82,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       // If the user has no availability for the selected day, set the times state to an empty array as no times will be available
       if (
         dailyAvailability === undefined ||
-        dailyAvailability.timePeriod.length === 0
+        dailyAvailability.timePeriods.length === 0
       ) {
+
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
@@ -91,7 +92,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
 
       // Otherwise, we will create a list of available times for the selected day
       } else {
-        const meetingTimes: TimePeriod[] = dailyAvailability.timePeriod;
+        const meetingTimes: TimePeriod[] = dailyAvailability.timePeriods;
 
         // Go throuh each of the user's availability time periods for this day and add each 30 minute interval to the availableTimes array
         for (let i:number  = 0; i < meetingTimes.length; i++) {
@@ -133,11 +134,20 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               availableTimes.push(meetingPeriod);
 
             }
-
             // Set the next start time to be 30 minutes later (aka the meetingEndTime)
             meetingStartTime = meetingEndTime;
           }
         }
+
+        // Sort the availableTimes array in chronological order
+        availableTimes.sort((a, b) => {
+          const aStartTime = new Date(selectedDate);
+          aStartTime.setHours(a.startTime.hours, a.startTime.minutes, 0, 0);
+          const bStartTime = new Date(selectedDate);
+          bStartTime.setHours(b.startTime.hours, b.startTime.minutes, 0, 0);
+          return aStartTime.getTime() - bStartTime.getTime();
+        });
+
         setAvailableTimes(availableTimes);
         setSelectedTime(undefined);
         setDate(selectedDate);
