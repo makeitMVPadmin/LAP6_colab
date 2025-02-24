@@ -108,12 +108,12 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
               <TooltipContentWrapper>
                 <img
                   className="w-[30px]"
-                  src={roleItems[1].icon}
+                  src={roleItems[2].icon}
                   alt="mentor-icon"
                 />
-                <p className="font-semibold text-[20px]">{roleItems[1].role}</p>
+                <p className="font-semibold text-[20px]">{roleItems[2].role}</p>
                 <p className="text-center text-[16px]">
-                  {roleItems[1].description}
+                  {roleItems[2].description}
                 </p>
               </TooltipContentWrapper>
             }
