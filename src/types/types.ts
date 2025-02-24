@@ -15,7 +15,7 @@ export type DayOfWeek = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Frida
 
 export type Availabilities = {
   day: DayOfWeek,
-  timePeriod: TimePeriod[]
+  timePeriods: TimePeriod[]
 }
 
 //import { Timestamp } from "firebase/firestore"

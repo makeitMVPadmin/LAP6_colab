@@ -34,7 +34,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       try {
         const currentDate: Timestamp = Timestamp.now()
         const data = await getUserEvents(userId, currentDate);
-
+        console.log("grabbed meetings");
+        console.log(data);
         // If the user has no meetings, set the userMeetings state to an empty array
         if (data.length === 0) {
           setUserMeetings([]);
@@ -82,8 +83,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       // If the user has no availability for the selected day, set the times state to an empty array as no times will be available
       if (
         dailyAvailability === undefined ||
-        dailyAvailability.timePeriod.length === 0
+        dailyAvailability.timePeriods.length === 0
       ) {
+
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
@@ -91,7 +93,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
 
       // Otherwise, we will create a list of available times for the selected day
       } else {
-        const meetingTimes: TimePeriod[] = dailyAvailability.timePeriod;
+        const meetingTimes: TimePeriod[] = dailyAvailability.timePeriods;
 
         // Go throuh each of the user's availability time periods for this day and add each 30 minute interval to the availableTimes array
         for (let i:number  = 0; i < meetingTimes.length; i++) {
