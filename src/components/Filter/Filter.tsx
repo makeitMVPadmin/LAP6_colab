@@ -11,10 +11,11 @@ interface filterProps {
         mentor: boolean,
         accountability: boolean,
         networking: boolean
-    }
+    },
+    setModalState: Function
 }
 
-const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
+const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, setModalState }) => {
     const [tooltip, setTooltip] = useState({
         mentor: 'invisible',
         goalBuddy: 'invisible',
@@ -24,7 +25,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     const renderCheckbox = (bool: boolean, role: string) => {
         return (
             <span 
-                className={cn(`cursor-pointer h-5 w-5 rounded-sm border-2 border-black self-center ${bool
+                className={cn(`cursor-pointer h-5 w-5 rounded-sm border-2 border-black self-center ml-4 ${bool
                     ? "bg-black" : "bg-white"
                 }`)}
                 onClick={() => {filterGoalBuddies(role)}}
@@ -32,24 +33,11 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         )
     }
 
-    const showTooltip = (tag: string) => {
-        setTooltip(prevTooltip => {
-            const newTooltip = { ...prevTooltip }
-            if (tag === 'mentor') newTooltip.mentor = 'visible'
-            if (tag === 'goalBuddy') newTooltip.goalBuddy = 'visible'
-            if (tag === 'networking') newTooltip.networking = 'visible'
-            return newTooltip
-        })
-    }
-
-    const hideTooltip = (tag: string) => {
-        setTooltip(prevTooltip => {
-            const newTooltip = { ...prevTooltip }
-            if (tag === 'mentor') newTooltip.mentor = 'invisible'
-            if (tag === 'goalBuddy') newTooltip.goalBuddy = 'invisible'
-            if (tag === 'networking') newTooltip.networking = 'invisible'
-            return newTooltip
-        })
+    const updateTooltip = (tag: string, visibility: string) => {
+        setTooltip(prevTooltip => ({
+            ...prevTooltip,
+            [tag]: visibility
+        }))
     }
 
     const renderTooltipNub = () => {
@@ -66,59 +54,57 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         cardHeader: "font-bold text-lg p-0"
     } 
 
-    return (
-        <Card className={cn("lg:w-60 h-16 lg:h-44 mt-4 ml-4 pb-0 md:border-none shadow-none")}>
-            <CardHeader className={cn("pb-1 pt-2 pr-4")}>
-            </CardHeader>
-            <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
-                <div className={bounds.role}>
-                    <label 
-                        className={bounds.card}
-                        onMouseEnter={() => {showTooltip('mentor')}}
-                        onMouseLeave={() => hideTooltip('mentor')}
-                    >
-                        <MentorBadge width="w-5" stroke="2" /> Mentor
-                        <Card className={`${bounds.tooltip} ${tooltip.mentor}`}>
-                            {renderTooltipNub()}
-                            <MentorBadge width="w-6" stroke="3" />
-                            <CardHeader className={cn(bounds.cardHeader)}>Mentor</CardHeader>
-                            <CardDescription className="text-black">Translating your ambitions into action with expert advice!</CardDescription>
-                        </Card>
-                    </label>
-                    {renderCheckbox(filter.mentor, 'mentor')}
-                </div>
-                <div className={bounds.role}>
-                <label 
-                        className={bounds.card}
-                    onMouseEnter={() => {showTooltip('goalBuddy')}}
-                    onMouseLeave={() => hideTooltip('goalBuddy')}
-                >
-                        <GoalBuddyBadge width="w-5" stroke="2" /> Goal Buddy
-                        <Card className={`${bounds.tooltip} ${tooltip.goalBuddy}`}>
-                            {renderTooltipNub()}
-                            <GoalBuddyBadge width="w-6" stroke="3"/>
-                            <CardHeader className={cn(bounds.cardHeader)}>Goal Buddy</CardHeader>
-                            <CardDescription>Optimize your career path with a buddy who keeps you accountable!</CardDescription>
-                        </Card>
-                    </label>
-                    {renderCheckbox(filter.accountability, 'accountability')}
-                </div>
-                <div className="flex flex-row justify-between h-8">
+    const renderRole = (tag: string, label: string, description: string) => {
+        const render = (
+            tag === 'mentor' && tooltip.mentor ||
+            tag === 'goalBuddy' && tooltip.goalBuddy ||
+            tag === 'networking' && tooltip.networking
+        )
+
+        const smallBadge = (
+            tag === 'mentor' && <MentorBadge width="w-5" stroke="2" /> ||
+            tag === 'goalBuddy' && <GoalBuddyBadge width="w-5" stroke="2" /> ||
+            tag === 'networking' && <NetworkingBadge width="w-5" stroke="2" />
+        )
+
+        const bigBadge = (
+            tag === 'mentor' && <MentorBadge width="w-5" stroke="3" /> ||
+            tag === 'goalBuddy' && <GoalBuddyBadge width="w-5" stroke="3" /> ||
+            tag === 'networking' && <NetworkingBadge width="w-5" stroke="3" />
+        )
+        
+        return (
+            <div className={bounds.role}>
                 <label 
                     className={bounds.card}
-                    onMouseEnter={() => {showTooltip('networking')}}
-                    onMouseLeave={() => hideTooltip('networking')}
+                    onMouseEnter={() => {
+                        updateTooltip(tag, 'visible')
+                        setModalState(true)
+                    }}
+                    onMouseLeave={() => {
+                        updateTooltip(tag, 'invisible')
+                        setModalState(false)
+                    }}
                 >
-                    <NetworkingBadge width="w-6" stroke="2" /> Networking
-                        <Card className={`${bounds.tooltip} ${tooltip.networking}`}>
-                            {renderTooltipNub()}
-                            <NetworkingBadge width="w-6" stroke="2.5"/>
-                            <CardHeader className={cn(bounds.cardHeader)}>Networking</CardHeader>
-                            <CardDescription> Build friendships while building your career — you're not in this alone!</CardDescription>
-                        </Card>
-                    </label>
-                    {renderCheckbox(filter.networking, 'networking')}
-                </div>
+                    {smallBadge} {label}
+                    <Card className={`${bounds.tooltip} ${render}`}>
+                        {renderTooltipNub()}
+                        {bigBadge}
+                        <CardHeader className={cn(bounds.cardHeader)}>{label}</CardHeader>
+                        <CardDescription className="text-black">{description}</CardDescription>
+                    </Card>
+                </label>
+                {renderCheckbox(filter.mentor, 'mentor')}
+            </div>
+        )
+    }
+
+    return (
+        <Card className={cn("lg:w-60 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none")}>
+            <CardContent className={cn("flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4")}>
+                {renderRole('mentor', 'Mentor', 'Translating your ambitions into action with expert advice!')}
+                {renderRole('goalBuddy', 'Goal Buddy', 'Optimize your career path with a buddy who keeps you accountable!')}
+                {renderRole('networking', 'Networking', 'Build friendships while building your career — you\'re not in this alone!')}
                 <CardDescription 
                     className={cn("text-right text-black text-md m-0 -mt-3 cursor-pointer")}
                     onClick={() => filterGoalBuddies('')}>Clear All

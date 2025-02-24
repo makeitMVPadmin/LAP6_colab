@@ -28,10 +28,15 @@ export default function ColabPage() {
   })
 
   const [isLoading, setIsLoading] = useState(true)
+
+  const [modalState, setModalState] = useState(false)
+
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
+
+  const modalEffect = modalState ? "backdrop-brightness-50" : ""
 
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
@@ -98,10 +103,15 @@ export default function ColabPage() {
   }
 
   return (
-    <main>
+    <main className={modalEffect}>
       <Layout>
         <div className={clsx('flex justify-center flex-col lg:flex-row')}>
-          <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
+          <Filter 
+            filterGoalBuddies={filterGoalBuddies} 
+            filter={filter} 
+            setModalState={setModalState}
+            modalEffect={modalEffect}
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
