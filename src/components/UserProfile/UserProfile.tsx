@@ -1,25 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { AvatarImage } from '../ui/avatar'
-import { getUserById } from '../../../firebase/functions/getUserById'
-import { getGoalBuddyByUserId } from '../../../firebase/functions/getGoalBuddyByUserId'
-import { GoalBuddy, User } from '@/types/types'
 import { editGoalBuddy } from '../../../firebase/functions/editGoalBuddy'
+import { IdContext } from '../context/IdContext'
 
-interface UserProfileProps {
-  userId: string
-}
 interface EditData {
   selectedInterests: string[]
   bio: string
   buttonText: string
   isEditing: boolean
 }
-export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
+export const UserProfile = () => {
   const interestsLabel = ['Mentor', 'GoalBuddy', 'Networking']
   const [color] = useState<string[]>(['blue', 'green', 'orange'])
-  const [userData, setUserData] = useState<User | null>(null)
-  const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
   const [errInterest, setErrInterest] = useState<boolean>(false)
   const [interestsFromGoalBuddy, setInterestsFromGoalBuddy] = useState<
     string[] | []
@@ -31,17 +24,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     isEditing: false as boolean,
   })
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [userResponse, goalBuddyResponse] = await Promise.all([
-        getUserById(userId),
-        getGoalBuddyByUserId(userId),
-      ])
-      setUserData(userResponse)
-      setGoalBuddyData(goalBuddyResponse)
+  const userContext = useContext(IdContext)
+    if (!userContext) {
+      throw new Error('IdContext not found')
     }
-    fetchData()
-  }, [userId])
+    const { userData, goalBuddyData, setGoalBuddyData } = userContext
 
   useEffect(() => {
     if(errInterest)
@@ -124,6 +111,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
         }
         setEditData({ ...editData,isEditing:false, buttonText: 'Saved' })
         await editGoalBuddy(goalBuddyData?.id, updatedData)
+
+        const updatedGoalBuddyData = {
+          ...goalBuddyData,
+          bio: updatedData.bio,
+          isAccountabilityPartner: updatedData.isAccountabilityPartner,
+          isMentor: updatedData.isMentor,
+          isNetworking: updatedData.isNetworking,
+        }
+        setGoalBuddyData(updatedGoalBuddyData)
       
         setTimeout(() => {
           setEditData({ ...editData, isEditing: false, buttonText: 'Edit' })
