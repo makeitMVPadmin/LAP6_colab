@@ -10,8 +10,7 @@ interface filterProps {
         mentor: boolean,
         accountability: boolean,
         networking: boolean
-    },
-    setModalState: Function
+    }
 }
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
@@ -35,7 +34,8 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         
         return (
             <div className="flex flex-row justify-between relative h-8">
-                <label className="rounded-lg border-2 border-r-4 border-b-4 border-black w-48 h-9 pl-2 text-xl leading-[30px] relative font[Montserrat] font-medium">
+                <label className="rounded-lg border-2 border-r-4 border-b-4 border-black w-48 h-9 pl-2 
+                    text-xl leading-[30px] relative font[Montserrat] font-medium">
                     {smallBadge} {roleName}
                 </label>
                 {renderCheckbox(roleToFilter, tag)}
