@@ -3,7 +3,7 @@ interface SizeProps {
 stroke:string
 }
 
-const GoalBuddyBadge: React.FC<SizeProps> = ({ width, stroke }) => {
+const GoalBuddyBadge: React.FC<SizeProps> = ({ width }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 5 23 23" fill="none" className={`inline-block ${width}`}>
       <g clipPath="url(#clip0_3097_13590)">
