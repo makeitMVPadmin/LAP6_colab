@@ -134,11 +134,20 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               availableTimes.push(meetingPeriod);
 
             }
-
             // Set the next start time to be 30 minutes later (aka the meetingEndTime)
             meetingStartTime = meetingEndTime;
           }
         }
+
+        // Sort the availableTimes array in chronological order
+        availableTimes.sort((a, b) => {
+          const aStartTime = new Date(selectedDate);
+          aStartTime.setHours(a.startTime.hours, a.startTime.minutes, 0, 0);
+          const bStartTime = new Date(selectedDate);
+          bStartTime.setHours(b.startTime.hours, b.startTime.minutes, 0, 0);
+          return aStartTime.getTime() - bStartTime.getTime();
+        });
+
         setAvailableTimes(availableTimes);
         setSelectedTime(undefined);
         setDate(selectedDate);
