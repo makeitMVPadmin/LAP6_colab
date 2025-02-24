@@ -3,7 +3,6 @@ import { cn } from "../lib/utils"
 import MentorBadge from './MentorBadge'
 import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
-import { useState } from 'react'
 
 interface filterProps {
     filterGoalBuddies: Function,
