@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import './AppSidebar.css'
 import UserProfileModal from '../Modal/UserProfileModal'
@@ -17,7 +17,6 @@ import { SidebarContext } from '../context/SidebarContext'
 const items = [
   {
     title: 'Profile',
-
   },
 ]
 
@@ -37,11 +36,16 @@ export function AppSidebar() {
   const { isSidebarOpen, setIsSideBarOpen } = sidebarContext
 
   const handleClick = (title: string) => {
-    if (title === 'Profile') setModalOpen(!modalOpen)
+    if (title === 'Profile') {
+   
+      setModalOpen(!modalOpen)
+  
+    }
   }
+ 
   return (
     <>
-      <div className="w-screen max-h-screen relative z-50">
+   <div className="w-screen max-h-screen relative z-50">
         <Sidebar className="w-[20%] absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0">
             <div className="h-[50%] bg-yellow-400">
@@ -71,7 +75,9 @@ export function AppSidebar() {
                 </div>
                 <div> {userData?.discipline}</div>
                 <div>
-                  {goalBuddyData?.skills.map((skill,index) => <span key={index}>#{skill} </span>)}
+                  {goalBuddyData?.skills.map((skill, index) => (
+                    <span key={index}>#{skill} </span>
+                  ))}
                 </div>
                 <SidebarMenu className="mt-1 items-center">
                   {items.map((item) => (
@@ -81,9 +87,7 @@ export function AppSidebar() {
                     >
                       <SidebarMenuButton asChild>
                         <a onClick={() => handleClick(item.title)}>
-                          <span >
-                            {item.title}
-                          </span>
+                          <span>{item.title}</span>
                         </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

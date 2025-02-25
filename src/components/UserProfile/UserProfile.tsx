@@ -3,16 +3,20 @@ import { Avatar, AvatarFallback } from '../ui/avatar'
 import { AvatarImage } from '../ui/avatar'
 import { editGoalBuddy } from '../../../firebase/functions/editGoalBuddy'
 import { IdContext } from '../context/IdContext'
-
+import mentor from "../../assets/icons/graduation-cap.svg"
+import networking from "../../assets/icons/network.svg"
+import goalbuddy from "../../assets/icons/smile-plus.svg"
+import React from 'react'
 interface EditData {
   selectedInterests: string[]
   bio: string
   buttonText: string
   isEditing: boolean
 }
+
 export const UserProfile = () => {
   const interestsLabel = ['Mentor', 'GoalBuddy', 'Networking']
-  const [color] = useState<string[]>(['blue', 'green', 'orange'])
+ const icons=[mentor,goalbuddy,networking]
   const [errInterest, setErrInterest] = useState<boolean>(false)
   const [interestsFromGoalBuddy, setInterestsFromGoalBuddy] = useState<
     string[] | []
@@ -191,11 +195,10 @@ export const UserProfile = () => {
           {interestsLabel.map((interest, _index) => {
             return (
               <div key={_index} className="flex gap-20">
-                <div className="flex items-center gap-1 w-[30%]">
-                  <div
-                    className="w-2 h-2"
-                    style={{ backgroundColor: color[_index] }}
-                  ></div>
+                <div className="flex  gap-2 w-[40%]">
+                <div className='w-[20px] h-[20px]'>  
+                <img src={icons[_index]}/>
+                  </div>
                   <span>{interest}</span>
                 </div>
 
