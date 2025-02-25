@@ -223,7 +223,7 @@ export const UserProfile = () => {
             <textarea
               value={editData.bio ? editData.bio : ''}
               onChange={(e) => handleChange(e)}
-              className="w-[90%] h-[78%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
+              className="w-[95%] h-[78%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
               disabled={
                 editData.isEditing == false || editData.buttonText === 'Saved'
               }
