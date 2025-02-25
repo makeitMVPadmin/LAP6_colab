@@ -18,9 +18,10 @@ interface filterProps {
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   const renderCheckbox = (filtered: boolean, role: string) => {
     return (
-      <span
+      <input type="checkbox"
         className={cn(
-          `cursor-pointer h-5 w-5 rounded-sm border-2 border-black self-center ml-4 ${
+          `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
+          rounded-sm border-[3px] border-black ${
             filtered ? 'bg-black' : 'bg-white'
           }`,
         )}
@@ -57,8 +58,8 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-row justify-between relative h-8">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="rounded-lg border-2 border-r-4 border-b-4 border-black w-48 h-9 pl-2 
-                    text-xl leading-[30px] relative font[Montserrat] font-medium"
+            className="rounded-lg border border-r-2 border-b-2 border-black w-[194px] h-[35px] pl-2 
+                    text-xl leading-[35px] relative font-montserrat font-medium"
           >
             {renderBadge(tag)} {roleName}
           </label>
@@ -84,7 +85,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         {renderRole('networking', 'Networking', filter.networking)}
         <CardDescription
           className={cn(
-            'text-right text-gray-800 text-base font[Montserrat] font-medium m-0 -mt-3 cursor-pointer',
+            'text-right text-gray-800 text-base font-montserrat font-medium m-0 -mt-3 cursor-pointer',
           )}
           onClick={() => filterGoalBuddies('')}
         >
