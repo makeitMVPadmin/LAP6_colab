@@ -21,7 +21,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <input type="checkbox"
         className={cn(
           `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
-          rounded-sm border-[3px] border-black ${
+          rounded-sm border-[3px] border-black hidden lg:inline ${
             filtered ? 'bg-black' : 'bg-white'
           }`,
         )}
@@ -58,7 +58,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-row justify-between relative h-8">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="rounded-lg border border-r-2 border-b-2 border-black w-[194px] h-[35px] pl-2 
+            className="rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
                     text-xl leading-[35px] relative font-montserrat font-medium"
           >
             {renderBadge(tag)} {roleName}
@@ -80,18 +80,19 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           'flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4',
         )}
       >
+        <div className="block"></div>
         {renderRole('mentor', 'Mentor', filter.mentor)}
         {renderRole('accountability', 'Goal Buddy', filter.accountability)}
         {renderRole('networking', 'Networking', filter.networking)}
+      </CardContent>
         <CardDescription
           className={cn(
-            'text-right text-gray-800 text-base font-montserrat font-medium m-0 -mt-3 cursor-pointer',
+            'text-right text-gray-800 text-base font-montserrat font-medium mr-4 mt-3 cursor-pointer',
           )}
           onClick={() => filterGoalBuddies('')}
         >
           Clear All
         </CardDescription>
-      </CardContent>
     </Card>
   )
 }
