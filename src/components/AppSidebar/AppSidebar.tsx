@@ -48,7 +48,7 @@ export function AppSidebar() {
    <div className="w-screen max-h-screen relative z-50">
         <Sidebar className="w-[20%] absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0">
-            <div className="h-[50%] bg-yellow-400">
+            <div className="h-[50%] bg-yellow">
               <button
                 className={clsx(
                   'text-red-600 text-left pl-3 pt-1 font-semibold',
@@ -95,7 +95,7 @@ export function AppSidebar() {
                 </SidebarMenu>
               </SidebarGroup>
             </div>
-            <div className="bg-blue-600 h-[50%]"></div>
+            <div className="bg-blue h-[50%]"></div>
           </SidebarContent>
         </Sidebar>
       </div>
