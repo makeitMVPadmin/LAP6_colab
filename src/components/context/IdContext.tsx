@@ -9,6 +9,7 @@ import { ReactNode } from 'react'
 export const IdProvider = ({ children }: { children: ReactNode }) => {
 	const [userData, setUserData] = useState<User | null>(null)
 	const [goalBuddyData, setGoalBuddyData] = useState<GoalBuddy | null>(null)
+  const [isActiveUserFetched, setIsActiveUserFetched] = useState<boolean>(false)
 	
 	const userId = 'oPpkEtk18BefnQNijnUU'
 
@@ -21,6 +22,7 @@ export const IdProvider = ({ children }: { children: ReactNode }) => {
         ])
         setUserData(userResponse)
         setGoalBuddyData(goalBuddyResponse)
+        setIsActiveUserFetched(true)
       } catch (error) {
         console.error('Failed to fetch data', error)
       }
@@ -30,7 +32,7 @@ export const IdProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <IdContext.Provider
-      value={{ userData, setUserData, goalBuddyData, setGoalBuddyData }}
+      value={{ userData, setUserData, goalBuddyData, setGoalBuddyData, isActiveUserFetched }}
     >
       {children}
     </IdContext.Provider>
