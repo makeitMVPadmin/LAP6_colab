@@ -6,6 +6,7 @@ import DaySelection from "../DaySelection/DaySelection";
 import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from "@/utils/dateHelpers";
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
 import { hasOverlap, validateAllAvailabilities } from "@/utils/timePeriodValidation";
+import AddIcon from "../AddIcon/AddIcon";
 
 interface AvailabilitySectionProps {
     activeGoalBuddy: GoalBuddy,
@@ -39,8 +40,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             });
             setTimePeriodInputs(currentTimePeriods);
         }
-        // // Erase previous time errors
-        // setTimeErrors([]);
+
     }, [selectedDay, selectedDayAvailability]);
 
     // Function to show availability for a specific day
@@ -217,11 +217,14 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     <p className="text-xs text-[#e53935] my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
-                            <Button className="w-[4rem] h-[1.5rem] my-1 hover:bg-white hover:text-black" onClick={addTimeRow}>{`+ Add`}</Button>
+                            <Button variant="colabAdd" size="colabAdd" onClick={addTimeRow}>
+                                <AddIcon />
+                                {`Add`}
+                            </Button>
                         </div>
                     )}
                 </div>
-                <Button variant="secondary" className="bg-[#ffd22f] color-black" onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>

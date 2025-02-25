@@ -65,7 +65,7 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
                     }
                 </div>
             </div>
-            <Button className="w-[4rem] h-[1.5rem] my-1 bg-white text-black hover:bg-black hover:text-white" onClick={handleDeleteClick}>{`Delete`}</Button>
+            <Button variant="colabDelete" size="colabDelete" onClick={handleDeleteClick}>{`Delete`}</Button>
         </div>
     );
 }
