@@ -44,8 +44,8 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
     }
 
     return (
-        <div className="w-full flex flex-col mb-2">
-            <div className="p-3 max-h-[500px] bg-white border-2 border-black rounded-lg">
+        <div className="w-full flex flex-col mb-3 ">
+            <div className="p-3 my-1 bg-white border-2 border-black rounded-lg">
                 <div className="w-full flex flex-col my-3">
                     <div className="w-full flex flex-row justify-between items-center">
                         <Label className="text-slate-900 text-sm font-medium font-['Montserrat'] leading-3" htmlFor={`startTime`+{index}}>

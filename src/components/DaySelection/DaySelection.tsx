@@ -12,7 +12,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({setSelectedDay, isError}) =>
     const daysOfWeek: DayOfWeek[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-4 flex justify-center items-center">
             <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
                 <SelectTrigger className={`w-[271px] h-[49.68px] px-[16.26px] py-[10.84px] bg-white rounded-lg border-l border-r-2 border-t border-b-2 border-[#28363f] justify-between items-center inline-flex" ${isError ? "border-[#e53935]": ""}`}>
                     <SelectValue placeholder="Select a day" />

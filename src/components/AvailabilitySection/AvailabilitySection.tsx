@@ -190,7 +190,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center pt-12 pb-6 px-6">
+    <div className="w-full h-full max-h-[660px] flex flex-col justify-center pt-16 pb-8 px-8">
         {confirmationState ? (
             <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
                 <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
@@ -199,18 +199,22 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         ) : (
             <div className="w-full h-full flex flex-col items-center justify-between">
                 <div className="w-full h-[90%] flex flex-col items-center">
-                    <h2 className="text-slate-950 text-2xl font-semibold font-['Fraunces']leading-tight">{`Set my availability`}</h2>
-                    {backendError && <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>}
+                    <h2 className="text-slate-950 text-2xl font-semibold font-['Fraunces']leading-tight">
+                        {`Set my availability`}
+                    </h2>
+                    {backendError && 
+                        <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>
+                    }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
                         <div className="w-full h-full flex flex-col justiy-start">
-                            <div className="w-full max-h-[75%] flex flex-col">
+                            <div className="w-full max-h-[372px] flex flex-col">
                                 <div className="sticky top-0 z-10">
-                                    <h3 className="text-[#0c0c0c] text-base font-semibold font-['Montserrat'] leading-[14.80px]">
+                                    <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-['Montserrat'] leading-[14.80px]">
                                         {`Time Zone: Eastern Standard Time`}
                                     </h3>
                                 </div>
-                                <div className="overflow-auto scrollbar-hide">
+                                <div className="overflow-auto scrollbar-hide h-full ">
                                     {timePeriodInputs.map((period, index) => (
                                     <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
