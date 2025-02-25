@@ -156,7 +156,7 @@ export const UserProfile = () => {
         </Avatar>
       </div>
 <div className="h-[85%]">
-      <div className="mt-2 flex flex-col pl-3 font-semibold ">
+      <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat">
         <label>
           First Name: <span className="font-light">{userData?.firstName}</span>
         </label>
@@ -184,7 +184,7 @@ export const UserProfile = () => {
           Skills:
           {goalBuddyData?.skills.map((skill, index) => (
             <span key={index} className="font-light">
-              &nbsp;{skill} ,
+              {index !== goalBuddyData?.skills.length - 1 ? ` ${skill}, ` : skill}
             </span>
           ))}
         </label>
