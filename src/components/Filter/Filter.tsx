@@ -5,6 +5,8 @@ import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
 import { roleItems } from '@/utils/data'
 import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
+import { useContext } from 'react'
+import { SidebarContext } from '../context/SidebarContext'
 
 interface filterProps {
   filterGoalBuddies: Function
@@ -13,16 +15,30 @@ interface filterProps {
     accountability: boolean
     networking: boolean
   }
+  modalState: boolean
+  setModalState: Function
 }
 
-const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
+const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, setModalState }) => {
+
+  const sidebarContext=useContext(SidebarContext);
+  if (!sidebarContext) {
+    throw new Error('Sidebar context not found')
+  }
+  const { isSidebarOpen } = sidebarContext;
+
+
   const renderCheckbox = (filtered: boolean, role: string) => {
     return (
-      <span
+      <input type="checkbox"
         className={cn(
-          `cursor-pointer h-5 w-5 rounded-sm border-2 border-black self-center ml-4 ${
-            filtered ? 'bg-black' : 'bg-white'
-          }`,
+          `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
+          rounded-sm border-[3px] border-black hidden lg:inline 
+          ${filtered ? 'bg-black' : 'bg-white'}
+
+          ${modalState ||isSidebarOpen? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
+
+
         )}
         onClick={() => {
           filterGoalBuddies(role)
@@ -57,8 +73,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-row justify-between relative h-8">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="rounded-lg border-2 border-r-4 border-b-4 border-black w-48 h-9 pl-2 
-                    text-xl leading-[30px] relative font[Montserrat] font-medium"
+            className="rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
+                    text-xl leading-[35px] relative font-montserrat font-medium"
+            onMouseEnter={() => setModalState(true)}
+            onMouseLeave={() => setModalState(false)}
           >
             {renderBadge(tag)} {roleName}
           </label>
@@ -71,7 +89,10 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   return (
     <Card
       className={cn(
-        'lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none',
+        `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none
+
+        ${modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
+
       )}
     >
       <CardContent
@@ -79,18 +100,19 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           'flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4',
         )}
       >
+        <div className="block"></div>
         {renderRole('mentor', 'Mentor', filter.mentor)}
         {renderRole('accountability', 'Goal Buddy', filter.accountability)}
         {renderRole('networking', 'Networking', filter.networking)}
+      </CardContent>
         <CardDescription
           className={cn(
-            'text-right text-gray-800 text-base font[Montserrat] font-medium m-0 -mt-3 cursor-pointer',
+            'text-right text-gray-800 text-base font-montserrat font-medium mr-4 mt-3 cursor-pointer',
           )}
           onClick={() => filterGoalBuddies('')}
         >
           Clear All
         </CardDescription>
-      </CardContent>
     </Card>
   )
 }

@@ -5,7 +5,7 @@ interface SizeProps {
 
 const NetworkingBadge: React.FC<SizeProps> = ({ width, stroke }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 1 26 26" fill="none" className={`inline-block ${width}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 1 26 26" fill="none" className={`inline ${width} -mt-1`}>
       <path d="M16.25 2.16406H9.75V8.66406H16.25V2.16406Z" stroke="#4CAF50" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round"/>
       <path d="M23.832 17.3359H17.332V23.8359H23.832V17.3359Z" stroke="#4CAF50" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round"/>
       <path d="M8.66797 17.3359H2.16797V23.8359H8.66797V17.3359Z" stroke="#4CAF50" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round"/>
