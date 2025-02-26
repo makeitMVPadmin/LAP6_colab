@@ -25,7 +25,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
           `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
           rounded-sm border-[3px] border-black hidden lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
-          ${modalState ? " fade-in-0 duration-300 bg-opacity-50" : ""}`,
+          ${modalState ? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
         )}
         onClick={() => {
           filterGoalBuddies(role)
@@ -77,7 +77,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
     <Card
       className={cn(
         `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none
-        ${modalState ? " fade-in-0 duration-300 opacity-50 bg-opacity-50" : ""}`
+        ${modalState ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
       )}
     >
       <CardContent
