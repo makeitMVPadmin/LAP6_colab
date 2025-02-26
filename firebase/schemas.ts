@@ -42,3 +42,14 @@ export const GoalBuddySchema = z.object({
   userId: z.string().optional(),
   yearsOfExperience: z.string().optional(),
 })
+
+export const EventDataSchema = z.object({
+  createdUserId: z.string(),
+  eventDescription: z.string(),
+  eventStartTime: z.date(),
+  eventEndTime: z.date(),
+  eventTitle: z.string(),
+  invitedUserId: z.string(),
+  eventStatus: z.enum(["confirmed", "pending", "canceled"]),
+  googleEventId: z.string()
+}).strict()
