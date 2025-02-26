@@ -10,11 +10,13 @@ import NetworkingBadge from '../Filter/NetworkingBadge'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
+  modalState: boolean
   onClick: () => void
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
   goalBuddy,
+  modalState,
   onClick,
 }) => {
   const sideBarContext = useContext(SidebarContext)
@@ -30,6 +32,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
         'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 pt-3 px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
         isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
+        modalState ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : '',
       )}
     >
       <div className="flex justify-end items-center absolute top-0 right-0 gap-1 py-1 px-2">
@@ -53,7 +56,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
             {goalBuddy.interests.map((interest, index) => (
               <span
                 key={index}
-                className="list-inside text-sm font-medium font-montserrat"
+                className={`bg-gray-200 list-inside text-sm font-medium rounded-md px-1 font-montserrat ${modalState ? ' fade-in-0 duration-200 brightness-50 bg-opacity-50' : ''}`}
               >
                 #{interest}
               </span>

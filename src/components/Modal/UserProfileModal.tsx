@@ -14,11 +14,21 @@ interface ModalProps {
 }
 
 const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, goalBuddyData, updateGoalBuddyData }) => {
+  const handleModalClick = () => {
+    setModalOpen(false)
+  }
   return (
-    <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
-      <DialogContent className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0 rounded"  aria-describedby={undefined}>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen} >
+  
+      <section className="flex min-w-[50vw] h-[75%] flex-row bg-[#EEEEEE] p-0 gap-0 
+       border border-black
+      absolute right-[19px] top-[79px] z-50"
+      
+    aria-describedby={undefined}>
+
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden">
+        <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden bg-white">
+        <div className="absolute z-50 left-[5px] top-[5px] cursor-pointer" onClick={handleModalClick}>X</div>
           <UserProfile />
         </div>
         <div className="flex flex-col items-center w-[45%] bg-[#23A8E7] p-0  overflow-hidden rounded">
@@ -30,7 +40,8 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, goalB
             }
             
         </div>
-      </DialogContent>
+        </section>
+
     </Dialog>
   )
 }
