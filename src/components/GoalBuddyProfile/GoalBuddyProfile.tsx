@@ -42,6 +42,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             alt="@shadcn"
           />
         </Avatar>
+        <div ></div>
       </div>
       <div className="h-[85%]">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat tracking-wider ">
