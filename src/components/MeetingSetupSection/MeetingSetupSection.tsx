@@ -194,17 +194,47 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     setConfirmationState(false);
   }
 
+  // Function to write confirmation messages with a formatted date and time.
+  function makeConfirmationMessage(forDate: boolean): string {
+    if (!date || !selectedTime) return "";
+
+    if(forDate){
+      const day = dayAsString(date.getDay());
+      const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+      });
+
+      return `${day}, ${formattedDate}`;
+
+    }else{
+      const startTime = `${String(selectedTime.startTime.hours).padStart(2, '0')}:${String(selectedTime.startTime.minutes).padStart(2, '0')}`;
+      const endTime = `${String(selectedTime.endTime.hours).padStart(2, '0')}:${String(selectedTime.endTime.minutes).padStart(2, '0')}`;
+
+      return `at ${startTime} - ${endTime}`
+    }
+  }
+  
+
   return (
     <div className="flex flex-col w-full h-full">
       {confirmationState ? (
         <div className="flex flex-col items-center justify-between p-4 h-full w-full">
           <div className="flex flex-col items-center justify-center h-full w-full">
-            <div className="w-full h-[60%] flex flex-col items-center justify-center bg-green-100 rounded">
-              <h3 className="text-green-700 text-center text-lg my-2">{`Meeting has been scheduled`}</h3>
-              <p className="text-green-700 text-center text-base">{`${date!.toDateString()}`}</p>
-              <p className="text-green-700 text-center text-base">
-                {`at ${formatTimeString(selectedTime!.startTime)} - ${formatTimeString(selectedTime!.endTime)}`}
-              </p>
+            <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
+                <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
+                    {/* <ConfirmationIcon /> */}
+                    <h3 className="text-[#00892d] text-base font-medium font-['Montserrat'] leading-none py-4">
+                      {`Meeting has been scheduled`}
+                    </h3>
+                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">    
+                      {makeConfirmationMessage(true)}
+                    </p>
+                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">    
+                      {makeConfirmationMessage(false)}
+                    </p>
+                </div>
             </div>
           </div>
           <Button
