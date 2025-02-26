@@ -153,10 +153,10 @@ export const UserProfile = () => {
         </Avatar>
       </div>
       <div className="h-[85%]">
-        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat tracking-wide">
+        <div className="mt-2 flex flex-col pl-3 gap-0 font-semibold text-lg font-[Montserrat] tracking-wide">
           <label >
             First Name:{` `}
-            <span className="font-thin">{userData?.firstName}</span>
+            <span className="font-light">{userData?.firstName}</span>
           </label>
           <label>
             Last Name: <span className="font-light">{userData?.lastName}</span>
@@ -192,15 +192,15 @@ export const UserProfile = () => {
         </div>
         <form className="h-[90%] mt-2 pl-3 font-montserrat">
           <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg pl-2">
-            <h2 className="text-md font-semibold font-fraunces tracking-regular leading-20">Co-Lab Role </h2>
+            <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">Co-Lab Role </h2>
             {interestsLabel.map((interest, _index) => {
               return (
                 <div key={_index} className="flex gap-5">
-                  <div className="flex  gap-2 w-[40%]">
+                  <div className="flex gap-2 w-[40%]">
                     <div className="w-[20px] h-[20px]">
                       <img src={icons[_index]} />
                     </div>
-                    <span className="tracking-wide">{interest}</span>
+                    <span className="tracking-wide text-[18px] font-[Montserrat]">{interest}</span>
                   </div>
 
                   <input
@@ -219,11 +219,11 @@ export const UserProfile = () => {
             )}
           </section>
           <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[30%] w-[95%] mt-3 pl-3 pt-1">
-            <h2 className="p-0 font-[fraunces] font-semibold">About</h2>
+            <h2 className="p-0 font-[Fraunces] font-semibold text-lg">About</h2>
             <textarea
               value={editData.bio ? editData.bio : ''}
               onChange={(e) => handleChange(e)}
-              className="w-[95%] h-[70%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
+              className="w-[95%] h-[70%] p-2 text-[16px] border border-gray-300 shadow-lg bg-white font-[Montserrat] font-light"
               disabled={
                 editData.isEditing == false || editData.buttonText === 'Saved'
               }
@@ -232,7 +232,7 @@ export const UserProfile = () => {
 
           <article className="flex w-[95%] justify-end">
             <button
-              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-[17px] font-semibold border border-gray-600 text-white font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-[17px] font-semibold border border-gray-600 text-white font-[Montserrat] ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
               type="button"
               onClick={handleInterestAndBioClick}
               style={{backgroundColor:"#0264D4"}}
