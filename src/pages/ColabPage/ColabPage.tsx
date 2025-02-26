@@ -29,6 +29,9 @@ export default function ColabPage() {
   })
 
   const [isLoading, setIsLoading] = useState(true)
+
+  const [modalState, setModalState] = useState(false)
+
   const sideBarContext = useContext(SidebarContext)
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
@@ -103,6 +106,7 @@ export default function ColabPage() {
         <GoalBuddyCard
           key={goalBuddyWithUser.id}
           goalBuddy={goalBuddyWithUser}
+          modalState={modalState}
           onClick={() => handleClick(goalBuddyWithUser)}
         />
       )
@@ -110,10 +114,15 @@ export default function ColabPage() {
   }
 
   return (
-    <main>
+    <main className={modalState ? "fade-in-0 duration-500 backdrop-brightness-50" : ""}>
       <Layout>
         <div className={clsx('flex justify-center flex-col lg:flex-row')}>
-          <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
+          <Filter 
+            filterGoalBuddies={filterGoalBuddies} 
+            filter={filter} 
+            modalState={modalState}
+            setModalState={setModalState}
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
