@@ -20,16 +20,15 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, goalB
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen} >
   
-      <section className="flex min-w-[50vw] h-[75%] flex-row bg-[#EEEEEE] p-0 gap-0 
-       border border-black rounded absolute right-[19px] top-[79px] z-50" 
+      <section className="flex min-w-[50vw] h-full md:h-[75%] flex-col md:flex-row bg-[#EEEEEE] p-0 gap-0 border border-black rounded absolute right-[19px] top-[79px] z-50 overflow-auto md:overflow-hidden scrollbar-hidden" 
        aria-describedby={undefined}>
 
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[57%] pt-0 pl-0 overflow-y-auto scrollbar-hidden bg-white">
+        <div className="flex flex-col w-full md:w-[57%] h-full pt-0 pl-0 overflow-auto flex-grow md:flex-grow-0 overflow-auto md:overflow-y-auto scrollbar-hidden bg-white rounded-tl rounded-bl">
         <div className="absolute z-50 left-[5px] top-[5px] cursor-pointer" onClick={handleModalClick}>X</div>
           <UserProfile />
         </div>
-        <div className="flex flex-col items-center h-full w-[43%] bg-[#279af1] m-0 p-0 overflow-hidden rounded-tr rounded-br">
+        <div className="flex flex-col items-center h-full w-full md:w-[43%] bg-[#279af1]  mt-1 md:m-0 p-0 flex-grow md:flex-grow-0 md:overflow-hidden md:rounded-tr md: rounded-br">
             {goalBuddyData ? (
               <AvailabilitySection activeGoalBuddy={goalBuddyData} updateGoalBuddy={updateGoalBuddyData} />
             ) : (

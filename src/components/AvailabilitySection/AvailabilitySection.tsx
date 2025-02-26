@@ -212,7 +212,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full h-full max-h-[660px] flex flex-col justify-center pt-16 pb-8 px-8">
+    <div className="w-full h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0">
         {confirmationState ? (
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
@@ -223,8 +223,8 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                 <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
         ) : (
-            <div className="w-full h-full flex flex-col items-center justify-between">
-                <div className="w-full h-[90%] flex flex-col items-center">
+            <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
+                <div className="w-full h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
                     <h2 className="text-slate-950 text-2xl font-semibold font-['Fraunces']leading-tight">
                         {`Set my availability`}
                     </h2>
@@ -233,8 +233,8 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                     }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
-                        <div className="w-full h-full flex flex-col justiy-start">
-                            <div className="w-full max-h-[372px] flex flex-col">
+                        <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 justify-start">
+                            <div className="w-full md:max-h-[372px] flex flex-col">
                                 <div className="sticky top-0 z-10">
                                     <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-['Montserrat'] leading-[14.80px]">
                                         {`Time Zone: Eastern Standard Time`}
