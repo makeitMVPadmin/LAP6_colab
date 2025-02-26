@@ -220,7 +220,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     ))}
                                 </div>
                                 {overlapError && 
-                                    <p className="text-xs text-[#e53935] my-1 bg-red-100 rounded pl-1">{overlapError}</p>
+                                    <p className="text-[#f44336] text-sm font-semibold font-['Montserrat'] leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
                             <Button variant="colabAdd" size="colabAdd" onClick={addTimeRow}>

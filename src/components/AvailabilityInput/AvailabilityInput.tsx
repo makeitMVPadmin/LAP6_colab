@@ -54,7 +54,7 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
                         <Input type="string" id={`startTime`+{index}} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-['Montserrat'] leading-3 ${startError ? "border-[#e53935]": ""}`}/>
                     </div>
                     {startError && 
-                        <p className='text-xs text-[#e53935]'>{startError}</p>
+                        <p className="text-[#f44336] text-sm font-semibold font-['Montserrat'] leading-tight">{startError}</p>
                     }
                 </div>
                 <div className="w-full flex flex-col my-3">
@@ -65,7 +65,7 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, timePeriod,
                         <Input type="string" id={`endTime`+{index}} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-['Montserrat'] leading-3 ${endError ? "border-[#e53935]": ""}`}/>
                     </div>
                     {endError && 
-                        <p className='text-xs text-[#e53935]'>{endError}</p>
+                        <p className="text-[#f44336] text-sm font-semibold font-['Montserrat'] leading-tight">{endError}</p>
                     }
                 </div>
             </div>
