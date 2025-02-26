@@ -1,8 +1,8 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import  GraduationCap  from  "../../assets/icons/graduation-cap.svg"
-import  Network  from "../../assets/icons/network.svg"
-import SmilePlus  from "../../assets/icons/smile-plus.svg"
+import GraduationCap from '../../assets/icons/graduation-cap.svg'
+import Network from '../../assets/icons/network.svg'
+import SmilePlus from '../../assets/icons/smile-plus.svg'
 export interface GoalBuddy {
   profilePhoto: string
   firstName: string
@@ -30,7 +30,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   }> = [
     { key: 'isAccountabilityPartner', label: 'Goal Buddy', icon: SmilePlus },
     { key: 'isMentor', label: 'Mentor', icon: GraduationCap },
-    { key: 'isNetworking', label: 'Networking', icon: Network  },
+    { key: 'isNetworking', label: 'Networking', icon: Network },
   ]
   return (
     <div className="h-[100%] bg-white text-[14px]">
@@ -42,7 +42,19 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             alt="@shadcn"
           />
         </Avatar>
-        <div ></div>
+        <div className='sm:absolute bg-red-500 flex top-[120%] right-[35%] '>
+        {goalBuddy &&
+          colabRoles.map((colabRole) => {
+            return goalBuddy[colabRole.key] ? (
+                <img key={colabRole.key}
+                  src={colabRole.icon}
+                  alt="icons"
+                  className="w-[20px] h-[20px]"
+                />
+            
+            ) : null
+          })}
+            </div>
       </div>
       <div className="h-[85%]">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat tracking-wider ">
@@ -75,26 +87,36 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             Skills:
             {goalBuddy?.skills.map((skill, index) => (
               <span key={index} className="font-light">
-               &nbsp;{skill} {index != goalBuddy?.skills.length - 1 ? ',' : ''}
+                &nbsp;{skill} {index != goalBuddy?.skills.length - 1 ? ',' : ''}
               </span>
             ))}
           </label>
         </div>
         <div className="border border-gray-600 border-b-2  border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
-          <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">Co-Lab Role</h2>
+          <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">
+            Co-Lab Role
+          </h2>
           <section>
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
                 <div key={colabRole.key} className="flex items-center gap-3 ">
-                  <p className="w-[30%] font-montserrat tracking-wider">{colabRole.label}</p>
-                  <img src={colabRole.icon} alt="icons" className='w-[20px] h-[20px]' />
+                  <p className="w-[30%] font-montserrat tracking-wider">
+                    {colabRole.label}
+                  </p>
+                  <img
+                    src={colabRole.icon}
+                    alt="icons"
+                    className="w-[20px] h-[20px]"
+                  />
                 </div>
               ) : null
             })}
           </section>
         </div>
         <section className="border h-[40%] border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
-          <div className=" font-fraunces font-semibold  text-lg tracking-wider">About</div>
+          <div className=" font-fraunces font-semibold  text-lg tracking-wider">
+            About
+          </div>
           <p className="font-montserrat tracking-wider">{goalBuddy?.bio}</p>
         </section>
       </div>
