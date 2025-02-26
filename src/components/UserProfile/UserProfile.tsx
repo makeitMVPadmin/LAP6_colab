@@ -153,10 +153,10 @@ export const UserProfile = () => {
         </Avatar>
       </div>
       <div className="h-[85%]">
-        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat">
-          <label>
-            First Name:{' '}
-            <span className="font-light">{userData?.firstName}</span>
+        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat tracking-wide">
+          <label >
+            First Name:{` `}
+            <span className="font-thin">{userData?.firstName}</span>
           </label>
           <label>
             Last Name: <span className="font-light">{userData?.lastName}</span>
@@ -192,7 +192,7 @@ export const UserProfile = () => {
         </div>
         <form className="h-[90%] mt-2 pl-3 font-montserrat">
           <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg pl-2">
-            <h2 className="text-md font-semibold font-fraunces tracing-wide leading-20">Co-lab Role </h2>
+            <h2 className="text-md font-semibold font-fraunces tracking-regular leading-20">Co-Lab Role </h2>
             {interestsLabel.map((interest, _index) => {
               return (
                 <div key={_index} className="flex gap-5">
@@ -200,7 +200,7 @@ export const UserProfile = () => {
                     <div className="w-[20px] h-[20px]">
                       <img src={icons[_index]} />
                     </div>
-                    <span>{interest}</span>
+                    <span className="tracking-wide">{interest}</span>
                   </div>
 
                   <input
@@ -213,7 +213,7 @@ export const UserProfile = () => {
               )
             })}
             {errInterest && (
-              <p className="text-md font-semibold m-0 text-red-600 absolute top-1 right-2">
+              <p className="text-sm font-semibold m-0 text-red-600 absolute top-1 right-2">
                 *Please select your role
               </p>
             )}
