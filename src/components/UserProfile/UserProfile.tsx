@@ -59,7 +59,7 @@ export const UserProfile = () => {
       setInterestsFromGoalBuddy(newInterests)
     }
   }, [goalBuddyData])
-
+console.log("editdata.selected",editData.selectedInterests)
   const handleChange = (
     interestOrEvent: string | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -203,12 +203,14 @@ export const UserProfile = () => {
                     <span className="tracking-wide text-[18px] font-[Montserrat]">{interest}</span>
                   </div>
 
-                  <input
+                 <div className='flex items-center justify-center'>
+                 <input
                     type="checkbox"
                     checked={editData.selectedInterests.includes(interest)}
                     onChange={() => handleChange(interest)}
                     disabled={editData.isEditing === false}
-                  />
+                    className="appearance-none w-4 h-4 border border-gray-600 rounded checked:bg-black"
+                  /></div> 
                 </div>
               )
             })}
@@ -223,7 +225,7 @@ export const UserProfile = () => {
             <textarea
               value={editData.bio ? editData.bio : ''}
               onChange={(e) => handleChange(e)}
-              className="w-[95%] h-[70%] p-2 text-[16px] border border-gray-300 shadow-lg bg-white font-[Montserrat] font-light"
+              className="text-gray-600 w-[95%] h-[70%] p-2 text-[16px] border border-gray-300 shadow-lg bg-white font-[Montserrat] font-light"
               disabled={
                 editData.isEditing == false || editData.buttonText === 'Saved'
               }
