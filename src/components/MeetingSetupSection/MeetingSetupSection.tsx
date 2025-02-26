@@ -226,13 +226,13 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     {/* <ConfirmationIcon /> */}
-                    <h3 className="text-[#00892d] text-base font-medium font-['Montserrat'] leading-none py-4">
+                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4">
                       {`Meeting has been scheduled`}
                     </h3>
-                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">    
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
                       {makeConfirmationMessage(true)}
                     </p>
-                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">    
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
                       {makeConfirmationMessage(false)}
                     </p>
                 </div>
@@ -267,7 +267,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-['Montserrat'] leading-[14.80px]">{`Time Zone: Eastern Standard Time`}</h3>
+                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px]">{`Time Zone: Eastern Standard Time`}</h3>
 
                   <TimeSelectionList
                     timesList={availableTimes}
