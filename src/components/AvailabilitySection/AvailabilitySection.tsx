@@ -242,7 +242,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                 </div>
                                 <div className="overflow-auto scrollbar-hide h-full ">
                                     {timePeriodInputs.map((period, index) => (
-                                    <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
+                                    <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
                                 </div>
                                 {overlapError && 
