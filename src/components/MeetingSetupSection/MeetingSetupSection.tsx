@@ -236,7 +236,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-                  <h3 className="font-bold text-sm my-1">{`Timezone: ${showingUser.timezone}`}</h3>
+                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-['Montserrat'] leading-[14.80px]">{`Time Zone: Eastern Standard Time`}</h3>
+
                   <TimeSelectionList
                     timesList={availableTimes}
                     selectedDate={date}
