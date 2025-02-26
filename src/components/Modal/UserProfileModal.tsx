@@ -20,7 +20,7 @@ const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, goalB
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen} >
   
-      <section className="flex min-w-[50vw] h-[75%] flex-row bg-[#EEEEEE] p-0 gap-0 
+      <section className="flex min-w-[60vw] h-[60%] flex-row bg-[#EEEEEE] p-0 gap-0 
        border border-black
       absolute right-[19px] top-[79px] z-50"
       

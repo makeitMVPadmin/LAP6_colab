@@ -144,7 +144,7 @@ export const UserProfile = () => {
   return (
     <div className="h-[100%] text-[14px]">
       <div className="h-[15%] bg-yellow relative">
-        <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
+        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}
@@ -164,7 +164,7 @@ export const UserProfile = () => {
           <label>
             Email: <span className="font-light">{userData?.email}</span>
           </label>
-          <label>
+          <label className='mt-2'>
             City: <span className="font-light">{userData?.city}</span>
           </label>
           <p className="flex gap-3">
@@ -175,7 +175,7 @@ export const UserProfile = () => {
               Country: <span className="font-light">{userData?.country}</span>
             </label>
           </p>
-          <label>
+          <label className='mt-2'>
             Discipline:{' '}
             <span className="font-light">{userData?.discipline}</span>
           </label>
@@ -218,12 +218,12 @@ export const UserProfile = () => {
               </p>
             )}
           </section>
-          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[35%] w-[95%] mt-3 pl-3 pt-1">
+          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[30%] w-[95%] mt-3 pl-3 pt-1">
             <h2 className="p-0 font-[fraunces] font-semibold">About</h2>
             <textarea
               value={editData.bio ? editData.bio : ''}
               onChange={(e) => handleChange(e)}
-              className="w-[95%] h-[78%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
+              className="w-[95%] h-[70%] p-2 text-sm border border-gray-300 shadow-lg bg-white font-light"
               disabled={
                 editData.isEditing == false || editData.buttonText === 'Saved'
               }
