@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Avatar, AvatarFallback } from '../ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import CommunitiLogo from '../../assets/Logo/communiti_logo.png'
 import { SidebarContext } from '@/components/context/SidebarContext'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
 import clsx from 'clsx'
+import { IdContext } from '../context/IdContext'
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate()
@@ -13,15 +14,21 @@ const NavBar: React.FC = () => {
     navigate('/', { replace: true })
     window.location.reload()
   }
+const sideBarContext = useContext(SidebarContext)
+const idContext=useContext(IdContext)
+if (!sideBarContext) {
+  throw new Error('Sidebar context not found')
+}
+const { isSidebarOpen, setIsSideBarOpen } = sideBarContext
+const userProfileData = idContext?.userData
 
-  const sideBarContext = useContext(SidebarContext)
-  if (!sideBarContext) {
-    throw new Error('Sidebar context not found')
-  }
-  const { isSidebarOpen, setIsSideBarOpen } = sideBarContext
-  const handleClick = () => {
-    setIsSideBarOpen(!isSidebarOpen)
-  }
+if (!userProfileData) {
+  return null
+
+}
+const handleClick = () => {
+  setIsSideBarOpen(!isSidebarOpen)
+}
   return (
     <nav
       className={clsx(
@@ -42,6 +49,11 @@ const NavBar: React.FC = () => {
         <div className="flex items-center">
           <Avatar className="w-10 h-10 cursor-pointer" onClick={handleClick}>
             <AvatarFallback className="bg-gray-200"></AvatarFallback>
+            <AvatarImage
+              className="w-full"
+              src={userProfileData?.profilePhoto}
+              alt="@shadcn"
+            />
           </Avatar>
         </div>
       </div>
