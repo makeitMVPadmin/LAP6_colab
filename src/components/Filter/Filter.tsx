@@ -38,7 +38,6 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
 
           ${modalState ||isSidebarOpen? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
 
-          ${modalState ? " fade-in-0 duration-200 brightness-50 bg-opacity-50" : ""}`,
 
         )}
         onClick={() => {
@@ -93,8 +92,6 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
         `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none
 
         ${modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
-=======
-        ${modalState ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
 
       )}
     >

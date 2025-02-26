@@ -34,9 +34,6 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
 
         modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
 
-        isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
-        modalState ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
-
       )}
     >
       <CardHeader className="self-start p-3 sm:p-6">
