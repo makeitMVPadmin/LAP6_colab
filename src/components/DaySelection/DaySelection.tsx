@@ -42,7 +42,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({
                 </SelectContent>
             </Select>
             {isError && 
-                <p className="text-[#f44336] text-sm font-semibold font-['Montserrat'] leading-tight bg-red-100 rounded pl-1 w-full">{isError}</p>
+                <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight bg-red-100 rounded pl-1 w-full">{isError}</p>
             }
         </div>
     );

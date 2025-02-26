@@ -217,15 +217,15 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
-                    <h3 className="text-[#00892d] text-xl font-medium font-['Montserrat']leading-none py-4">{`Confirmed`}</h3>
-                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">{makeConfirmationMessage()}</p>
+                    <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage()}</p>
                 </div>
                 <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
         ) : (
             <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
                 <div className="w-full h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
-                    <h2 className="text-slate-950 text-2xl font-semibold font-['Fraunces']leading-tight">
+                    <h2 className="text-slate-950 text-2xl font-semibold font-fraunces leading-tight">
                         {`Set my availability`}
                     </h2>
                     {backendError && 
@@ -236,7 +236,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 justify-start">
                             <div className="w-full md:max-h-[372px] flex flex-col">
                                 <div className="sticky top-0 z-10">
-                                    <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-['Montserrat'] leading-[14.80px]">
+                                    <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-montserrat leading-[14.80px]">
                                         {`Time Zone: Eastern Standard Time`}
                                     </h3>
                                 </div>
@@ -246,7 +246,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     ))}
                                 </div>
                                 {overlapError && 
-                                    <p className="text-[#f44336] text-sm font-semibold font-['Montserrat'] leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
+                                    <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
                             <Button variant="colabAdd" size="colabAdd" onClick={addTimeRow}>
