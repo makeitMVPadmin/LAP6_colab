@@ -218,7 +218,7 @@ export const UserProfile = () => {
               </p>
             )}
           </section>
-          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[30%] w-[95%] mt-3 pl-3 pt-1">
+          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[32%] w-[95%] mt-3 pl-3 pt-1">
             <h2 className="p-0 font-[fraunces] font-semibold">About</h2>
             <textarea
               value={editData.bio ? editData.bio : ''}
