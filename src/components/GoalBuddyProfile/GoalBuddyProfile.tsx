@@ -44,7 +44,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
         </Avatar>
        
       </div>
-      <div className="h-[85%]">
+      <div className="h-[88%]">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-[Montserrat] ">
           <label>
             First Name:{' '}
