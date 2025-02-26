@@ -114,7 +114,9 @@ const{isSidebarOpen}=sideBarContext;
   }
 
   return (
+
     <main className={modalState ||isSidebarOpen ? "fade-in-0 duration-500 backdrop-brightness-50 " : ""}>
+
       <Layout>
         <div className={clsx('flex justify-center flex-col lg:flex-row')}>
           <Filter 
