@@ -33,9 +33,9 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
     { key: 'isNetworking', label: 'Networking', icon: Network },
   ]
   return (
-    <div className="h-[100%] bg-white text-[16px]">
-      <div className="h-[15%] bg-yellow relative rounded">
-        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[50%]">
+    <div className="h-[100%] bg-white text-[16px] rounded-l-sm">
+      <div className="h-[12%] bg-yellow relative rounded-tl-md">
+        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[40%]">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
@@ -88,7 +88,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
                 <div key={colabRole.key} className="flex items-center gap-3 mb-1">
-                  <p className="w-[30%] font-[Montserrat] tracking-wider">
+                  <p className="w-[30%] font-[Montserrat] tracking-wider font-semibold">
                     {colabRole.label}
                   </p>
                   <img
@@ -105,7 +105,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>
-          <p className=" font-[Montserrat]  tracking-wider">{goalBuddy?.bio}</p>
+          <p className=" font-[Montserrat] text-gray-400 tracking-wider">{goalBuddy?.bio}</p>
         </section>
       </div>
     </div>

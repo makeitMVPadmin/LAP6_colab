@@ -59,7 +59,7 @@ export const UserProfile = () => {
       setInterestsFromGoalBuddy(newInterests)
     }
   }, [goalBuddyData])
-console.log("editdata.selected",editData.selectedInterests)
+
   const handleChange = (
     interestOrEvent: string | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
