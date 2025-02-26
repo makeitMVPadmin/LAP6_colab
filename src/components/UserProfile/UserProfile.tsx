@@ -232,7 +232,7 @@ export const UserProfile = () => {
 
           <article className="flex w-[95%] justify-end">
             <button
-              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-sm font-semibold text-white font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-[17px] font-semibold border border-gray-600 text-white font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
               type="button"
               onClick={handleInterestAndBioClick}
               style={{backgroundColor:"#0264D4"}}

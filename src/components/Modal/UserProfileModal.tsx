@@ -15,8 +15,8 @@ interface ModalProps {
 
 const UserprofileModal: React.FC<ModalProps> = ({ setModalOpen, modalOpen, goalBuddyData, updateGoalBuddyData }) => {
   return (
-    <Dialog  open={modalOpen} onOpenChange={setModalOpen} >
-      <DialogContent className="flex max-w-[50vw] h-[70%] p-0 gap-0 rounded" aria-describedby={undefined}>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen} >
+      <DialogContent className="flex max-w-[50vw] h-[70%] border border-black p-0 gap-0 rounded" aria-describedby={undefined}>
         <DialogTitle></DialogTitle>
         <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden bg-white">
           <UserProfile />
