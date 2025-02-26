@@ -191,7 +191,7 @@ export const UserProfile = () => {
           </label>
         </div>
         <form className="h-[90%] mt-2 pl-3 font-montserrat">
-          <section className="border border-1 w-[90%] border-black rounded p-1 relative shadow-lg">
+          <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg">
             <h2 className="text-md font-semibold">Colab Role </h2>
             {interestsLabel.map((interest, _index) => {
               return (
@@ -218,7 +218,7 @@ export const UserProfile = () => {
               </p>
             )}
           </section>
-          <section className=" border border-black shadow-md rounded h-[30%] w-[90%] mt-3 pl-3 pt-1">
+          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[30%] w-[95%] mt-3 pl-3 pt-1">
             <h2 className="p-0 font-[fraunces] font-semibold">About</h2>
             <textarea
               value={editData.bio ? editData.bio : ''}
@@ -230,11 +230,12 @@ export const UserProfile = () => {
             />
           </section>
 
-          <article className="flex w-[90%] justify-end">
+          <article className="flex w-[95%] justify-end">
             <button
-              className={`bg-blue px-[10px] py-[5px] mt-[7px] rounded text-sm font-semibold text-white font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-sm font-semibold text-white font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
               type="button"
               onClick={handleInterestAndBioClick}
+              style={{backgroundColor:"#0264D4"}}
             >
               {editData.buttonText}
             </button>
