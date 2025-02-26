@@ -35,26 +35,14 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   return (
     <div className="h-[100%] bg-white text-[14px]">
       <div className="h-[15%] bg-yellow relative rounded">
-        <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
+        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[50%]">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
             alt="@shadcn"
           />
         </Avatar>
-        <div className='sm:absolute bg-red-500 flex top-[120%] right-[35%] '>
-        {goalBuddy &&
-          colabRoles.map((colabRole) => {
-            return goalBuddy[colabRole.key] ? (
-                <img key={colabRole.key}
-                  src={colabRole.icon}
-                  alt="icons"
-                  className="w-[20px] h-[20px]"
-                />
-            
-            ) : null
-          })}
-            </div>
+       
       </div>
       <div className="h-[85%]">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-montserrat tracking-wider ">
@@ -65,10 +53,10 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <label>
             Last Name: <span className="font-light">{goalBuddy?.lastName}</span>
           </label>
-          <label>
+          <label >
             Email: <span className="font-light">{goalBuddy?.email}</span>
           </label>
-          <label>
+          <label className="mt-2">
             City: <span className="font-light">{goalBuddy?.city}</span>
           </label>
           <p className="flex gap-3">
@@ -79,7 +67,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
               Country: <span className="font-light">{goalBuddy?.country}</span>
             </label>
           </p>
-          <label>
+          <label className="mt-2">
             Discipline:{' '}
             <span className="font-light">{goalBuddy?.discipline}</span>
           </label>
@@ -96,10 +84,10 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">
             Co-Lab Role
           </h2>
-          <section>
+          <section className='sm:hidden md:block'>
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
-                <div key={colabRole.key} className="flex items-center gap-3 ">
+                <div key={colabRole.key} className="flex items-center gap-3 mb-1">
                   <p className="w-[30%] font-montserrat tracking-wider">
                     {colabRole.label}
                   </p>
@@ -113,8 +101,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             })}
           </section>
         </div>
-        <section className="border h-[40%] border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
-          <div className=" font-fraunces font-semibold  text-lg tracking-wider">
+        <section className="border border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
+          <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>
           <p className="font-montserrat tracking-wider">{goalBuddy?.bio}</p>

@@ -27,14 +27,14 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent
-        className="flex max-w-[50vw] flex-row bg-[#EEEEEE] h-[70%] p-0 gap-0 rounded"
+        className="flex max-w-[50vw] h-[70%]  p-0 gap-0 rounded"
         aria-describedby={undefined}
       >
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-[55%] pt-0 pl-0 overflow-y-auto scrollbar-hidden">
+        <div className="flex flex-col w-[55%] pt-0 pl-0 ">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
-        <div className="flex flex-col items-center h-full w-[45%] bg-[#279af1] p-0 overflow-hidden rounded">
+        <div className="flex flex-col items-center w-[45%]  bg-[#279af1] p-0 overflow-hidden rounded">
           {userContext && userData ? (
             <MeetingSetupSection activeUserId={userData.id} showingUser={goalBuddy} />
           ) : (
