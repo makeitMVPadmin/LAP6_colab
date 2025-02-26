@@ -196,13 +196,31 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         setBackendError("");
     }
 
+    function makeConfirmationMessage(){
+        let message: string =`You've set availability for ${selectedDay}s at `;
+        if(timePeriodInputs.length === 0){
+            return `You've set ${selectedDay}s as unavailable.`
+        }else{
+            timePeriodInputs.forEach(period =>{
+                message += `${period.startTime}-${period.endTime}, `;
+            });
+        }
+        message = message.substring(0, (message.length-2));
+        message += ".";
+
+        return message
+    }
+
   return (
     <div className="w-full h-full max-h-[660px] flex flex-col justify-center pt-16 pb-8 px-8">
         {confirmationState ? (
-            <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
-                <ConfirmationIcon />
-                <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
-                <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>{`Edit`}</Button>
+            <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
+                <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
+                    <ConfirmationIcon />
+                    <h3 className="text-[#00892d] text-xl font-medium font-['Montserrat']leading-none py-4">{`Confirmed`}</h3>
+                    <p className="text-[#00892d] text-sm font-normal font-['Montserrat'] leading-tight text-center">{makeConfirmationMessage()}</p>
+                </div>
+                <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
         ) : (
             <div className="w-full h-full flex flex-col items-center justify-between">

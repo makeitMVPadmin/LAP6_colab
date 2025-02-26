@@ -23,7 +23,7 @@ const buttonVariants = cva(
         
         colabPrimary: "bg-[#ffd22f] rounded-[10px] shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.20)] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.14)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20)] text-center text-[#28363f] text-xl font-medium font-['Montserrat'] leading-7 hover:bg-[#f57c00]/25 disabled:bg-[#FFF2CA] active:bg-[#f57c00]/50",
         
-        colabSecondary: "bg-[#0264d4] rounded-[10px] shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.20)] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.14)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20)] text-white text-xl font-semibold font-['Montserrat'] leading-7 hover:bg-[#0255B4] disabled:bg-[#AABFCC] active:bg-[#01415A]",
+        colabSecondary: "bg-[#0264d4] rounded-[10px] shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.20)] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.14)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20)] text-white text-xl font-semibold font-['Montserrat'] leading-[32.86px] hover:bg-[#0255B4] disabled:bg-[#AABFCC] active:bg-[#01415A]",
         
         colabDelete: "bg-white rounded-[7.06px] shadow-[0px_2px_1px_-1px_rgba(0,0,0,0.20)] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.14)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.20)] gap-[5.65px] text-button-delete font-semibold font-['Montserrat'] leading-7",
         
