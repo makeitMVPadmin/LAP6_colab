@@ -36,7 +36,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       )}
     >
       <CardHeader className="self-start p-3 sm:p-6">
-        <Avatar className="sm:w-16 sm:h-16">
+        <Avatar className={`sm:w-16 sm:h-16 ${modalState ? "fade-in-0 duration-200 opacity-50 brightness-50" : ""}`}>
           <AvatarImage src={goalBuddy.profilePhoto} />
           <AvatarFallback className="bg-[#D9D9D9]" />
         </Avatar>
@@ -56,7 +56,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
             {goalBuddy.interests.map((interest, index) => (
               <span
                 key={index}
-                className="bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1 font-montserrat"
+                className={`bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1 font-montserrat ${modalState ? " fade-in-0 duration-200 brightness-50 bg-opacity-50" : ""}`}
               >
                 #{interest}
               </span>

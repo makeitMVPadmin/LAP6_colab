@@ -25,7 +25,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
           `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
           rounded-sm border-[3px] border-black hidden lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
-          ${modalState ? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
+          ${modalState ? " fade-in-0 duration-200 brightness-50 bg-opacity-50" : ""}`,
         )}
         onClick={() => {
           filterGoalBuddies(role)
