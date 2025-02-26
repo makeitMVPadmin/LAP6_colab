@@ -98,7 +98,6 @@ export function AppSidebar() {
 
       {modalOpen && (
         <UserProfileModal
-          setModalOpen={setModalOpen}
           modalOpen={modalOpen}
           goalBuddyData={goalBuddyData}
           updateGoalBuddyData={setGoalBuddyData}
