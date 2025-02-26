@@ -92,7 +92,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             })}
           </section>
         </div>
-        <section className="border h-[30%] border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
+        <section className="border h-[45%] border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
           <div className=" font-fraunces font-semibold  text-lg tracking-wider">About</div>
           <p className="font-montserrat tracking-wider">{goalBuddy?.bio}</p>
         </section>
