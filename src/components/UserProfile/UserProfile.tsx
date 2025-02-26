@@ -153,7 +153,7 @@ export const UserProfile = () => {
         </Avatar>
       </div>
       <div className="h-[85%]">
-        <div className="mt-2 flex flex-col pl-3 gap-0 font-semibold text-lg font-[Montserrat] tracking-wide">
+        <div className="mt-2 flex flex-col pl-3 gap-0 font-semibold text-lg font-font-montserrat tracking-wide">
           <label >
             First Name:{` `}
             <span className="font-light">{userData?.firstName}</span>
@@ -200,7 +200,7 @@ export const UserProfile = () => {
                     <div className="w-[20px] h-[20px]">
                       <img src={icons[_index]} />
                     </div>
-                    <span className="tracking-wide text-[18px] font-[Montserrat]">{interest}</span>
+                    <span className="tracking-wide text-[18px] font-montserrat">{interest}</span>
                   </div>
 
                  <div className='flex items-center justify-center'>
@@ -234,7 +234,7 @@ export const UserProfile = () => {
 
           <article className="flex w-[95%] justify-end">
             <button
-              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-[17px] font-semibold border border-gray-600 text-white font-[Montserrat] ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-[17px] font-semibold border border-gray-600 text-white tracking-wide font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
               type="button"
               onClick={handleInterestAndBioClick}
               style={{backgroundColor:"#0264D4"}}
