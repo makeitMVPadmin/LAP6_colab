@@ -36,7 +36,7 @@ export default function ColabPage() {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-
+const{isSidebarOpen}=sideBarContext;
   const userContext = useContext(IdContext)
   if (!userContext) {
     throw new Error('IdContext not found')
@@ -114,7 +114,9 @@ export default function ColabPage() {
   }
 
   return (
-    <main className={modalState ? "fade-in-0 duration-500 backdrop-brightness-50" : ""}>
+
+    <main className={modalState ||isSidebarOpen ? "fade-in-0 duration-500 backdrop-brightness-50 " : ""}>
+
       <Layout>
         <div className={clsx('flex justify-center flex-col lg:flex-row')}>
           <Filter 
