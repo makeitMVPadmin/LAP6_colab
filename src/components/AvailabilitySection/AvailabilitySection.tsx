@@ -7,6 +7,7 @@ import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from 
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
 import { hasOverlap, validateAllAvailabilities } from "@/utils/timePeriodValidation";
 import AddIcon from "../AddIcon/AddIcon";
+import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
 
 interface AvailabilitySectionProps {
     activeGoalBuddy: GoalBuddy,
@@ -94,9 +95,15 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     // Function to add another row for time period inputs
     function addTimeRow(){
         const oneMoreTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
-        oneMoreTimePeriodInputs.push({startTime: "", endTime: ""})
-        setTimePeriodInputs(oneMoreTimePeriodInputs);
+        oneMoreTimePeriodInputs.push({startTime: "", endTime: ""});
 
+        if(timeErrors.length !== 0){
+            const oneMoreTimeErrors: AvailabilityErrors[] = [...timeErrors];
+            oneMoreTimeErrors.push({startTimeError: "", endTimeError: "", errorsExist: false});
+            setTimeErrors(oneMoreTimeErrors);
+        }
+        setTimePeriodInputs(oneMoreTimePeriodInputs);
+        
     }
 
     // Function to handle the user trying to confirm their new availability for a day
@@ -193,6 +200,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     <div className="w-full h-full max-h-[660px] flex flex-col justify-center pt-16 pb-8 px-8">
         {confirmationState ? (
             <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
+                <ConfirmationIcon />
                 <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
                 <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>{`Edit`}</Button>
             </div>
