@@ -6,9 +6,13 @@ import { SidebarContext } from '@/components/context/SidebarContext'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
 import clsx from 'clsx'
 import { IdContext } from '../context/IdContext'
+import { useSidebar } from '../ui/sidebar'
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate()
+
+  const { isMobile } = useSidebar()
+  console.log(isMobile)
 
   const handleLogoClick = () => {
     navigate('/', { replace: true })

@@ -14,6 +14,7 @@ import UserProfileModal from '../Modal/UserProfileModal'
 import { IdContext } from '../context/IdContext'
 import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
+import { useIsMobile } from '@/hooks/use-mobile'
 const items = [
   {
     title: 'Profile',
@@ -22,6 +23,8 @@ const items = [
 
 export function AppSidebar() {
   const [modalOpen, setModalOpen] = useState(false)
+
+  const isMobile = useIsMobile() 
 
   const userContext = useContext(IdContext)
   if (!userContext) {
@@ -45,7 +48,7 @@ export function AppSidebar() {
  
   return (
     <>
-   <div className="w-screen max-h-screen relative z-50">
+   <div className={`relative z-50 border-red-600 border-4 ${isMobile ? 'w-11/12 min-h-[500px] self-center' : ''}`}>
         <Sidebar className="w-[20%] absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0">
             <div className="h-[50%] bg-yellow">
