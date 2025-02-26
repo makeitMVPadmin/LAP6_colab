@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
