@@ -66,28 +66,28 @@ export function AppSidebar() {
                     alt="@shadcn"
                   />
                 </Avatar>
-                <div className="text-lg font-bold">
+                <div className="text-[20px] font-bold font-[Montserrat]">
                   {userData && (
                     <>
                       {userData.firstName} {userData.lastName}
                     </>
                   )}
                 </div>
-                <div> {userData?.discipline}</div>
+                <div className="text-[17px] font-[Montserrat]"> {userData?.discipline}</div>
                 <div>
                   {goalBuddyData?.skills.map((skill, index) => (
-                    <span key={index}>#{skill} </span>
+                    <span className="text-[17px] font-[Montserrat]" key={index}>#{skill}  </span>
                   ))}
                 </div>
                 <SidebarMenu className="mt-1 items-center">
                   {items.map((item) => (
                     <SidebarMenuItem
                       key={item.title}
-                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border border-gray-600"
+                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border border-gray-600 border-r-2 border-b-2"
                     >
                       <SidebarMenuButton asChild>
                         <a onClick={() => handleClick(item.title)}>
-                          <span>{item.title}</span>
+                          <span className="text-[17px] font-[Montserrat]">{item.title}</span>
                         </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
