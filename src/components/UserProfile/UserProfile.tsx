@@ -191,8 +191,8 @@ export const UserProfile = () => {
           </label>
         </div>
         <form className="h-[90%] mt-2 pl-3 font-montserrat">
-          <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg">
-            <h2 className="text-md font-semibold">Colab Role </h2>
+          <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg pl-2">
+            <h2 className="text-md font-semibold font-fraunces tracing-wide leading-20">Co-lab Role </h2>
             {interestsLabel.map((interest, _index) => {
               return (
                 <div key={_index} className="flex gap-5">
