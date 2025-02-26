@@ -1,15 +1,31 @@
-import React from 'react';
-import { Select, SelectContent,SelectItem,SelectTrigger, SelectValue} from "../../components/ui/select";
-import { DayOfWeek } from '@/types/types';
+import React from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../components/ui/select'
+import { DayOfWeek } from '@/types/types'
 
 interface DaySelectionProps {
-    setSelectedDay: (day: DayOfWeek) => void;
-    isError: string;
+  setSelectedDay: (day: DayOfWeek) => void
+  isError: string
 }
 
-const DaySelection: React.FC<DaySelectionProps> = ({setSelectedDay, isError}) => {
-
-    const daysOfWeek: DayOfWeek[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const DaySelection: React.FC<DaySelectionProps> = ({
+  setSelectedDay,
+  isError,
+}) => {
+  const daysOfWeek: DayOfWeek[] = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ]
 
     return (
         <div className="w-full mt-4 flex flex-col justify-center items-center">
@@ -32,4 +48,4 @@ const DaySelection: React.FC<DaySelectionProps> = ({setSelectedDay, isError}) =>
     );
 };
 
-export default DaySelection;
+export default DaySelection
