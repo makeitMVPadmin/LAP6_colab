@@ -87,8 +87,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <section className='sm:hidden md:block'>
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
-                <div key={colabRole.key} className="flex items-center gap-3 mb-1">
-                  <p className="w-[30%] font-[Montserrat] tracking-wider font-semibold">
+                <div key={colabRole.key} className="flex items-center gap-5 ">
+                  <p className="w-[30%] font-[Montserrat]  font-semibold">
                     {colabRole.label}
                   </p>
                   <img
@@ -101,7 +101,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             })}
           </section>
         </div>
-        <section className="border border-gray-600 border-r-2 border-b-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
+        <section className="border border-gray-600 border-r-2 border-b-2 rounded-md pl-4 pt-1 pb-1 ml-3 mt-4 mr-2 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
           <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>
