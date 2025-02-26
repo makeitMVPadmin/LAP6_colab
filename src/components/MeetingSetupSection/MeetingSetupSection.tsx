@@ -7,6 +7,7 @@ import { createCalendarEvent } from '../../../firebase/functions/createCalendarE
 import { Timestamp } from 'firebase/firestore'
 import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
 import { Button } from '../ui/button'
+// import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
 
 interface MeetingSetupSectionProps {
   activeUserId: string
@@ -209,8 +210,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       return `${day}, ${formattedDate}`;
 
     }else{
-      const startTime = `${String(selectedTime.startTime.hours).padStart(2, '0')}:${String(selectedTime.startTime.minutes).padStart(2, '0')}`;
-      const endTime = `${String(selectedTime.endTime.hours).padStart(2, '0')}:${String(selectedTime.endTime.minutes).padStart(2, '0')}`;
+      const startTime = formatTimeString(selectedTime.startTime);
+      const endTime = formatTimeString(selectedTime.endTime);
 
       return `at ${startTime} - ${endTime}`
     }
