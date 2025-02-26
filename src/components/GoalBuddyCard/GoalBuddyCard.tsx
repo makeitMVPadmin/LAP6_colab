@@ -31,8 +31,9 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       className={clsx(
         'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-3 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
-        isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
-        modalState ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : '',
+
+        modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
+
       )}
     >
       <div className="flex justify-end absolute top-0 right-0 gap-1 py-1 px-2">
