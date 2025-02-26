@@ -51,7 +51,7 @@ export function AppSidebar() {
             <div className="h-[50%] bg-yellow">
               <button
                 className={clsx(
-                  'text-red-600 text-left pl-3 pt-1 font-semibold',
+                  'text-black text-left pl-3 pt-1 font-semibold',
                 )}
                 onClick={() => setIsSideBarOpen(!isSidebarOpen)}
               >
@@ -61,7 +61,7 @@ export function AppSidebar() {
                 <Avatar className="w-20 h-20 mt-2 mb-2">
                   <AvatarFallback className="bg-[#B7D9B9]" />
                   <AvatarImage
-                    className=" w-full"
+                    className="w-full"
                     src={userData ? userData.profilePhoto : ''}
                     alt="@shadcn"
                   />
