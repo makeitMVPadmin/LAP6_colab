@@ -3,8 +3,8 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --brand-main: #279af1;
-    --brand-secondary: #ffd22f;
+    --colab-blue: #279af1;
+    --colab-yellow: #ffd22f;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;

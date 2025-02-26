@@ -14,10 +14,13 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
-        brand: {
-          main: 'var(--brand-main)',
-          secondary: 'var(--brand-secondary)',
+        colab: {
+          blue: 'var(--colab-blue)',
+          yellow: 'var(--colab-yellow)',
         },
+        blue: '#279AF1',
+        yellow: '#FFD22F',
+        white: '#FFFFFF',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
