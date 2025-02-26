@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import '../../styles/custom_fonts.css';
 
 import { cn } from "../lib/utils"
 
@@ -17,7 +18,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-slate-950 text-sm font-medium font-['Montserrat'] leading-tight shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-select-default leading-[27.10px] font-medium font-['Montserrat'] leading-tight shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     {...props}
@@ -106,6 +107,7 @@ const SelectLabel = React.forwardRef<
     className={cn("px-2 py-1.5 text-slate-950 text-sm font-medium font-['Montserrat'] leading-tight", className)}
     {...props}
   />
+
 ))
 SelectLabel.displayName = SelectPrimitive.Label.displayName
 
@@ -116,7 +118,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-slate-950 text-sm font-medium font-['Montserrat'] leading-tight outline-none focus:font-bold data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-[#28363f] text-lg font-normalfont- ['Montserrat'] leading-relaxed outline-none focus:font-bold data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
