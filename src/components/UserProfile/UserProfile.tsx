@@ -142,8 +142,8 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="h-[100%]  text-[14px]">
-      <div className="h-[15%] bg-yellow relative rounded">
+    <div className="h-[100%] text-[14px]">
+      <div className="h-[15%] bg-yellow relative">
         <Avatar className="w-[100px] h-[100px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
@@ -218,7 +218,7 @@ export const UserProfile = () => {
               </p>
             )}
           </section>
-          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[32%] w-[95%] mt-3 pl-3 pt-1">
+          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[35%] w-[95%] mt-3 pl-3 pt-1">
             <h2 className="p-0 font-[fraunces] font-semibold">About</h2>
             <textarea
               value={editData.bio ? editData.bio : ''}
