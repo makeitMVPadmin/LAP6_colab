@@ -45,7 +45,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
        
       </div>
       <div className="h-[88%]">
-        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-[Montserrat] ">
+        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-font-montserrat ">
           <label>
             First Name:{' '}
             <span className="font-light">{goalBuddy?.firstName}</span>
@@ -81,14 +81,14 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           </label>
         </div>
         <div className="border border-gray-600 border-b-2  border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
-          <h2 className="text-lg font-semibold font-[Fraunces] tracking-regular leading-20">
+          <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">
             Co-Lab Role
           </h2>
           <section className='sm:hidden md:block'>
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
                 <div key={colabRole.key} className="flex items-center gap-5 ">
-                  <p className="w-[30%] font-[Montserrat]  font-semibold">
+                  <p className="w-[40%] text-sm font-semibold font-montserrat">
                     {colabRole.label}
                   </p>
                   <img
