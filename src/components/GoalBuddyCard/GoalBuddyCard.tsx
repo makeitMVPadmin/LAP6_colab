@@ -27,7 +27,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       key={goalBuddy.userId}
       onClick={onClick}
       className={clsx(
-        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 pt-3 px-3 bg-white cursor-pointer duration-150 border border-slate-950 rounded-md shadow-[2px_2px_5px_0px_rgba(0,_0,_0,_0.8)] relative',
+        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 pt-3 px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
         isSidebarOpen && ' opacity-110', // Add transparency when sidebar is open
       )}
