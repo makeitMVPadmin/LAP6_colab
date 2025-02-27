@@ -7,7 +7,8 @@ import { createCalendarEvent } from '../../../firebase/functions/createCalendarE
 import { Timestamp } from 'firebase/firestore'
 import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
 import { Button } from '../ui/button'
-import checkCircle from "../../assets/icons/check-circled.png"
+import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
+
 interface MeetingSetupSectionProps {
   activeUserId: string
   showingUser: AllGoalBuddyData
@@ -21,7 +22,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [availability, setAvailability] = useState<Availabilities[]>([]);
   const [userMeetings, setUserMeetings] = useState<CalendarEvents[] | undefined>(undefined);
   const [date, setDate] = useState<Date | undefined>(undefined);
-  const [dateError, setDateError] = useState<string>("");
   const [availableTimes, setAvailableTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(undefined);
   const [confirmationState, setConfirmationState] = useState<boolean>(false);
@@ -63,14 +63,13 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-      setDateError("");
 
     //Check that the user hasn't chosen a date in the past
+    // In theory, they cannot as dates before the present have been disabled
     }else if(selectedDate < currentDate){
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-      setDateError("Cannot make a meeting for a date in the past");
 
     //Otherwise, we will look at the user's availability and their current meetings for that date and make a list of available times in 30 minute intervals
     } else {
@@ -88,7 +87,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
-        setDateError("");
 
       // Otherwise, we will create a list of available times for the selected day
       } else {
@@ -151,7 +149,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes(availableTimes);
         setSelectedTime(undefined);
         setDate(selectedDate);
-        setDateError("");
         setBackendError("");
       }
     }
@@ -190,28 +187,57 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     setDate(undefined);
     setAvailableTimes([]);
     setSelectedTime(undefined);
-    setDateError("");
     setConfirmationState(false);
   }
+
+  // Function to write confirmation messages with a formatted date and time.
+  function makeConfirmationMessage(forDate: boolean): string {
+    if (!date || !selectedTime) return "";
+
+    if(forDate){
+      const day = dayAsString(date.getDay());
+      const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+      });
+
+      return `${day}, ${formattedDate}`;
+
+    }else{
+      const startTime = formatTimeString(selectedTime.startTime);
+      const endTime = formatTimeString(selectedTime.endTime);
+
+      return `at ${startTime} - ${endTime}`
+    }
+  }
+  
 
   return (
     <div className="flex flex-col w-full h-full">
       {confirmationState ? (
-        <div className="flex flex-col items-center justify-between p-4 h-full w-full">
-          <div className="flex flex-col items-center font-monseratt justify-center h-full w-full">
-            <div className="w-full h-[60%] flex flex-col items-center justify-center bg-green-100 rounded">
-              <img src={checkCircle}></img>
-              <h3 className="text-green-700 text-center text-md font-medium my-2">{`Meeting has been scheduled`}</h3>
-              <p className="text-green-700 text-center text-sm">{`${date!.toDateString()}`}</p>
-              <p className="text-green-700 text-center text-sm">
-                {`at ${formatTimeString(selectedTime!.startTime)} - ${formatTimeString(selectedTime!.endTime)}`}
-              </p>
+        <div className="flex flex-col items-center justify-between py-4 px-8 h-full w-full">
+          <div className="flex flex-col items-center justify-center h-full w-full">
+            <div className="bg-[#ECFDF2] w-full h-[66%] flex flex-col items-center justify-between p-4 rounded">
+                <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
+                    <ConfirmationIcon />
+                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4 text-center my-2">
+                      {`Meeting has been scheduled`}
+                    </h3>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
+                      {makeConfirmationMessage(true)}
+                    </p>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
+                      {makeConfirmationMessage(false)}
+                    </p>
+                </div>
             </div>
           </div>
           <Button
             onClick={resetState}
-            variant="secondary"
-            className={`bg-yellow text-black font-monseratt tracking-wide hover:bg-black hover:text-white`}
+            variant="colabPrimary"
+            size="colabPrimary"
+            className={`tracking-wide min-w-[195px]`}
           >
             {`Book Another Session`}
           </Button>
@@ -228,16 +254,16 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           <div className="flex flex-col items-center justify-between p-3 h-full w-full">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
               <h2 className="font-semibold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
-              {date &&
-                <h3 className="font-medium font-monserrat text-[15px] mb-1">{date.toDateString()}</h3>
-              }
-              {dateError &&
-                <h3 className="font-monserrat text-sm mb-1 bg-white p-1 rounded text-red-500">{dateError}</h3>
-              }
+              {date ? (
+                <h3 className="font-medium font-monserrat text-sm mb-1">{date.toDateString()}</h3>
+              ) : (
+                <h3 className="font-medium font-monserrat text-sm mb-1">{`Select a date`}</h3>
+              )}
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-                  <h3 className="font-bold font-monserrat text-sm my-1">{`Timezone: Eastern Standard Time`}</h3>
+                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px] my-1">{`Time Zone: Eastern Standard Time`}</h3>
+
                   <TimeSelectionList
                     timesList={availableTimes}
                     selectedDate={date}
@@ -249,9 +275,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             <Button
               onClick={makeMeetingEvent}
               disabled={date === undefined || selectedTime === undefined}
-              variant="secondary"
-              className={`my-1 
-                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-yellow text-black hover:bg-black hover:text-white '}`}
+              variant="colabPrimary"
+              size="colabPrimary"
             >
               {`Confirm`}
             </Button>
