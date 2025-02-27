@@ -221,7 +221,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             <div className="bg-[#ECFDF2] w-full h-[66%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
-                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4 text-center">
+                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4 text-center my-2">
                       {`Meeting has been scheduled`}
                     </h3>
                     <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
@@ -235,9 +235,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           </div>
           <Button
             onClick={resetState}
-            variant="colabPrimary"
-            size="colabPrimary"
-            className="min-w-[195px]"
+            variant="secondary"
+            className={`tracking-wide min-w-[195px]`}
           >
             {`Book Another Session`}
           </Button>
@@ -253,16 +252,16 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         ) : (
           <div className="flex flex-col items-center justify-between p-3 h-full w-full">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
-              <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
+              <h2 className="font-semibold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
               {date ? (
-                <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
+                <h3 className="font-medium font-monserrat text-sm mb-1">{date.toDateString()}</h3>
               ) : (
-                <h3 className="font-bold text-sm mb-1">{`Select a date`}</h3>
+                <h3 className="font-medium font-monserrat text-sm mb-1">{`Select a date`}</h3>
               )}
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px]">{`Time Zone: Eastern Standard Time`}</h3>
+                  <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px] my-1">{`Time Zone: Eastern Standard Time`}</h3>
 
                   <TimeSelectionList
                     timesList={availableTimes}
@@ -277,7 +276,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               disabled={date === undefined || selectedTime === undefined}
               variant="secondary"
               className={`my-1 
-                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-[#ffd22f] text-black hover:bg-black hover:text-white active:bg-black active:text-white'}`}
+                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-yellow text-black hover:bg-black hover:text-white '}`}
             >
               {`Confirm`}
             </Button>
