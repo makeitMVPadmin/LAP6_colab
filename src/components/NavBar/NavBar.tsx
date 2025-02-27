@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
   return (
     <nav
       className={clsx(
-        'flex flex-col mb-2 shadow-md h-[100px]',
+        'flex flex-col shadow-md h-[100px]',
         isSidebarOpen && 'z-0',
       )}
     >
