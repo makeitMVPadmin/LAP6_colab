@@ -64,7 +64,7 @@ const NavBar: React.FC = () => {
         </div>
       </div>
 
-      {isSidebarOpen && <AppSidebar />}
+      {isSidebarOpen? <AppSidebar />:<></>}
     </nav>
   )
 }
