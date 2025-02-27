@@ -256,7 +256,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         </div>
                     )}
                 </div>
-                <Button variant="colabPrimary" size="colabPrimary" className="h-[38px]" onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className="h-[38px]"  onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>
