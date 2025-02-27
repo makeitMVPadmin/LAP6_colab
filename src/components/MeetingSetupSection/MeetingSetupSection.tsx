@@ -7,7 +7,7 @@ import { createCalendarEvent } from '../../../firebase/functions/createCalendarE
 import { Timestamp } from 'firebase/firestore'
 import { dayAsString, findAvailabilityForDay, createTimestamp, isExistingStartTime, formatTimeString } from '../../utils/dateHelpers'
 import { Button } from '../ui/button'
-// import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
+import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
 
 interface MeetingSetupSectionProps {
   activeUserId: string
@@ -225,7 +225,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           <div className="flex flex-col items-center justify-center h-full w-full">
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
-                    {/* <ConfirmationIcon /> */}
+                    <ConfirmationIcon />
                     <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4">
                       {`Meeting has been scheduled`}
                     </h3>
