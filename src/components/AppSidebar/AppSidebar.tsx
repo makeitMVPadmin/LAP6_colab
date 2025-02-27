@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import './AppSidebar.css'
 import UserProfileModal from '../Modal/UserProfileModal'
