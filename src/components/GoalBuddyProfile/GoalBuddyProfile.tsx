@@ -35,14 +35,21 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   return (
     <div className="h-[100%] bg-white text-[16px] rounded-l-sm">
       <div className="h-[12%] md:h-[12%] sm:h-[20%] bg-yellow relative md:relative sm:relative rounded-tl-md">
-        <Avatar className="w-[90px] h-[90px] lg:absolute md:absolute absolute right-[10%] top-[40%]">
+        <Avatar className="w-[90px] h-[90px] lg:absolute md:absolute absolute right-[10%] top-[40%] right-[5%]">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
             alt="@shadcn"
           />
         </Avatar>
-       
+        <p className='lg:hidden md:hidden absolute top-[70%] right-[22%] font-fraunces text-lg font-bold'>Co-Lab Role</p>
+        <div className='flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]'>
+          {
+            goalBuddy && colabRoles.map((colabRole, index) => (
+              <img  key={index} src={colabRole.icon} alt="" className='w-4 h-4'/>
+            )) 
+          }
+        </div>
       </div>
       <div className="h-[88%]">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-font-montserrat ">
@@ -53,7 +60,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <label>
             Last Name: <span className="font-light">{goalBuddy?.lastName}</span>
           </label>
-          <label >
+          <label>
             Email: <span className="font-light">{goalBuddy?.email}</span>
           </label>
           <label className="mt-2 md:mt-2 sm:mt-0">
@@ -84,7 +91,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20 md:block sm:hidden">
             Co-Lab Role
           </h2>
-          <section className='sm:hidden md:block'>
+          <section className="sm:hidden md:block">
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
                 <div key={colabRole.key} className="flex items-center gap-5 ">
@@ -105,7 +112,9 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>
-          <p className=" font-[Montserrat] text-gray-400 tracking-wider">{goalBuddy?.bio}</p>
+          <p className=" font-[Montserrat] text-gray-400 tracking-wider">
+            {goalBuddy?.bio}
+          </p>
         </section>
       </div>
     </div>
