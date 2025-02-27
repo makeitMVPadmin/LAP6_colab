@@ -258,9 +258,11 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           <div className="flex flex-col items-center justify-between p-3 h-full w-full">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
               <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
-              {date &&
+              {date ? (
                 <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
-              }
+              ) : (
+                <h3 className="font-bold text-sm mb-1">{`Select a date`}</h3>
+              )}
               {dateError &&
                 <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
               }
