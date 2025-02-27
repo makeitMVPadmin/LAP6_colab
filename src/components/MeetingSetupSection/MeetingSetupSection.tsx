@@ -235,7 +235,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           </div>
           <Button
             onClick={resetState}
-            variant="secondary"
+            variant="colabPrimary"
+            size="colabPrimary"
             className={`tracking-wide min-w-[195px]`}
           >
             {`Book Another Session`}
@@ -274,9 +275,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             <Button
               onClick={makeMeetingEvent}
               disabled={date === undefined || selectedTime === undefined}
-              variant="secondary"
-              className={`my-1 
-                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-yellow text-black hover:bg-black hover:text-white '}`}
+              variant="colabPrimary"
+              size="colabPrimary"
             >
               {`Confirm`}
             </Button>
