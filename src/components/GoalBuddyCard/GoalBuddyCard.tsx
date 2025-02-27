@@ -29,7 +29,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       key={goalBuddy.userId}
       onClick={onClick}
       className={clsx(
-        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-3 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
+        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-3 sm:py-2 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
 
         modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
@@ -39,7 +39,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       <div className="flex justify-end absolute top-0 right-0 gap-1 py-1 px-2">
         {goalBuddy.isMentor && (
           <div className="flex-grow flex-basis-1/3">
-            <MentorBadge width="w-4" stroke="3" />
+            <MentorBadge width="w-4" stroke="3" yOffset={35} />
           </div>
         )}
         {goalBuddy.isAccountabilityPartner && (
@@ -60,7 +60,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
         </Avatar>
       </CardHeader>
       <CardContent className="flex sm:flex-1 flex-col justify-center mt-3 sm:mt-0 pt-3 p-0 sm:pt-6 sm:px-3 pb-0 relative">
-        <h1 className="font-semibold text-lg leading-[20px] sm:text-[24px] sm:leading-none font-fraunces">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
+        <h1 className="font-semibold text-lg leading-[20px] sm:text-[24px] sm:leading-5 font-fraunces">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
         <span className="text-sm font-medium font-montserrat">{`${goalBuddy.discipline}`}</span>
         {goalBuddy.interests.length > 0 && (
           <div className="flex flex-wrap gap-x-1">
