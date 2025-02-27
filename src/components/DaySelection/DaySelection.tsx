@@ -27,32 +27,25 @@ const DaySelection: React.FC<DaySelectionProps> = ({
     'Sunday',
   ]
 
-  return (
-    <div className="w-[100%]">
-      <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
-        <SelectTrigger
-          className={`bg-white ${isError ? 'border-[#e53935]' : ''}`}
-        >
-          <SelectValue
-            className="font-montserrat text-[16px] peer-placeholder-shown:font-semibold peer-placeholder-shown:text-gray-400"
-            placeholder="Select a day"
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {daysOfWeek.map((day) => (
-            <SelectItem key={day} value={day}>
-              {day}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      {isError && (
-        <p className="text-xs text-[#e53935] bg-red-100 rounded pl-1">
-          {isError}
-        </p>
-      )}
-    </div>
-  )
-}
+    return (
+        <div className="w-full mt-4 flex flex-col justify-center items-center">
+            <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
+                <SelectTrigger className={`h-[49.68px] px-[16.26px] py-[10.84px] bg-white rounded-lg border-l border-r-2 border-t border-b-2 border-[#28363f] justify-between items-center inline-flex" ${isError ? "border-[#f44336]": ""}`}>
+                    <SelectValue placeholder="Select a day" />
+                </SelectTrigger>
+                <SelectContent>
+                    {daysOfWeek.map(day => (
+                        <SelectItem key={day} value={day} >
+                            {day}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+            {isError && 
+                <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight bg-red-100 rounded pl-1 w-full">{isError}</p>
+            }
+        </div>
+    );
+};
 
 export default DaySelection
