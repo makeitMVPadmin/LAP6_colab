@@ -6,9 +6,9 @@
     --colab-blue: #279af1;
     --colab-yellow: #ffd22f;
     --background: 0 0% 100%;
-    --foreground: rgba(2, 6, 23, 1);
+    --foreground: 222, 82%, 5%;;
     --card: 0 0% 100%;
-    --card-foreground: rgba(2, 6, 23, 1);
+    --card-foreground: 222, 82%, 5%;;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
