@@ -13,6 +13,14 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  
+  // Function to disable days that occur in the past 
+  function disablePastDates(date: Date): boolean {
+    const today: Date = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  }
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -65,6 +73,7 @@ function Calendar({
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
       }}
+      disabled={disablePastDates}
       {...props}
     />
   )

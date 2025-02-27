@@ -22,7 +22,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [availability, setAvailability] = useState<Availabilities[]>([]);
   const [userMeetings, setUserMeetings] = useState<CalendarEvents[] | undefined>(undefined);
   const [date, setDate] = useState<Date | undefined>(undefined);
-  const [dateError, setDateError] = useState<string>("");
   const [availableTimes, setAvailableTimes] = useState<TimePeriod[]>([]);
   const [selectedTime, setSelectedTime] = useState<TimePeriod | undefined>(undefined);
   const [confirmationState, setConfirmationState] = useState<boolean>(false);
@@ -64,14 +63,13 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-      setDateError("");
 
     //Check that the user hasn't chosen a date in the past
+    // In theory, they cannot as dates before the present have been disabled
     }else if(selectedDate < currentDate){
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-      setDateError("Cannot make a meeting for a date in the past");
 
     //Otherwise, we will look at the user's availability and their current meetings for that date and make a list of available times in 30 minute intervals
     } else {
@@ -89,7 +87,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
-        setDateError("");
 
       // Otherwise, we will create a list of available times for the selected day
       } else {
@@ -152,7 +149,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes(availableTimes);
         setSelectedTime(undefined);
         setDate(selectedDate);
-        setDateError("");
         setBackendError("");
       }
     }
@@ -191,7 +187,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     setDate(undefined);
     setAvailableTimes([]);
     setSelectedTime(undefined);
-    setDateError("");
     setConfirmationState(false);
   }
 
@@ -263,9 +258,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               ) : (
                 <h3 className="font-bold text-sm mb-1">{`Select a date`}</h3>
               )}
-              {dateError &&
-                <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
-              }
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
