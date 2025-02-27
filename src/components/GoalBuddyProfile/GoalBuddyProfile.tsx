@@ -34,8 +34,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   ]
   return (
     <div className="h-[100%] bg-white text-[16px] rounded-l-sm">
-      <div className="h-[12%] bg-yellow relative rounded-tl-md">
-        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[40%]">
+      <div className="h-[12%] md:h-[12%] sm:h-[20%] bg-yellow relative md:relative sm:relative rounded-tl-md">
+        <Avatar className="w-[90px] h-[90px] lg:absolute md:absolute absolute right-[10%] top-[40%]">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
@@ -56,7 +56,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <label >
             Email: <span className="font-light">{goalBuddy?.email}</span>
           </label>
-          <label className="mt-2">
+          <label className="mt-2 md:mt-2 sm:mt-0">
             City: <span className="font-light">{goalBuddy?.city}</span>
           </label>
           <p className="flex gap-3">
@@ -67,7 +67,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
               Country: <span className="font-light">{goalBuddy?.country}</span>
             </label>
           </p>
-          <label className="mt-2">
+          <label className="mt-2 md:mt-2 sm:mt-0">
             Discipline:{' '}
             <span className="font-light">{goalBuddy?.discipline}</span>
           </label>
@@ -80,8 +80,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             ))}
           </label>
         </div>
-        <div className="border border-gray-600 border-b-2  border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
-          <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20">
+        <div className="border border-gray-600 border-b-2 md:block sm:hidden border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
+          <h2 className="text-lg font-semibold font-fraunces tracking-regular leading-20 md:block sm:hidden">
             Co-Lab Role
           </h2>
           <section className='sm:hidden md:block'>
