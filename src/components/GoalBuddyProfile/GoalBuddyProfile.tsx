@@ -34,18 +34,25 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   ]
   return (
     <div className="h-[100%] bg-white text-[16px] rounded-l-sm">
-      <div className="h-[12%] bg-yellow relative rounded-tl-md">
-        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[40%]">
+      <div className="h-[20%] lg:h-[12%] md:h-[12%] bg-yellow relative md:relative sm:relative rounded-tl-md">
+        <Avatar className="w-[55px] h-[55px] lg:w-[90px] lg:h-[90px] md:w-[70px] md:h-[70px] absolute lg:absolute md:absolute right-[5%] top-[65%]  lg:right-[10%] lg:top-[40%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
             alt="@shadcn"
           />
         </Avatar>
-       
+        <p className='lg:hidden md:hidden absolute top-[70%] right-[23%] font-fraunces text-md font-bold'>Co-Lab Role</p>
+        <div className='flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]'>
+          {
+            goalBuddy && colabRoles.map((colabRole, index) => (
+              <img  key={index} src={colabRole.icon} alt="" className='w-4 h-4'/>
+            )) 
+          }
+        </div>
       </div>
       <div className="h-[88%]">
-        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-[Montserrat] ">
+        <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-font-montserrat ">
           <label>
             First Name:{' '}
             <span className="font-light">{goalBuddy?.firstName}</span>
@@ -53,10 +60,10 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <label>
             Last Name: <span className="font-light">{goalBuddy?.lastName}</span>
           </label>
-          <label >
+          <label>
             Email: <span className="font-light">{goalBuddy?.email}</span>
           </label>
-          <label className="mt-2">
+          <label className="mt-0 lg:mt-2 md:mt-2 ">
             City: <span className="font-light">{goalBuddy?.city}</span>
           </label>
           <p className="flex gap-3">
@@ -67,7 +74,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
               Country: <span className="font-light">{goalBuddy?.country}</span>
             </label>
           </p>
-          <label className="mt-2">
+          <label className="mt-0 md:mt-2 lg:mt-2">
             Discipline:{' '}
             <span className="font-light">{goalBuddy?.discipline}</span>
           </label>
@@ -80,15 +87,15 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             ))}
           </label>
         </div>
-        <div className="border border-gray-600 border-b-2  border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
-          <h2 className="text-lg font-semibold font-[Fraunces] tracking-regular leading-20">
+        <div className=" hidden sm:hidden border border-gray-600 border-b-2 md:block border-r-2 rounded-md p-2 ml-3 mt-4 mr-2 shadow-[0px_0px_2px_0px_rgba(0,0,0,0.2)]">
+          <h2 className="hidden sm:hidden text-lg font-semibold font-fraunces tracking-regular leading-20 md:block ">
             Co-Lab Role
           </h2>
-          <section className='sm:hidden md:block'>
+          <section className="sm:hidden md:block">
             {colabRoles.map((colabRole) => {
               return goalBuddy?.[colabRole.key] ? (
                 <div key={colabRole.key} className="flex items-center gap-5 ">
-                  <p className="w-[30%] font-[Montserrat]  font-semibold">
+                  <p className="w-[40%] text-sm font-semibold font-montserrat">
                     {colabRole.label}
                   </p>
                   <img
@@ -105,7 +112,9 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>
-          <p className=" font-[Montserrat] text-gray-400 tracking-wider">{goalBuddy?.bio}</p>
+          <p className=" font-[Montserrat] text-gray-400 tracking-wider">
+            {goalBuddy?.bio}
+          </p>
         </section>
       </div>
     </div>
