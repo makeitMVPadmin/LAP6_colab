@@ -142,8 +142,8 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="h-[100%] text-[14px]">
-      <div className="h-[15%] bg-yellow relative">
+    <div className="h-[100%] w-[100%] text-[14px] relative">
+      <div className="h-[15%] bg-yellow sticky top-0 left-0 w-[100%] z-10">
         <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
