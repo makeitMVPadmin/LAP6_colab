@@ -27,7 +27,7 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent
-        className="flex flex-col max-w-[90vw] h-[90%] lg:max-w-[50vw] md:max-w-[50vw] lg:h-[70%] md:h-[70%]  lg:flex-row md:flex-row  p-0 gap-0 border border-black "
+        className="flex flex-col max-w-[90vw] h-[90%] lg:max-w-[50vw] md:max-w-[70vw] lg:h-[70%] md:h-[70%]  lg:flex-row md:flex-row  p-0 gap-0 border border-black "
         aria-describedby={undefined}
       >
       
