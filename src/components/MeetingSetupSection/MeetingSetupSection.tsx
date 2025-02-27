@@ -221,7 +221,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             <div className="bg-[#ECFDF2] w-full h-[66%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
-                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4">
+                    <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4 text-center">
                       {`Meeting has been scheduled`}
                     </h3>
                     <p className="text-[#00892d] text-sm font-normal font-montserrat leading-tight text-center">    
@@ -237,6 +237,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             onClick={resetState}
             variant="colabPrimary"
             size="colabPrimary"
+            className="min-w-[195px]"
           >
             {`Book Another Session`}
           </Button>
