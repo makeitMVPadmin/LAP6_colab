@@ -210,7 +210,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           <Button
             onClick={resetState}
             variant="secondary"
-            className={`bg-[#ffd22f] text-black hover:bg-black hover:text-white active:bg-black active:text-white`}
+            className={`bg-yellow text-black hover:bg-black hover:text-white active:bg-black active:text-white`}
           >
             {`Book Another Session`}
           </Button>
@@ -226,17 +226,17 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         ) : (
           <div className="flex flex-col items-center justify-between p-3 h-full w-full">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
-              <h2 className="font-bold text-center text-xl mb-3">{`Book a Meeting`}</h2>
+              <h2 className="font-bold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
               {date &&
-                <h3 className="font-bold text-sm mb-1">{date.toDateString()}</h3>
+                <h3 className="font-semibold font-monserrat text-[16px] mb-1">{date.toDateString()}</h3>
               }
               {dateError &&
-                <h3 className="font-bold text-sm mb-1 text-red-500">{dateError}</h3>
+                <h3 className="font-monserrat text-sm mb-1 text-red-500">{dateError}</h3>
               }
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
                 <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
-                  <h3 className="font-bold text-sm my-1">{`Timezone: ${showingUser.timezone}`}</h3>
+                  <h3 className="font-bold font-monserrat text-sm my-1">{`Timezone: Eastern Standard Time`}</h3>
                   <TimeSelectionList
                     timesList={availableTimes}
                     selectedDate={date}
@@ -250,7 +250,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               disabled={date === undefined || selectedTime === undefined}
               variant="secondary"
               className={`my-1 
-                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-[#ffd22f] text-black hover:bg-black hover:text-white active:bg-black active:text-white'}`}
+                ${date === undefined || selectedTime === undefined ? 'bg-gray-400 text-white' : 'bg-yellow text-black hover:bg-black hover:text-white '}`}
             >
               {`Confirm`}
             </Button>
