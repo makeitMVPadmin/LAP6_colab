@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
 import GoalBuddyProfileModal from '../../../src/components/Modal/GoalBuddyProfileModal'
 import { IdContext } from '@/components/context/IdContext'
+import BackgroundImage from '../../assets/Image/Background.png'
 
 export default function ColabPage() {
   const [goalBuddiesCombinedWithUsers, setGoalBuddiesCombinedWithUsers] =
@@ -36,7 +37,7 @@ export default function ColabPage() {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-const{isSidebarOpen}=sideBarContext;
+  const { isSidebarOpen } = sideBarContext
   const userContext = useContext(IdContext)
   if (!userContext) {
     throw new Error('IdContext not found')
@@ -51,7 +52,7 @@ const{isSidebarOpen}=sideBarContext;
       const excludeActiveUserList = goalBuddiesMergedWithUsers(
         goalBuddies,
         users,
-      ).filter( user => user.userId !== userData?.id)
+      ).filter((user) => user.userId !== userData?.id)
 
       setGoalBuddiesCombinedWithUsers(excludeActiveUserList)
 
@@ -114,14 +115,25 @@ const{isSidebarOpen}=sideBarContext;
   }
 
   return (
-
-    <main className={modalState ||isSidebarOpen ? "fade-in-0 duration-500 backdrop-brightness-50 " : ""}>
-
+    <main
+      className={
+        modalState || isSidebarOpen
+          ? 'fade-in-0 duration-500 backdrop-brightness-50 '
+          : ''
+      }
+    >
       <Layout>
-        <div className={clsx('flex justify-center flex-col lg:flex-row')}>
-          <Filter 
-            filterGoalBuddies={filterGoalBuddies} 
-            filter={filter} 
+        <div
+          className={clsx('flex justify-center flex-col lg:flex-row')}
+          style={{
+            backgroundImage: `url(${BackgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <Filter
+            filterGoalBuddies={filterGoalBuddies}
+            filter={filter}
             modalState={modalState}
             setModalState={setModalState}
           />

@@ -10,13 +10,11 @@ import NetworkingBadge from '../Filter/NetworkingBadge'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
-  modalState: boolean
   onClick: () => void
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
   goalBuddy,
-  modalState,
   onClick,
 }) => {
   const sideBarContext = useContext(SidebarContext)
@@ -29,35 +27,47 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       key={goalBuddy.userId}
       onClick={onClick}
       className={clsx(
-        'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-white cursor-pointer duration-150 border border-slate-950 rounded-md shadow-[2px_2px_5px_0px_rgba(0,_0,_0,_0.8)]',
+        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-3 sm:py-2 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
-
-        modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
-
       )}
     >
-      <CardHeader className="self-start p-3 sm:p-6">
-        <Avatar className={`sm:w-16 sm:h-16 ${modalState ? "fade-in-0 duration-200 opacity-50 brightness-50" : ""}`}>
+      <div className="flex justify-end absolute top-0 right-0 gap-1 py-1 px-2">
+        {goalBuddy.isMentor && (
+          <div className="flex-grow flex-basis-1/3">
+            <MentorBadge
+              width="w-[15px]"
+              stroke="4"
+              yOffset={35}
+              height="h-[15px]"
+            />
+          </div>
+        )}
+        {goalBuddy.isAccountabilityPartner && (
+          <div className="flex-grow flex-basis-1/3">
+            <GoalBuddyBadge width="w-[15px]" stroke="3" height="h-[15px]" />
+          </div>
+        )}
+        {goalBuddy.isNetworking && (
+          <div className="flex-grow flex-basis-1/3">
+            <NetworkingBadge width="w-[15px]" stroke="3" height="h-[15px]" />
+          </div>
+        )}
+      </div>
+      <CardHeader className="self-start p-0">
+        <Avatar className="w-16 h-16">
           <AvatarImage src={goalBuddy.profilePhoto} />
           <AvatarFallback className="bg-[#D9D9D9]" />
         </Avatar>
       </CardHeader>
-      <CardContent className="flex-1 flex-col justify-center p-4 w-11/12 relative">
-        <div className="flex justify-end items-center absolute top-0 right-0 px-2 py-1 gap-1">
-          {goalBuddy.isMentor && <MentorBadge width="w-4" stroke="3" />}
-          {goalBuddy.isAccountabilityPartner && (
-            <GoalBuddyBadge width="w-4" stroke="3" />
-          )}
-          {goalBuddy.isNetworking && <NetworkingBadge width="w-4" stroke="3" />}
-        </div>
-        <h1 className="font-semibold text-lg sm:text-xl md:text-2xl mt-2 font-fraunces">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
-        <span className="text-sm sm:text-base font-montserrat">{`${goalBuddy.discipline}`}</span>
+      <CardContent className="flex sm:flex-1 flex-col justify-center mt-3 sm:mt-0 pt-3 p-0 sm:pt-6 sm:px-3 pb-0 relative">
+        <h1 className="font-semibold text-lg leading-[20px] sm:text-[24px] sm:leading-5 font-fraunces text-foreground">{`${goalBuddy.firstName} ${goalBuddy.lastName}`}</h1>
+        <span className="text-sm font-medium font-montserrat  text-foreground">{`${goalBuddy.discipline}`}</span>
         {goalBuddy.interests.length > 0 && (
-          <div className="text-sm sm:text-base flex flex-wrap gap-1.5 mt-2">
+          <div className="flex flex-wrap gap-x-1">
             {goalBuddy.interests.map((interest, index) => (
               <span
                 key={index}
-                className={`bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1 font-montserrat ${modalState ? " fade-in-0 duration-200 brightness-50 bg-opacity-50" : ""}`}
+                className={`list-inside text-sm font-medium rounded-md font-montserrat text-foreground`}
               >
                 #{interest}
               </span>

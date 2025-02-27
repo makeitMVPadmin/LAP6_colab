@@ -6,6 +6,8 @@ import DaySelection from "../DaySelection/DaySelection";
 import { createTimeFromStrings, findAvailabilityForDay, formatTimeString } from "@/utils/dateHelpers";
 import AvailabilityInput from "../AvailabilityInput/AvailabilityInput";
 import { hasOverlap, validateAllAvailabilities } from "@/utils/timePeriodValidation";
+import AddIcon from "../AddIcon/AddIcon";
+import ConfirmationIcon from "../ConfirmationIcon/ConfirmationIcon";
 
 interface AvailabilitySectionProps {
     activeGoalBuddy: GoalBuddy,
@@ -39,8 +41,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             });
             setTimePeriodInputs(currentTimePeriods);
         }
-        // // Erase previous time errors
-        // setTimeErrors([]);
+
     }, [selectedDay, selectedDayAvailability]);
 
     // Function to show availability for a specific day
@@ -94,9 +95,15 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     // Function to add another row for time period inputs
     function addTimeRow(){
         const oneMoreTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
-        oneMoreTimePeriodInputs.push({startTime: "", endTime: ""})
-        setTimePeriodInputs(oneMoreTimePeriodInputs);
+        oneMoreTimePeriodInputs.push({startTime: "", endTime: ""});
 
+        if(timeErrors.length !== 0){
+            const oneMoreTimeErrors: AvailabilityErrors[] = [...timeErrors];
+            oneMoreTimeErrors.push({startTimeError: "", endTimeError: "", errorsExist: false});
+            setTimeErrors(oneMoreTimeErrors);
+        }
+        setTimePeriodInputs(oneMoreTimePeriodInputs);
+        
     }
 
     // Function to handle the user trying to confirm their new availability for a day
@@ -189,39 +196,67 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         setBackendError("");
     }
 
+    function makeConfirmationMessage(){
+        let message: string =`You've set availability for ${selectedDay}s at `;
+        if(timePeriodInputs.length === 0){
+            return `You've set ${selectedDay}s as unavailable.`
+        }else{
+            timePeriodInputs.forEach(period =>{
+                message += `${period.startTime}-${period.endTime}, `;
+            });
+        }
+        message = message.substring(0, (message.length-2));
+        message += ".";
+
+        return message
+    }
+
   return (
-    <div className="w-full h-full flex flex-col justify-center pt-12 pb-6 px-6">
+    <div className="w-full h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0">
         {confirmationState ? (
-            <div className="bg-green-200 w-full h-[60%] flex flex-col items-center justify-between p-4 rounded">
-                <p className="text-green-500 my-16">{`Congratulations! Your availability has been successfully updated.`}</p>
-                <Button className="bg-[#0264d4] color-white" onClick={resetComponent}>{`Edit`}</Button>
+            <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
+                <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
+                    <ConfirmationIcon />
+                    <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage()}</p>
+                </div>
+                <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
         ) : (
-            <div className="w-full h-full flex flex-col items-center justify-between">
-                <div className="w-full h-[90%] flex flex-col items-center">
-                    <h2 className="font-bold font-fraunces text-center text-[22px] mb-4">Set My Availabilities</h2>
-                    {backendError && <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>}
+            <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
+                <div className="w-full h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
+                    <h2 className="text-slate-950 text-2xl font-semibold font-fraunces leading-tight">
+                        {`Set my availability`}
+                    </h2>
+                    {backendError && 
+                        <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>
+                    }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
-                        <div className="w-full h-full flex flex-col justiy-start">
-                            <div className="w-full max-h-[75%] flex flex-col">
+                        <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 justify-start">
+                            <div className="w-full md:max-h-[372px] flex flex-col">
                                 <div className="sticky top-0 z-10">
-                                    <h3 className="font-semibold font-montserrat text-md my-1">Timezone: Eastern Standard Time</h3>
+                                    <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-montserrat leading-[14.80px]">
+                                        {`Time Zone: Eastern Standard Time`}
+                                    </h3>
                                 </div>
-                                <div className="overflow-auto scrollbar-hide">
+                                <div className="overflow-auto h-full ">
                                     {timePeriodInputs.map((period, index) => (
-                                    <AvailabilityInput key={index} index={index} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
+                                    <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
                                 </div>
                                 {overlapError && 
-                                    <p className="text-xs text-[#e53935] my-1 bg-red-100 rounded pl-1">{overlapError}</p>
+                                    <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
-                            <Button className="w-[4rem] h-[1.5rem] my-1 hover:bg-white hover:text-black" onClick={addTimeRow}>{`+ Add`}</Button>
+                            <Button variant="colabAdd" size="colabAdd" className="my-1"onClick={addTimeRow}>
+                                <AddIcon />
+                                {`Add`}
+                            </Button>
                         </div>
                     )}
                 </div>
-                <Button variant="secondary" className="bg-yellow text-gray-900 tracking-wide text-[16px] font-semibold font-montserrat" onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" className="h-[38px]" onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>
