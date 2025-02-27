@@ -15,11 +15,9 @@ interface filterProps {
     accountability: boolean
     networking: boolean
   }
-  modalState: boolean
-  setModalState: Function
 }
 
-const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, setModalState }) => {
+const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   const sidebarContext=useContext(SidebarContext);
   if (!sidebarContext) {
@@ -36,7 +34,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
           rounded-sm border-[3px] border-black hidden lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
 
-          ${modalState ||isSidebarOpen? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
+          ${isSidebarOpen? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
 
 
         )}
@@ -75,8 +73,6 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
           <label
             className="rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
                     text-xl leading-[35px] relative font-montserrat font-medium"
-            onMouseEnter={() => setModalState(true)}
-            onMouseLeave={() => setModalState(false)}
           >
             {renderBadge(tag)} {roleName}
           </label>
@@ -91,7 +87,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter, modalState, 
       className={cn(
         `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none
 
-        ${modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
+        ${isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
 
       )}
     >
