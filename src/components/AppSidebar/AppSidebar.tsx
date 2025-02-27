@@ -45,7 +45,7 @@ export function AppSidebar() {
  
   return (
     <>
-      <div className="max-w-screen max-h-screen relative md:relative border border-4 border-red-600 z-50">
+      <div className="max-w-screen h-screen relative z-50">
         <Sidebar className="w-[20%] rounded-md absolute h-[70%] shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0 rounded-md">
             <div className="h-[50%] bg-yellow">
