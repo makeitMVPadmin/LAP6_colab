@@ -14,7 +14,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ selectedDate, setDate
         mode="single"
         selected={selectedDate}
         onSelect={setDate}
-        className="rounded-md border bg-white"
+        className="rounded-md border bg-white font-montserrat text-[#28363f] text-sm font-medium leading-tight"
       />
     </div>
   );
