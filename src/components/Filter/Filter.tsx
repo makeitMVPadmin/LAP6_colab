@@ -18,22 +18,21 @@ interface filterProps {
 }
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
-
-  const sidebarContext=useContext(SidebarContext);
+  const sidebarContext = useContext(SidebarContext)
   if (!sidebarContext) {
     throw new Error('Sidebar context not found')
   }
-  const { isSidebarOpen } = sidebarContext;
-
+  const { isSidebarOpen } = sidebarContext
 
   const renderCheckbox = (filtered: boolean, role: string) => {
     return (
-      <input type="checkbox"
+      <input
+        type="checkbox"
         className={cn(
           `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
           rounded-sm border-[3px] border-black hidden lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
-          ${isSidebarOpen? " fade-in-0 duration-200 bg-opacity-50" : ""}`,
+          ${isSidebarOpen ? ' fade-in-0 duration-200 bg-opacity-50' : ''}`,
         )}
         onClick={() => {
           filterGoalBuddies(role)
@@ -68,7 +67,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-row justify-between relative h-8">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
+            className="bg-card rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
                     text-xl leading-[35px] relative font-montserrat font-medium"
           >
             {renderBadge(tag)} {roleName}
@@ -82,10 +81,9 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   return (
     <Card
       className={cn(
-        `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none
+        `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none bg-transparent
 
-        ${isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""}`
-
+        ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
       )}
     >
       <CardContent
@@ -98,14 +96,14 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         {renderRole('accountability', 'Goal Buddy', filter.accountability)}
         {renderRole('networking', 'Networking', filter.networking)}
       </CardContent>
-        <CardDescription
-          className={cn(
-            'text-right text-gray-800 text-base font-montserrat font-medium mr-4 mt-3 cursor-pointer',
-          )}
-          onClick={() => filterGoalBuddies('')}
-        >
-          Clear All
-        </CardDescription>
+      <CardDescription
+        className={cn(
+          'text-right text-gray-800 text-base font-montserrat font-medium mr-4 mt-3 cursor-pointer',
+        )}
+        onClick={() => filterGoalBuddies('')}
+      >
+        Clear All
+      </CardDescription>
     </Card>
   )
 }

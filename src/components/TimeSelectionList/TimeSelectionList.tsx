@@ -42,12 +42,12 @@ const TimeSelectionList: React.FC<TimeSelectionListProps> = ({timesList, selecte
     }
 
     return (
-        <div className="flex flex-col justify-start w-full p-1 bg-white border-2 border-black rounded-lg my-1 max-h-[9rem] overflow-auto">
+        <div className="flex flex-col justify-start w-full p-1 bg-white border border-1 border-black border-r-2 border-b-2 rounded-lg my-1 max-h-[9rem]">
             <div className="sticky top-0 bg-white z-10 p-2 pb-0">
-                <p className="font-bold">{`Select a time`}</p>
+                <p className="font-bold font-fraunces">{`Select a time`}</p>
             </div>
             {timesList.length === 0 ? (
-                <p className="bg-white rounded p-1">{`No Availability for this Date`}</p>
+                <p className="font-monserrat text-sm p-1">{`No Availability for this Date`}</p>
             ) : (
                 <div className="overflow-auto scrollbar-hide">
                     {timesList.map((time: TimePeriod, index: number) => (
