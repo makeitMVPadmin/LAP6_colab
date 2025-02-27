@@ -209,7 +209,7 @@ const Sidebar = React.forwardRef<
       //     </SheetContent>
       //   </Sheet>
       // )
-      return <div className="flex h-[100%] w-full flex-col">{children}</div>
+      return <div className="flex h-[70vh] w-[55%] flex-col absolute right-0 ">{children}</div>
     }
 
     return (

@@ -37,16 +37,14 @@ export function AppSidebar() {
 
   const handleClick = (title: string) => {
     if (title === 'Profile') {
-   
       setModalOpen(!modalOpen)
-  
     }
   }
- 
+
   return (
     <>
-      <div className="w-screen max-h-screen relative z-50">
-        <Sidebar className="w-[20%] rounded-md absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
+      <div className="max-w-screen h-screen relative z-50">
+        <Sidebar className="w-[20%] rounded-md absolute h-[70%] shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0 rounded-md">
             <div className="h-[50%] bg-yellow">
               <button

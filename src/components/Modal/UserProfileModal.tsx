@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Dialog } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
-import { DialogTitle } from '@radix-ui/react-dialog'
+import { DialogTitle } from '../ui/dialog'
 import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
 import { GoalBuddy } from '../../types/types'
+import { SidebarContext } from '../context/SidebarContext'
 
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,11 +19,14 @@ const UserprofileModal: React.FC<ModalProps> = ({
   goalBuddyData,
   updateGoalBuddyData,
 }) => {
+  
   const handleModalClick = () => {
     setModalOpen(false)
+ 
   }
+ 
   return (
-    <Dialog open={modalOpen} onOpenChange={setModalOpen} >
+    <Dialog open={modalOpen} onOpenChange={setModalOpen} modal={true}>
   
       <section className="flex w-[97vw] md:w-auto min-w-[60vw] h-[80vh] md:h-[75%] bg-white flex-col md:flex-row p-0 gap-0 border border-black rounded absolute md:right-[19px] top-[164px] md:top-[79px] mx-2 md:mx-0 z-50 overflow-auto md:overflow-hidden scrollbar-hidden"
       
