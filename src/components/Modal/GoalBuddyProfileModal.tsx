@@ -27,14 +27,14 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent
-        className="flex max-w-[50vw] md:max-w-[50vw] sm:max-w-[90vw] h-[70%] md:h-[70%] sm:h-[90%] md:flex-row sm:flex-col p-0 gap-0 border border-black "
+        className="flex flex-col max-w-[90vw] h-[90%] lg:max-w-[50vw] md:max-w-[70vw] lg:h-[70%] md:h-[70%]  lg:flex-row md:flex-row  p-0 gap-0 border border-black "
         aria-describedby={undefined}
       >
       
-        <div className="w-[55%] md:w-[55%] sm:w-[100%] md:h-[100%] sm:h-[60%] pt-0 overflow-y-auto scrollbar-hidden">
+        <div className="h-[60%] lg:w-[55%] md:w-[55%] lg:h-[100%] md:h-[100%] pt-0 overflow-y-auto scrollbar-hidden">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
-        <div className="flex flex-col items-center w-[45%] md:w-[45%] sm:w-[100%] md:h-[100%] sm:h-[40%] bg-[#279af1] p-0 overflow-y-auto scrollbar-hidden ">
+        <div className="flex flex-col items-center w-[100%] lg:w-[45%] md:w-[45%]  md:h-[100%] bg-[#279af1] p-0 overflow-y-auto scrollbar-hidden ">
           {userContext && userData ? (
             <MeetingSetupSection activeUserId={userData.id} showingUser={goalBuddy} />
           ) : (
