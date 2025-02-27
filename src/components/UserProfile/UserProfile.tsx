@@ -142,9 +142,9 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="h-[100%] text-[14px]">
-      <div className="h-[15%] bg-yellow relative">
-        <Avatar className="w-[90px] h-[90px] absolute right-[10%] top-[50%] ">
+    <div className="h-[100%] w-[100%] text-[14px] relative">
+      <div className="h-[12%] bg-yellow sticky top-0 left-0 w-[100%] z-10">
+        <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[50px] h-[50px] lg:absolute md:absolute absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}
@@ -152,7 +152,7 @@ export const UserProfile = () => {
           />
         </Avatar>
       </div>
-      <div className="h-[85%]">
+      <div className="h-[88%]">
         <div className="mt-2 flex flex-col pl-3 gap-0 font-medium text-sm font-montserrat tracking-wide">
           <label>
             First Name:{` `}
@@ -164,10 +164,10 @@ export const UserProfile = () => {
           <label>
             Email: <span className="font-normal">{userData?.email}</span>
           </label>
-          <label className="mt-2">
+          <label className="lg:mt-2 md:mt-2">
             City: <span className="font-normal">{userData?.city}</span>
           </label>
-          <p className="flex gap-3">
+          <p className="flex gap-0 lg:gap-3 md:gap-3">
             <label>
               State: <span className="font-normal"> {userData?.state}</span>
             </label>
@@ -175,7 +175,7 @@ export const UserProfile = () => {
               Country: <span className="font-normal">{userData?.country}</span>
             </label>
           </p>
-          <label className="mt-2">
+          <label className="md:mt-2 lg:mt-2">
             Discipline:{' '}
             <span className="font-normal">{userData?.discipline}</span>
           </label>
@@ -230,7 +230,7 @@ export const UserProfile = () => {
             <textarea
               value={editData.bio ? editData.bio : ''}
               onChange={(e) => handleChange(e)}
-              className="text-gray-600 w-[95%] h-[70%] p-2 text-xs border border-gray-300 shadow-lg bg-white font-montserrat font-light"
+              className="resize-none text-gray-600 w-[95%] h-[70%] p-2 text-[16px] border border-gray-300 shadow-lg bg-white font-[Montserrat] font-light"
               disabled={
                 editData.isEditing == false || editData.buttonText === 'Saved'
               }
