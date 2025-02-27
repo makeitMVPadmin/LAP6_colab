@@ -10,11 +10,13 @@ import NetworkingBadge from '../Filter/NetworkingBadge'
 
 interface GoalBuddyCardProps {
   goalBuddy: AllGoalBuddyData
+  modalState: boolean
   onClick: () => void
 }
 
 const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
   goalBuddy,
+  modalState,
   onClick,
 }) => {
   const sideBarContext = useContext(SidebarContext)
@@ -30,12 +32,12 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
         'flex min-w-60 max-w-96 min-h-[150px] m-4 bg-white cursor-pointer duration-150 border border-slate-950 rounded-md shadow-[2px_2px_5px_0px_rgba(0,_0,_0,_0.8)]',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
 
-        isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
+        modalState ||isSidebarOpen ? " fade-in-0 duration-200 opacity-50 bg-opacity-50" : ""
 
       )}
     >
       <CardHeader className="self-start p-3 sm:p-6">
-        <Avatar className="sm:w-16 sm:h-16">
+        <Avatar className={`sm:w-16 sm:h-16 ${modalState ? "fade-in-0 duration-200 opacity-50 brightness-50" : ""}`}>
           <AvatarImage src={goalBuddy.profilePhoto} />
           <AvatarFallback className="bg-[#D9D9D9]" />
         </Avatar>
@@ -55,7 +57,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
             {goalBuddy.interests.map((interest, index) => (
               <span
                 key={index}
-                className={"bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1 font-montserrat"}
+                className={`bg-gray-200 list-inside text-sm sm:text-base rounded-md px-1 font-montserrat ${modalState ? " fade-in-0 duration-200 brightness-50 bg-opacity-50" : ""}`}
               >
                 #{interest}
               </span>
