@@ -45,14 +45,12 @@ export function AppSidebar() {
  
   return (
     <>
-   <div className="w-screen max-h-screen relative z-50">
+      <div className="w-screen max-h-screen relative z-50">
         <Sidebar className="w-[20%] rounded-md absolute h-[70%] top-[1%] right-7 shadow-md border border-[2px] border-gray-600">
           <SidebarContent className="gap-0 rounded-md">
             <div className="h-[50%] bg-yellow">
               <button
-                className={clsx(
-                  'text-black text-left pl-3 pt-1 font-semibold',
-                )}
+                className={clsx('text-black text-left pl-3 pt-1 font-semibold')}
                 onClick={() => setIsSideBarOpen(!isSidebarOpen)}
               >
                 X
@@ -66,17 +64,25 @@ export function AppSidebar() {
                     alt="@shadcn"
                   />
                 </Avatar>
-                <div className="text-[20px] font-bold font-[Montserrat]">
+                <div className="text-[20px] font-semibold font-fraunces">
                   {userData && (
                     <>
                       {userData.firstName} {userData.lastName}
                     </>
                   )}
                 </div>
-                <div className="text-[17px] font-[Montserrat]"> {userData?.discipline}</div>
+                <div className="text-sm font-medium font-montserrat">
+                  {' '}
+                  {userData?.discipline}
+                </div>
                 <div>
                   {goalBuddyData?.skills.map((skill, index) => (
-                    <span className="text-[17px] font-[Montserrat]" key={index}>#{skill}  </span>
+                    <span
+                      className="text-sm font-medium font-montserrat"
+                      key={index}
+                    >
+                      #{skill}{' '}
+                    </span>
                   ))}
                 </div>
                 <SidebarMenu className="mt-1 items-center">
@@ -87,7 +93,9 @@ export function AppSidebar() {
                     >
                       <SidebarMenuButton asChild>
                         <a onClick={() => handleClick(item.title)}>
-                          <span className="text-[17px] font-[Montserrat]">{item.title}</span>
+                          <span className="text-sm font-medium font-montserrat">
+                            {item.title}
+                          </span>
                         </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
