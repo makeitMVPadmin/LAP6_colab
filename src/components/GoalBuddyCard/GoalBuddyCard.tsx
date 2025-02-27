@@ -27,7 +27,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
       key={goalBuddy.userId}
       onClick={onClick}
       className={clsx(
-        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-3 sm:py-2 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
+        'flex flex-col sm:flex-row min-h-32 max-w-80 mx-2 my-2 sm:my-4 pb-2 px-5 pt-4 sm:pt-3 sm:px-3 bg-white cursor-pointer duration-150 border border-slate-950 border-r-2 border-b-2 rounded-md relative',
         !isSidebarOpen && 'hover:scale-105', // Disable hover when sidebar is open
       )}
     >
@@ -54,7 +54,7 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
         )}
       </div>
       <CardHeader className="self-start p-0">
-        <Avatar className="w-16 h-16">
+        <Avatar className="w-[61px] h-[61px]">
           <AvatarImage src={goalBuddy.profilePhoto} />
           <AvatarFallback className="bg-[#D9D9D9]" />
         </Avatar>
