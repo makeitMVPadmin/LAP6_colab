@@ -240,7 +240,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                         {`Time Zone: Eastern Standard Time`}
                                     </h3>
                                 </div>
-                                <div className="overflow-auto scrollbar-hide h-full ">
+                                <div className="overflow-auto h-full ">
                                     {timePeriodInputs.map((period, index) => (
                                     <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
@@ -249,7 +249,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
                                 }
                             </div>
-                            <Button variant="colabAdd" size="colabAdd" onClick={addTimeRow}>
+                            <Button variant="colabAdd" size="colabAdd" className="my-1"onClick={addTimeRow}>
                                 <AddIcon />
                                 {`Add`}
                             </Button>
