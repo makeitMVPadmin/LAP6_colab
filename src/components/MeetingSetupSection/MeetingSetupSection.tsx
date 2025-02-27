@@ -221,7 +221,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   return (
     <div className="flex flex-col w-full h-full">
       {confirmationState ? (
-        <div className="flex flex-col items-center justify-between p-4 h-full w-full">
+        <div className="flex flex-col items-center justify-between py-4 px-8 h-full w-full">
           <div className="flex flex-col items-center justify-center h-full w-full">
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
