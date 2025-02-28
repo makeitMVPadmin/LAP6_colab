@@ -114,7 +114,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   const renderRole = (tag: string, roleName: string, roleToFilter: boolean) => {
     return (
-      <div className="flex flex-row relative sm:h-8 lg:mb-4 flex-grow justify-around items-end gap-1 sm:items-center">
+      <div className="flex flex-row relative sm:h-8 lg:mb-4 flex-grow justify-around items-end gap-1 lg:gap-5 sm:items-center">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
             className="lg:bg-card rounded-lg lg:border lg:border-r-2 lg:border-b-2 lg:border-black xs:w-[50px] sm:w-[120px] md:w-[194px] h-[100%] pl-2 
@@ -124,7 +124,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           >
             <div className="flex flex-col items-center sm:flex-row lg:justify-start sm:justify-around sm:gap-2">
               {renderBadge(tag)}
-              <span className="text-sm font-medium font-montserrat">
+              <span className="text-sm font-medium font-montserrat md:text-lg">
                 {roleName}
               </span>
             </div>
@@ -137,7 +137,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col lg:mt-3">
         <Card
           className={cn(
             `lg:w-68 mb-0 mt-0  pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent
