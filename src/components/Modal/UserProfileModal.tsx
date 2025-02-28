@@ -40,7 +40,7 @@ const UserprofileModal: React.FC<ModalProps> = ({
           </div>
           <UserProfile />
         </div>
-        <div className="flex flex-col items-center h-full w-full md:w-[43%] bg-blue mt-1 md:m-0 p-0 flex-grow md:flex-grow-0 md:overflow-hidden md:rounded-tr md:rounded-br">
+        <div className="flex flex-col items-center h-fit md:h-full w-full md:w-[43%] bg-blue mt-1 md:m-0 p-0 flex-grow md:flex-grow-0 md:overflow-hidden md:rounded-tr md:rounded-br">
             {goalBuddyData ? (
               <AvailabilitySection activeGoalBuddy={goalBuddyData} updateGoalBuddy={updateGoalBuddyData} />
             ) : (
