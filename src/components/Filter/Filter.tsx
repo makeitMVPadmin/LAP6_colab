@@ -7,6 +7,7 @@ import { roleItems } from '@/utils/data'
 import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
 import { useContext } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
+import useScreenWidth from '@/hooks/useScreenWidth'
 
 interface filterProps {
   filterGoalBuddies: Function
@@ -23,13 +24,14 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     throw new Error('Sidebar context not found')
   }
   const { isSidebarOpen } = sidebarContext
+  const screenWidth = useScreenWidth()
 
   const renderCheckbox = (filtered: boolean, role: string) => {
     return (
       <input
         type="checkbox"
         className={cn(
-          `cursor-pointer appearance-none h-6 w-6 sm:self-center sm:ml-[22px] mt-1 
+          `cursor-pointer appearance-none h-6 w-6 sm:self-center mb-1 sm:mb-0
           rounded-sm border-[3px] border-black lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
           ${isSidebarOpen ? ' fade-in-0 duration-200 bg-opacity-50' : ''}`,
@@ -44,11 +46,59 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   const renderBadge = (tag: string) => {
     switch (tag) {
       case 'mentor':
-        return <MentorBadge width="w-8" stroke="2" />
+        return (
+          <MentorBadge
+            width="w-6"
+            stroke="2"
+            yOffset={
+              screenWidth === 'sm'
+                ? 19
+                : screenWidth === 'md'
+                  ? 24
+                  : screenWidth === 'lg'
+                    ? 26
+                    : screenWidth === 'xl'
+                      ? 24
+                      : 16
+            }
+          />
+        )
       case 'accountability':
-        return <GoalBuddyBadge width="w-8" stroke="2" />
+        return (
+          <GoalBuddyBadge
+            width="w-6"
+            stroke="2"
+            yOffset={
+              screenWidth === 'sm'
+                ? 23
+                : screenWidth === 'md'
+                  ? 18
+                  : screenWidth === 'lg'
+                    ? 19
+                    : screenWidth === 'xl'
+                      ? 19
+                      : 23
+            }
+          />
+        )
       case 'networking':
-        return <NetworkingBadge width="w-8" stroke="2" />
+        return (
+          <NetworkingBadge
+            width="w-6"
+            stroke="2"
+            yOffset={
+              screenWidth === 'sm'
+                ? 21
+                : screenWidth === 'md'
+                  ? 20
+                  : screenWidth === 'lg'
+                    ? 20
+                    : screenWidth === 'xl'
+                      ? 20
+                      : 23
+            }
+          />
+        )
     }
   }
 
@@ -64,15 +114,20 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   const renderRole = (tag: string, roleName: string, roleToFilter: boolean) => {
     return (
-      <div className="flex flex-row relative h-16 sm:h-8 lg:mb-4 flex-grow justify-around items-end">
+      <div className="flex flex-row relative sm:h-8 lg:mb-4 flex-grow justify-around items-end gap-1 lg:gap-5 sm:items-center">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="xs:bg-transparent sm:bg-card rounded-lg sm:border sm:border-r-2 sm:border-b-2 sm:border-black xs:w-[50px] sm:w-[120px] md:w-[194px] h-[100%] pl-2 
-                    text-md lg:text-xl leading-5 sm:leading-[35px] relative font-montserrat font-medium 
-                    sm:block flex flex-col justify-end
+            className="lg:bg-card rounded-lg lg:border lg:border-r-2 lg:border-b-2 lg:border-black xs:w-[50px] sm:w-[120px] md:w-[194px] h-[100%] pl-2 
+                    text-md lg:text-xl leading-5 sm:leading-[35px] relative
+                    flex flex-col sm:flex-row justify-end md:justify-center lg:justify-start
                     "
           >
-            {renderBadge(tag)} {roleName}
+            <div className="flex flex-col items-center sm:flex-row lg:justify-start sm:justify-around sm:gap-2">
+              {renderBadge(tag)}
+              <span className="text-sm font-medium font-montserrat md:text-lg">
+                {roleName}
+              </span>
+            </div>
           </label>
         </TooltipWrapper>
         {renderCheckbox(roleToFilter, tag)}
@@ -81,32 +136,33 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   }
 
   return (
-    <Card
-      className={cn(
-        `lg:w-68 m-2 mt-4 sm:ml-4 pb-0 border sm:border-none shadow-none sm:bg-transparent
+    <>
+      <div className="flex flex-col lg:mt-3">
+        <Card
+          className={cn(
+            `lg:w-68 mb-0 mt-0 pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent
 
-        ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
-      )}
-    >
-      <CardContent
-        className={cn(
-          'flex flex-row justify-between lg:flex-col p-0 md:pr-4 md:pl-4',
-        )}
-      >
-        <div className="block"></div>
-        {renderRole('mentor', 'Mentor', filter.mentor)}
-        {renderRole('accountability', 'Goal Buddy', filter.accountability)}
-        {renderRole('networking', 'Networking', filter.networking)}
-      </CardContent>
-      <CardDescription
-        className={cn(
-          'text-right text-gray-800 text-base font-montserrat font-medium mr-4 mt-3 cursor-pointer',
-        )}
-        onClick={() => filterGoalBuddies('')}
-      >
-        Clear All
-      </CardDescription>
-    </Card>
+            ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
+          )}
+        >
+          <CardContent
+            className={cn(
+              'flex flex-row justify-between lg:flex-col py-1 px-1 md:pr-4 md:pl-4',
+            )}
+          >
+            {renderRole('mentor', 'Mentor', filter.mentor)}
+            {renderRole('accountability', 'Goal Buddy', filter.accountability)}
+            {renderRole('networking', 'Networking', filter.networking)}
+          </CardContent>
+        </Card>
+        <button
+          onClick={() => filterGoalBuddies('')}
+          className="text-gray-800 text-sm font-montserrat font-medium w-max self-end mx-2 lg:-mt-4 lg:mr-3"
+        >
+          Clear All
+        </button>
+      </div>
+    </>
   )
 }
 
