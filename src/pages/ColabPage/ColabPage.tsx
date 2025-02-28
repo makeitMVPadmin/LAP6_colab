@@ -124,13 +124,15 @@ export default function ColabPage() {
     >
       <Layout>
         <div
-          className={clsx('flex justify-center flex-col lg:flex-row')}
+          className={clsx(
+            'flex lg:justify-center justify-start flex-col lg:flex-row',
+          )}
           style={{
             backgroundImage: `url(${BackgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            height: '100vh',
+            minHeight: '100vh',
           }}
         >
           <Filter
