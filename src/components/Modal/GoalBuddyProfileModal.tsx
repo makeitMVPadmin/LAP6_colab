@@ -5,6 +5,7 @@ import { AllGoalBuddyData, IdType } from '@/types/types'
 import "./Modal.css"
 import MeetingSetupSection from '../MeetingSetupSection/MeetingSetupSection'
 import { IdContext } from '../context/IdContext'
+import { DialogTitle } from '@radix-ui/react-dialog'
 
 interface ModalProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,7 +31,7 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
         className="flex flex-col max-w-[90vw] h-[90%] lg:max-w-[50vw] md:max-w-[70vw] lg:h-[70%] md:h-[70%]  lg:flex-row md:flex-row  p-0 gap-0 border border-black "
         aria-describedby={undefined}
       >
-      
+     < DialogTitle></DialogTitle>
         <div className="h-[60%] lg:w-[55%] md:w-[55%] lg:h-[100%] md:h-[100%] pt-0 overflow-y-auto scrollbar-hidden">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
