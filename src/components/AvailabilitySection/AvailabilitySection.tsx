@@ -229,7 +229,11 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         {`Set my availability`}
                     </h2>
                     {backendError && 
-                        <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>
+                        <div className="flex justify-center items-center w-full">
+                            <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
+                                <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{backendError}</p>
+                            </div> 
+                        </div>
                     }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
