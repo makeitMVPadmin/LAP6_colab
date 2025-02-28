@@ -219,9 +219,9 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0">
+    <div className="w-full min-h-[46vh] md:min-h-0 h-fit md:h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0 bg-blue">
         {confirmationState ? (
-            <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
+            <div className="bg-[#ECFDF2] w-full h-[33vh] md:h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
                     <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
@@ -232,7 +232,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             </div>
         ) : (
             <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
-                <div className="w-full h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
+                <div className="w-full md:h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
                     <h2 className="text-slate-950 text-2xl font-semibold font-fraunces leading-tight">
                         {`Set my availability`}
                     </h2>
@@ -245,34 +245,34 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                     }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
-                        <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 justify-start">
-                            <div className="w-full md:max-h-[372px] flex flex-col">
-                                <div className="sticky top-0 z-10">
-                                    <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-montserrat leading-[14.80px]">
-                                        {`Time Zone: Eastern Standard Time`}
-                                    </h3>
-                                </div>
-                                {overlapError && 
-                                    <div className="flex justify-center items-center w-full">
-                                        <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
-                                            <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{overlapError}</p>
-                                        </div> 
+                        <div className="w-full md:max-h-[80%] flex flex-col">
+                            <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-montserrat leading-[14.80px]">
+                                {`Time Zone: Eastern Standard Time`}
+                            </h3>
+                            <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 md:overflow-y-auto justify-start">
+                                <div className="w-full flex flex-col">
+                                    {overlapError && 
+                                        <div className="flex justify-center items-center w-full">
+                                            <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
+                                                <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{overlapError}</p>
+                                            </div> 
+                                        </div>
+                                    }
+                                    <div className="overflow-auto h-full ">
+                                        {timePeriodInputs.map((period, index) => (
+                                        <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
+                                        ))}
                                     </div>
-                                }
-                                <div className="overflow-auto h-full ">
-                                    {timePeriodInputs.map((period, index) => (
-                                    <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
-                                    ))}
                                 </div>
                             </div>
-                            <Button variant="colabAdd" size="colabAdd" className="my-1"onClick={addTimeRow}>
+                            <Button variant="colabAdd" size="colabAdd" className="my-1" onClick={addTimeRow}>
                                 <AddIcon />
                                 {`Add`}
                             </Button>
                         </div>
                     )}
                 </div>
-                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className="h-[38px]"  onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className={`h-[38px] ${selectedDay ? "mt-2" : "mt-10 md:mt-2"}`}  onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>
