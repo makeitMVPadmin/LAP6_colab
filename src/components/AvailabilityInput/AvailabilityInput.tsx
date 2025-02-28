@@ -52,10 +52,10 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, idName, tim
                         <Label className="text-slate-900 text-sm font-medium font-montserrat leading-3" htmlFor={`startTime_${idName}`}>
                             {`Start Time`}
                         </Label>
-                        <Input type="string" id={`startTime_${idName}`} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${startError ? "border-[#f44336]": ""}`}/>
+                        <Input type="string" id={`startTime_${idName}`} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${startError ? "border-[#b71c1c] mb-1": ""}`}/>
                     </div>
                     {startError && 
-                        <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight">{startError}</p>
+                        <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none">{`*${startError}`}</p>
                     }
                 </div>
                 <div className="w-full flex flex-col my-3">
@@ -63,10 +63,10 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, idName, tim
                         <Label className="text-slate-900 text-sm font-medium font-montserrat leading-3" htmlFor={`endTime_${idName}`}>
                             {`End Time`}
                         </Label>
-                        <Input type="string" id={`endTime_${idName}`} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${endError ? "border-[#f44336]": ""}`}/>
+                        <Input type="string" id={`endTime_${idName}`} placeholder='0:00' value={timePeriod.endTime} onChange={handleEndTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${endError ? "border-[#b71c1c] mb-1": ""}`}/>
                     </div>
                     {endError && 
-                        <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight">{endError}</p>
+                        <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none">{`*${endError}`}</p>
                     }
                 </div>
             </div>
