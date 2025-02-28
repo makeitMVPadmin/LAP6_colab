@@ -140,7 +140,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-col lg:mt-3">
         <Card
           className={cn(
-            `lg:w-68 mb-0 mt-0  pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent
+            `lg:w-68 mb-0 mt-0 pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent
 
             ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
           )}
@@ -157,7 +157,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         </Card>
         <button
           onClick={() => filterGoalBuddies('')}
-          className=" text-gray-800 text-sm font-montserrat font-medium  cursor-pointer w-max self-end mx-2"
+          className="text-gray-800 text-sm font-montserrat font-medium w-max self-end mx-2 lg:-mt-4 lg:mr-3"
         >
           Clear All
         </button>
