@@ -145,7 +145,7 @@ export const UserProfile = () => {
   return (
     <div className="h-full w-full flex flex-col flex-grow text-[14px] relative">
       <div className="h-[7%] md:h-[12%] bg-yellow md:sticky top-0 left-0 w-[100%] z-10">
-        <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[62px] h-[62px] lg:absolute md:absolute absolute right-[10%] top-[4%] md:top-[50%] ">
+        <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[62px] h-[62px] lg:absolute md:absolute absolute right-[10%] top-[3%] md:top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}

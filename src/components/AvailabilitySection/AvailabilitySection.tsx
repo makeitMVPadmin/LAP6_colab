@@ -232,7 +232,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             </div>
         ) : (
             <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
-                <div className="w-full h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
+                <div className="w-full md:h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
                     <h2 className="text-slate-950 text-2xl font-semibold font-fraunces leading-tight">
                         {`Set my availability`}
                     </h2>
@@ -272,7 +272,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         </div>
                     )}
                 </div>
-                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className="h-[38px]"  onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className={`h-[38px] ${selectedDay ? "mt-2" : "mt-10 md:mt-2"}`}  onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>
