@@ -129,6 +129,8 @@ export default function ColabPage() {
             backgroundImage: `url(${BackgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            height: '100vh',
           }}
         >
           <Filter
@@ -137,7 +139,7 @@ export default function ColabPage() {
             modalState={modalState}
             setModalState={setModalState}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] ">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] max-h-[120px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
                   <Skeleton
