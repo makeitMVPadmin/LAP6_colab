@@ -127,7 +127,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
 
         // Check if any of the time periods overlap
         if(hasOverlap(timePeriodInputs)){
-            updateErrorStates("", [], "Time periods cannot overlap");
+            updateErrorStates("", [], "*Time periods cannot overlap");
             return;
         }
 
@@ -240,14 +240,18 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                         {`Time Zone: Eastern Standard Time`}
                                     </h3>
                                 </div>
+                                {overlapError && 
+                                    <div className="flex justify-center items-center w-full">
+                                        <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
+                                            <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{overlapError}</p>
+                                        </div> 
+                                    </div>
+                                }
                                 <div className="overflow-auto h-full ">
                                     {timePeriodInputs.map((period, index) => (
                                     <AvailabilityInput key={index} index={index} idName={`${selectedDay}_${index}`} timePeriod={period} setTimePeriod={updateTimePeriod} deleteTimePeriod={deleteTimePeriod} errors={timeErrors} />
                                     ))}
                                 </div>
-                                {overlapError && 
-                                    <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight my-1 bg-red-100 rounded pl-1">{overlapError}</p>
-                                }
                             </div>
                             <Button variant="colabAdd" size="colabAdd" className="my-1"onClick={addTimeRow}>
                                 <AddIcon />
@@ -256,7 +260,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         </div>
                     )}
                 </div>
-                <Button variant="colabPrimary" size="colabPrimary" className="h-[38px]" onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className="h-[38px]"  onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>

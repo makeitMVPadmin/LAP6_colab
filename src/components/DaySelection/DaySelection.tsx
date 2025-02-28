@@ -30,7 +30,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({
     return (
         <div className="w-full mt-4 flex flex-col justify-center items-center">
             <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
-                <SelectTrigger className={`h-[49.68px] px-[16.26px] py-[10.84px] bg-white rounded-lg border-l border-r-2 border-t border-b-2 border-[#28363f] justify-between items-center inline-flex" ${isError ? "border-[#f44336]": ""}`}>
+                <SelectTrigger className={`h-[49.68px] px-[16.26px] py-[10.84px] bg-white rounded-lg border-l border-r-2 border-t border-b-2 border-[#28363f] justify-between items-center inline-flex" ${isError ? "border-[#b71c1c]": ""}`}>
                     <SelectValue placeholder="Select a day" />
                 </SelectTrigger>
                 <SelectContent>
@@ -42,7 +42,11 @@ const DaySelection: React.FC<DaySelectionProps> = ({
                 </SelectContent>
             </Select>
             {isError && 
-                <p className="text-[#f44336] text-sm font-semibold font-montserrat leading-tight bg-red-100 rounded pl-1 w-full">{isError}</p>
+                <div className="flex justify-center items-center w-full">
+                  <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
+                      <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{isError}</p>
+                  </div> 
+              </div>
             }
         </div>
     );
