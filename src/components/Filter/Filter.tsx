@@ -29,7 +29,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <input
         type="checkbox"
         className={cn(
-          `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
+          `cursor-pointer appearance-none h-6 w-6 sm:self-center sm:ml-[22px] mt-1 
           rounded-sm border-[3px] border-black lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
           ${isSidebarOpen ? ' fade-in-0 duration-200 bg-opacity-50' : ''}`,
@@ -64,11 +64,13 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   const renderRole = (tag: string, roleName: string, roleToFilter: boolean) => {
     return (
-      <div className="flex flex-row justify-between relative h-8 lg:mb-4">
+      <div className="flex flex-row relative h-16 sm:h-8 lg:mb-4 flex-grow justify-around items-end">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="bg-card rounded-lg border border-r-2 border-b-2 border-black w-[120px] md:w-[194px] h-[35px] pl-2 
-                    text-xl leading-[35px] relative font-montserrat font-medium "
+            className="xs:bg-transparent sm:bg-card rounded-lg sm:border sm:border-r-2 sm:border-b-2 sm:border-black xs:w-[50px] sm:w-[120px] md:w-[194px] h-[100%] pl-2 
+                    text-md lg:text-xl leading-5 sm:leading-[35px] relative font-montserrat font-medium 
+                    sm:block flex flex-col justify-end
+                    "
           >
             {renderBadge(tag)} {roleName}
           </label>
@@ -81,7 +83,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   return (
     <Card
       className={cn(
-        `lg:w-68 h-16 lg:h-44 mt-4 ml-4 pb-0 border-none shadow-none bg-transparent
+        `lg:w-68 m-2 mt-4 sm:ml-4 pb-0 border sm:border-none shadow-none sm:bg-transparent
 
         ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
       )}
