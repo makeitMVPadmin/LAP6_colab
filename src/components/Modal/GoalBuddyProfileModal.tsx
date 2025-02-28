@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Dialog, DialogContent, DialogTitle } from '../ui/dialog'
+import { Dialog, DialogContent} from '../ui/dialog'
 import GoalBuddyProfile from '../GoalBuddyProfile/GoalBuddyProfile'
 import { AllGoalBuddyData, IdType } from '@/types/types'
 import "./Modal.css"
