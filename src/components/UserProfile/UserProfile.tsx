@@ -142,7 +142,7 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="h-[100%] w-[100%] text-[14px] relative">
+    <div className="h-full w-full flex flex-col flex-grow overflow-hidden text-[14px] relative">
       <div className="h-[12%] bg-yellow sticky top-0 left-0 w-[100%] z-10">
         <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[50px] h-[50px] lg:absolute md:absolute absolute right-[10%] top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
@@ -152,8 +152,8 @@ export const UserProfile = () => {
           />
         </Avatar>
       </div>
-      <div className="h-[88%]">
-        <div className="mt-2 flex flex-col pl-3 gap-0 font-medium text-sm font-montserrat tracking-wide">
+      <div className="h-[88%] flex flex-col overflow-visible">
+        <div className="h-fit mt-2 flex flex-col pl-3 gap-0 font-medium text-sm font-montserrat tracking-wide">
           <label>
             First Name:{` `}
             <span className="font-normal">{userData?.firstName}</span>
@@ -190,56 +190,57 @@ export const UserProfile = () => {
             ))}
           </label>
         </div>
-        <form className="h-[90%] mt-2 pl-3 font-montserrat">
-          <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded p-1 relative shadow-lg pl-2">
-            <h2 className="text-base font-semibold font-fraunces tracking-regular leading-20">
-              Co-Lab Role{' '}
-            </h2>
-            {interestsLabel.map((interest, _index) => {
-              return (
-                <div key={_index} className="flex gap-5">
-                  <div className="flex gap-2 w-[40%]">
-                    <div className="w-[20px] h-[20px]">
-                      <img src={icons[_index]} />
+        <form className="flex-grow mt-2 pl-3 font-montserrat flex flex-col justify-between">
+          <div className="flex flex-col flex-grow">
+            <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded relative shadow-lg py-2 px-3">
+              <h2 className="text-base font-semibold font-fraunces tracking-regular leading-20">
+                Co-Lab Role{' '}
+              </h2>
+              {interestsLabel.map((interest, _index) => {
+                return (
+                  <div key={_index} className="flex gap-5">
+                    <div className="flex gap-2 w-[40%]">
+                      <div className="w-[20px] h-[20px]">
+                        <img src={icons[_index]} />
+                      </div>
+                      <span className="tracking-wide text-sm font-medium font-montserrat">
+                        {interest}
+                      </span>
                     </div>
-                    <span className="tracking-wide text-sm font-medium font-montserrat">
-                      {interest}
-                    </span>
-                  </div>
 
-                  <div className="flex items-center justify-center">
-                    <input
-                      type="checkbox"
-                      checked={editData.selectedInterests.includes(interest)}
-                      onChange={() => handleChange(interest)}
-                      disabled={editData.isEditing === false}
-                      className="appearance-none w-4 h-4 border border-gray-600 rounded checked:bg-black"
-                    />
+                    <div className="flex items-center justify-center">
+                      <input
+                        type="checkbox"
+                        checked={editData.selectedInterests.includes(interest)}
+                        onChange={() => handleChange(interest)}
+                        disabled={editData.isEditing === false}
+                        className="appearance-none w-4 h-4 border border-gray-600 rounded checked:bg-black"
+                      />
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-            {errInterest && (
-              <p className="text-sm font-semibold font-montserrat m-0 text-red-600 absolute top-1 right-2">
-                *Please select your role
-              </p>
-            )}
-          </section>
-          <section className=" border border-gray-600 border-r-2 border-b-2 shadow-md rounded h-[30%] w-[95%] mt-3 pl-3 pt-1">
-            <h2 className="p-0 font-fraunces font-semibold text-base">About</h2>
-            <textarea
-              value={editData.bio ? editData.bio : ''}
-              onChange={(e) => handleChange(e)}
-              className="resize-none text-gray-600 w-[95%] h-[70%] p-2 text-[16px] border border-gray-300 shadow-lg bg-white font-[Montserrat] font-light"
-              disabled={
-                editData.isEditing == false || editData.buttonText === 'Saved'
-              }
-            />
-          </section>
-
-          <article className="flex w-[95%] justify-end">
+                )
+              })}
+              {errInterest && (
+                <p className="text-sm font-semibold font-montserrat m-0 text-red-600 absolute top-1 right-2">
+                  *Please select your role
+                </p>
+              )}
+            </section>
+            <section className="flex flex-col flex-grow border border-gray-600 border-r-2 border-b-2 shadow-md rounded min-h-[30%] w-[95%] mt-2 px-[12.9px] py-[19.2px]">
+              <h2 className="p-0 font-fraunces font-semibold text-base">{`My Profile`}</h2>
+              <textarea
+                value={editData.bio ? editData.bio : ''}
+                onChange={(e) => handleChange(e)}
+                className="w-full resize-none flex-grow max-h-full overflow-y-auto text-gray-600 min-h-[70%] p-2 text-[16px] shadow-lg bg-white font-[Montserrat] font-light rounded-sm border border-[#80909a]"
+                disabled={
+                  editData.isEditing == false || editData.buttonText === 'Saved'
+                }
+              />
+            </section>
+          </div>
+          <article className="flex w-[95%] justify-end pb-8 mt-5">
             <button
-              className={`bg-blue px-[15px] py-[4px] mt-[7px] rounded-xl text-xl font-semibold border border-gray-600 text-white tracking-wide font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
+              className={`bg-blue px-[15px] py-[4px] rounded-xl text-xl font-semibold border border-gray-600 text-white tracking-wide font-montserrat ${editData.buttonText === 'Not Saved' ? 'bg-red-600' : ''}`}
               type="button"
               onClick={handleInterestAndBioClick}
               style={{ backgroundColor: '#0264D4' }}
