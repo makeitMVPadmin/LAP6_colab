@@ -219,7 +219,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0">
+    <div className="w-full h-fit md:h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0 bg-blue">
         {confirmationState ? (
             <div className="bg-[#ECFDF2] w-full h-[75%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
@@ -247,7 +247,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                     {selectedDay && (
                         <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 justify-start">
                             <div className="w-full md:max-h-[372px] flex flex-col">
-                                <div className="sticky top-0 z-10">
+                                <div className="md:sticky md:top-0 md:z-10">
                                     <h3 className="mt-4 mb-1 text-[#0c0c0c] text-base font-semibold font-montserrat leading-[14.80px]">
                                         {`Time Zone: Eastern Standard Time`}
                                     </h3>
