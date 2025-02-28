@@ -1,10 +1,8 @@
-
 import { Dialog } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '../ui/dialog'
 import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
 import { GoalBuddy } from '../../types/types'
-
 
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,7 +31,7 @@ const UserprofileModal: React.FC<ModalProps> = ({
     aria-describedby={undefined}>
 
         <DialogTitle></DialogTitle>
-        <div className="flex flex-col w-full md:w-[57%] h-auto md:h-full pt-0 pl-0 overflow-y-auto scrollbar-hidden bg-white rounded-tl rounded-bl">
+        <div className="flex flex-col w-full md:w-[57%] h-fit md:h-full pt-0 pl-0 overflow-hidden scrollbar-hidden bg-white rounded-tl rounded-bl">
           <div
             className="absolute z-50 left-[5px] top-[5px] cursor-pointer"
             onClick={handleModalClick}

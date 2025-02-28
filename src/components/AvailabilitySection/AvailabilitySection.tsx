@@ -265,7 +265,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                     ))}
                                 </div>
                             </div>
-                            <Button variant="colabAdd" size="colabAdd" className="my-1"onClick={addTimeRow}>
+                            <Button variant="colabAdd" size="colabAdd" className="my-1" onClick={addTimeRow}>
                                 <AddIcon />
                                 {`Add`}
                             </Button>
