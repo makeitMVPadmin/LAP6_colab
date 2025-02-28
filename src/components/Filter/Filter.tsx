@@ -159,7 +159,9 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           onClick={() => filterGoalBuddies('')}
           className="text-gray-800 text-sm font-montserrat font-medium w-max self-end mx-2 lg:-mt-4 lg:mr-3"
         >
-          Clear All
+          <span className="text-[#424242] font-normal sm:font-medium">
+            Clear All
+          </span>
         </button>
       </div>
     </>
