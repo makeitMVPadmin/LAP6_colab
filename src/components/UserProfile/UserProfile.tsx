@@ -143,9 +143,9 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="h-full w-full flex flex-col flex-grow overflow-hidden text-[14px] relative">
-      <div className="h-[12%] bg-yellow sticky top-0 left-0 w-[100%] z-10">
-        <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[50px] h-[50px] lg:absolute md:absolute absolute right-[10%] top-[50%] ">
+    <div className="h-full w-full flex flex-col flex-grow text-[14px] relative">
+      <div className="h-[7%] md:h-[12%] bg-yellow md:sticky top-0 left-0 w-[100%] z-10">
+        <Avatar className="lg:w-[90px] lg:h-[90px] md:w-[90px] md:h-[90px] w-[62px] h-[62px] lg:absolute md:absolute absolute right-[10%] top-[4%] md:top-[50%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={userData ? userData.profilePhoto : ''}
@@ -153,7 +153,7 @@ export const UserProfile = () => {
           />
         </Avatar>
       </div>
-      <div className="h-[88%] flex flex-col overflow-visible">
+      <div className="h-[93%] md:h-[88%] flex flex-col">
         <div className="h-fit mt-2 flex flex-col pl-3 gap-0 font-medium text-sm font-montserrat tracking-wide">
           <label>
             First Name:{` `}
@@ -191,7 +191,7 @@ export const UserProfile = () => {
             ))}
           </label>
         </div>
-        <form className="flex-grow mt-2 pl-3 font-montserrat flex flex-col justify-between">
+        <form className="h-full md:h-auto flex-grow mt-2 pl-3 font-montserrat flex flex-col justify-between">
           <div className="flex flex-col flex-grow">
             <section className="border border-1 w-[95%]  border-gray-600 border-r-2 border-b-2 rounded relative shadow-lg py-2 px-3">
               <h2 className="text-base font-semibold font-fraunces tracking-regular leading-20">
@@ -232,7 +232,7 @@ export const UserProfile = () => {
               <textarea
                 value={editData.bio ? editData.bio : ''}
                 onChange={(e) => handleChange(e)}
-                className="w-full resize-none flex-grow max-h-full overflow-y-auto text-gray-600 min-h-[70%] p-2 text-[16px] shadow-lg bg-white font-[Montserrat] font-light rounded-sm border border-[#80909a]"
+                className="w-full resize-none flex-grow max-h-full overflow-y-auto text-gray-600 min-h-[70%] p-2 text-[16px] shadow-lg bg-white font-montserrat font-light rounded-sm border border-[#80909a]"
                 disabled={
                   editData.isEditing == false || editData.buttonText === 'Saved'
                 }
