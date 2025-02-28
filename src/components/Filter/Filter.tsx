@@ -30,7 +30,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
         type="checkbox"
         className={cn(
           `cursor-pointer appearance-none h-6 w-6 self-center ml-[22px] mt-1 
-          rounded-sm border-[3px] border-black hidden lg:inline 
+          rounded-sm border-[3px] border-black lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
           ${isSidebarOpen ? ' fade-in-0 duration-200 bg-opacity-50' : ''}`,
         )}
