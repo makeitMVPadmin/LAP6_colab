@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+
 import { Dialog } from '@/components/ui/dialog'
 import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '../ui/dialog'
 import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
 import { GoalBuddy } from '../../types/types'
-import { SidebarContext } from '../context/SidebarContext'
+
 
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
