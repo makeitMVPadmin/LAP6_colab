@@ -196,19 +196,26 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         setBackendError("");
     }
 
-    function makeConfirmationMessage(){
-        let message: string =`You've set availability for ${selectedDay}s at `;
-        if(timePeriodInputs.length === 0){
-            return `You've set ${selectedDay}s as unavailable.`
+    function makeConfirmationMessage(justTimes: boolean){
+        if(timePeriodInputs.length == 0 && justTimes){
+            return "";
+        
+        }else if(timePeriodInputs.length == 0){
+            return `You've set ${selectedDay}s as unavailable.`;
+        
+        }else if(!justTimes){
+            return `You've set availability for ${selectedDay}s at `;
+        
         }else{
+            let message: string = "";
             timePeriodInputs.forEach(period =>{
-                message += `${period.startTime}-${period.endTime}, `;
+                message += `${period.startTime} - ${period.endTime} and `;
             });
-        }
-        message = message.substring(0, (message.length-2));
-        message += ".";
+            message = message.substring(0, (message.length-5));
+            message += ".";
 
-        return message
+            return message
+        }
     }
 
   return (
@@ -218,7 +225,8 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
                     <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
-                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage()}</p>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(false)}</p>
+                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(true)}</p>
                 </div>
                 <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
@@ -229,7 +237,11 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         {`Set my availability`}
                     </h2>
                     {backendError && 
-                        <p className="text-[#e53935] mb-2 bg-red-100 rounded pl-1">{backendError}</p>
+                        <div className="flex justify-center items-center w-full">
+                            <div className="w-fit h-[29.56px] px-[9.85px] py-[6.57px] bg-white rounded-[5px] border-l border-r-2 border-t border-b-2 border-[#28363f] inline-flex">
+                                <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none text-center w-auto">{backendError}</p>
+                            </div> 
+                        </div>
                     }
                     <DaySelection setSelectedDay={showAvailability} isError={dayError} />
                     {selectedDay && (
