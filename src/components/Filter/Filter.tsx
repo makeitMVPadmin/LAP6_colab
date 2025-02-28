@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription } from '../ui/card'
+import { Card, CardContent } from '../ui/card'
 import { cn } from '../lib/utils'
 import MentorBadge from './MentorBadge'
 import GoalBuddyBadge from './GoalBuddyBadge'
