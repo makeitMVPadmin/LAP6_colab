@@ -64,11 +64,11 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
 
   const renderRole = (tag: string, roleName: string, roleToFilter: boolean) => {
     return (
-      <div className="flex flex-row justify-between relative h-8">
+      <div className="flex flex-row justify-between relative h-8 lg:mb-4">
         <TooltipWrapper roleItem={getRoleItem(roleName)}>
           <label
-            className="bg-card rounded-lg border border-r-2 border-b-2 border-black w-[160px] sm:w-[194px] h-[35px] pl-2 
-                    text-xl leading-[35px] relative font-montserrat font-medium"
+            className="bg-card rounded-lg border border-r-2 border-b-2 border-black w-[120px] md:w-[194px] h-[35px] pl-2 
+                    text-xl leading-[35px] relative font-montserrat font-medium "
           >
             {renderBadge(tag)} {roleName}
           </label>
@@ -88,7 +88,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
     >
       <CardContent
         className={cn(
-          'flex flex-row justify-between lg:flex-col gap-4 p-0 md:pr-4 md:pl-4',
+          'flex flex-row justify-between lg:flex-col p-0 md:pr-4 md:pl-4',
         )}
       >
         <div className="block"></div>
