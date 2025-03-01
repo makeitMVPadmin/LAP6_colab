@@ -233,7 +233,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                 </div>
             </div>
         ) : (
-            <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
+            <div className="w-full h-full min-h-[464px] flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
                 <div className="w-full md:h-[90%] flex flex-col flex-grow md:flex-grow-0 items-center">
                     <h2 className="text-slate-950 text-2xl font-semibold font-fraunces leading-tight">
                         {`Set my availability`}
