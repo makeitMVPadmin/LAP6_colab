@@ -111,13 +111,7 @@ export default function ColabPage() {
   }
 
   return (
-    <main
-      className={
-        isSidebarOpen
-          ? 'fade-in-0 duration-500 backdrop-brightness-50 '
-          : ''
-      }
-    >
+    <main>
       <Layout>
         <div
           className={clsx(
@@ -131,10 +125,7 @@ export default function ColabPage() {
             minHeight: '100vh',
           }}
         >
-          <Filter
-            filterGoalBuddies={filterGoalBuddies}
-            filter={filter}
-          />
+          <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] max-h-[120px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
