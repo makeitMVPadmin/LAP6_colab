@@ -26,7 +26,7 @@ const UserprofileModal: React.FC<ModalProps> = ({
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen} modal={true}>
   
-      <section className="flex flex-col md:flex-row w-[97vw] md:w-auto min-w-[60vw] h-[80vh] md:h-[75%] bg-white p-0 gap-0 border border-black rounded absolute md:right-[19px] top-[164px] md:top-[79px] mx-2 md:mx-0 z-50 overflow-y-auto md:overflow-hidden scrollbar-hidden"
+      <section className="flex flex-col md:flex-row w-[97vw] md:w-auto min-w-[60vw] h-[80vh] md:h-[75vh] bg-white p-0 gap-0 border border-black rounded absolute md:right-[19px] top-[164px] md:top-[79px] mx-2 md:mx-0 z-50 overflow-y-auto md:overflow-hidden scrollbar-hidden"
       
     aria-describedby={undefined}>
 

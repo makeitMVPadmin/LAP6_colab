@@ -219,7 +219,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full min-h-[46vh] md:min-h-0 h-fit md:h-full flex flex-col justify-center pt-4 md:pt-16 pb-10 md:pb-8 px-[56px] md:px-8 flex-grow md:flex-grow-0 overflow-hidden bg-blue">
+    <div className="w-full min-h-[48vh] md:min-h-0 h-fit md:h-full flex flex-col justify-center pt-4 md:pt-16 pb-10 md:pb-8 px-[56px] md:px-8 flex-grow md:flex-grow-0 overflow-hidden bg-blue">
         {confirmationState ? (
             <div className="w-full h-full flex flex-col items-center justify-center min-h-[480px] md:min-h-0">
                 <div className="bg-[#ECFDF2] w-full min-h-[348px] md:min-h-0 md:h-[75%] flex flex-col items-center justify-between p-4 rounded">
