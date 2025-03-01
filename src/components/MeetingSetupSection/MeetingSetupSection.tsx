@@ -214,7 +214,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-fit md:h-full flex-grow md:flex-grow-0">
       {confirmationState ? (
         <div className="flex flex-col items-center justify-between py-4 px-8 h-full w-full">
           <div className="flex flex-col items-center justify-center h-full w-full">
@@ -243,7 +243,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
           </Button>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full w-full">
+        <div className="flex flex-col items-center justify-center h-full w-full flex-grow md:flex-grow-0">
         {backendError ? (
           <div className="flex flex-col items-center justify-center h-full w-full">
             <div className="w-full h-[60%] flex flex-col items-center justify-center bg-red-100 rounded">
@@ -251,8 +251,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-between p-3 h-full w-full">
-            <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full overflow-auto scrollbar-hide">
+          <div className="flex flex-col items-center justify-between p-3 h-full w-full flex-grow md:flex-grow-0">
+            <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
               <h2 className="font-semibold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
               {date ? (
                 <h3 className="font-medium font-monserrat text-sm mb-1">{date.toDateString()}</h3>
