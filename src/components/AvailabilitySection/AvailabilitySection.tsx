@@ -219,16 +219,18 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     }
 
   return (
-    <div className="w-full min-h-[46vh] md:min-h-0 h-fit md:h-full flex flex-col justify-center pt-16 pb-8 px-8 flex-grow md:flex-grow-0 bg-blue">
+    <div className="w-full min-h-[46vh] md:min-h-0 h-fit md:h-full flex flex-col justify-center pt-4 md:pt-16 pb-10 md:pb-8 px-[56px] md:px-8 flex-grow md:flex-grow-0 overflow-hidden bg-blue">
         {confirmationState ? (
-            <div className="bg-[#ECFDF2] w-full h-[33vh] md:h-[75%] flex flex-col items-center justify-between p-4 rounded">
-                <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
-                    <ConfirmationIcon />
-                    <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
-                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(false)}</p>
-                    <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(true)}</p>
+            <div className="w-full h-full flex flex-col items-center justify-center min-h-[480px] md:min-h-0">
+                <div className="bg-[#ECFDF2] w-full min-h-[348px] md:min-h-0 md:h-[75%] flex flex-col items-center justify-between p-4 rounded">
+                    <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
+                        <ConfirmationIcon />
+                        <h3 className="text-[#00892d] text-xl font-medium font-montserrat leading-none py-4">{`Confirmed`}</h3>
+                        <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(false)}</p>
+                        <p className="text-[#00892d] text-sm font-normal font-montserrat  leading-tight text-center">{makeConfirmationMessage(true)}</p>
+                    </div>
+                    <Button variant="colabSecondary" size="colabSecondary" className="h-8 mb-4 md:mb-0" onClick={resetComponent}>{`Edit`}</Button>
                 </div>
-                <Button variant="colabSecondary" size="colabSecondary" className="h-8" onClick={resetComponent}>{`Edit`}</Button>
             </div>
         ) : (
             <div className="w-full h-full flex flex-col flex-grow md:flex-grow-0 items-center justify-between">
@@ -272,7 +274,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                         </div>
                     )}
                 </div>
-                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className={`h-[38px] ${selectedDay ? "mt-2" : "mt-10 md:mt-2"}`}  onClick={updateGoalBuddyAvailability}>
+                <Button variant="colabPrimary" size="colabPrimary" disabled={!selectedDay} className={`h-[38px] ${selectedDay ? "mt-12 md:mt-2" : "mt-10 md:mt-2"}`}  onClick={updateGoalBuddyAvailability}>
                 {selectedDay ? "Confirm" : "Edit"}
                 </Button>
             </div>
