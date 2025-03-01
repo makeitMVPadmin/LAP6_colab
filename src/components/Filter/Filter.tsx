@@ -4,7 +4,6 @@ import MentorBadge from './MentorBadge'
 import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
 import { roleItems } from '@/utils/data'
-import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
 import useScreenWidth from '@/hooks/useScreenWidth'
 import { TooltipWrapperAdaptive } from '../Tooltip/TooltipWrapperAdaptive'
 
