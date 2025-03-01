@@ -5,8 +5,6 @@ import GoalBuddyBadge from './GoalBuddyBadge'
 import NetworkingBadge from './NetworkingBadge'
 import { roleItems } from '@/utils/data'
 import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
-import { useContext } from 'react'
-import { SidebarContext } from '../context/SidebarContext'
 import useScreenWidth from '@/hooks/useScreenWidth'
 import { TooltipWrapperAdaptive } from '../Tooltip/TooltipWrapperAdaptive'
 
@@ -20,11 +18,6 @@ interface filterProps {
 }
 
 const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
-  const sidebarContext = useContext(SidebarContext)
-  if (!sidebarContext) {
-    throw new Error('Sidebar context not found')
-  }
-  const { isSidebarOpen } = sidebarContext
   const screenWidth = useScreenWidth()
 
   const renderCheckbox = (filtered: boolean, role: string) => {
@@ -35,7 +28,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
           `cursor-pointer appearance-none h-6 w-6 sm:self-center mb-1 sm:mb-0
           rounded-sm border-[3px] border-black lg:inline 
           ${filtered ? 'bg-black' : 'bg-white'}
-          ${isSidebarOpen ? ' fade-in-0 duration-200 bg-opacity-50' : ''}`,
+          `,
         )}
         onClick={() => {
           filterGoalBuddies(role)
@@ -141,9 +134,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
       <div className="flex flex-col lg:mt-3">
         <Card
           className={cn(
-            `lg:w-68 mb-0 mt-0 pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent
-
-            ${isSidebarOpen ? ' fade-in-0 duration-200 opacity-50 bg-opacity-50' : ''}`,
+            `lg:w-68 mb-0 mt-0 pb-0 border rounded-[0.5rem] border-slate-950 border-r-2 border-b-2 lg:border-none shadow-none lg:bg-transparent`,
           )}
         >
           <CardContent
