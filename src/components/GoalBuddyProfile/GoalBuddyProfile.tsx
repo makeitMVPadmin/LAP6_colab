@@ -34,15 +34,15 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
   ]
   return (
     <div className="h-[100%] bg-white text-[16px] rounded-l-sm">
-      <div className="h-[20%] lg:h-[12%] md:h-[12%] bg-yellow relative md:relative sm:relative rounded-tl-md">
-        <Avatar className="w-[55px] h-[55px] lg:w-[90px] lg:h-[90px] md:w-[70px] md:h-[70px] absolute lg:absolute md:absolute right-[5%] top-[65%]  lg:right-[10%] lg:top-[40%] ">
+      <div className="h-[45px] lg:h-[12%] md:h-[12%] bg-yellow relative md:relative sm:relative rounded-tl-md">
+        <Avatar className="w-[55px] h-[55px] lg:w-[90px] lg:h-[90px] md:w-[70px] md:h-[70px] absolute lg:absolute md:absolute top-[50%] right-[5%] md:top-[65%]  lg:right-[10%] lg:top-[40%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
             alt="@shadcn"
           />
         </Avatar>
-        <p className='lg:hidden md:hidden absolute top-[70%] right-[23%] font-fraunces text-md font-bold'>Co-Lab Role</p>
+        <p className='lg:hidden md:hidden absolute top-[50%] right-[21%] font-fraunces text-md font-bold'>Co-Lab Role</p>
         <div className='flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]'>
           {
             goalBuddy && colabRoles.map((colabRole, index) => (
