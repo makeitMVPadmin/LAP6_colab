@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
   if (!sideBarContext) {
     throw new Error('Sidebar context not found')
   }
-  const { isSidebarOpen, setIsSideBarOpen } = sideBarContext
+  const { isSidebarOpen, setIsSidebarOpen } = sideBarContext
   const userProfileData = idContext?.userData
 
   const userContext = useContext(IdContext)
@@ -40,14 +40,14 @@ const NavBar: React.FC = () => {
     return null
   }
   const handleClick = () => {
-    setIsSideBarOpen(!isSidebarOpen)
+    setIsSidebarOpen(!isSidebarOpen)
     setModalOpen(false)
   }
 
   const handleProfileClick = (title: string) => {
     if (title === 'Profile') {
       setModalOpen(!modalOpen)
-      setIsSideBarOpen(!isSidebarOpen)
+      setIsSidebarOpen(!isSidebarOpen)
     }
   }
 

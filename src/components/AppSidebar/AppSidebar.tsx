@@ -35,7 +35,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ handleProfileClick }) =>
   if (!sidebarContext) {
     throw new Error('Sidebar context not found')
   }
-  const { isSidebarOpen, setIsSideBarOpen } = sidebarContext
+  const { isSidebarOpen, setIsSidebarOpen } = sidebarContext
 
   return (
     <>
@@ -45,7 +45,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ handleProfileClick }) =>
             <div className="h-[50%] bg-yellow">
               <button
                 className={clsx('text-black text-left pl-3 pt-1 font-semibold')}
-                onClick={() => setIsSideBarOpen(!isSidebarOpen)}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               >
                 X
               </button>
