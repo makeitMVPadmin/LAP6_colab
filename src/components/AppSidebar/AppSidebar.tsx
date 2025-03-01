@@ -7,10 +7,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import './AppSidebar.css'
-import UserProfileModal from '../Modal/UserProfileModal'
 import { IdContext } from '../context/IdContext'
 import clsx from 'clsx'
 import { SidebarContext } from '../context/SidebarContext'
@@ -20,14 +19,17 @@ const items = [
   },
 ]
 
-export function AppSidebar() {
-  const [modalOpen, setModalOpen] = useState(false)
+interface AppSidebarProps {
+  handleProfileClick: (title: string) => void
+}
+
+export const AppSidebar: React.FC<AppSidebarProps> = ({ handleProfileClick }) => {
 
   const userContext = useContext(IdContext)
   if (!userContext) {
     throw new Error('IdContext not found')
   }
-  const { userData, goalBuddyData, setGoalBuddyData } = userContext
+  const { userData, goalBuddyData } = userContext
 
   const sidebarContext = useContext(SidebarContext)
   if (!sidebarContext) {
@@ -35,16 +37,10 @@ export function AppSidebar() {
   }
   const { isSidebarOpen, setIsSideBarOpen } = sidebarContext
 
-  const handleClick = (title: string) => {
-    if (title === 'Profile') {
-      setModalOpen(!modalOpen)
-    }
-  }
-
   return (
     <>
-      <div className="max-w-screen h-screen relative z-50">
-        <Sidebar className="w-[20%] rounded-md absolute h-[70%] shadow-md border border-[2px] border-gray-600">
+      <div className="relative z-50">
+        <Sidebar className="w-[20%] rounded-md absolute h-[70%] shadow-md border-r-2 border-b-2 border-t-[1px] border-gray-600">
           <SidebarContent className="gap-0 rounded-md">
             <div className="h-[50%] bg-yellow">
               <button
@@ -87,10 +83,10 @@ export function AppSidebar() {
                   {items.map((item) => (
                     <SidebarMenuItem
                       key={item.title}
-                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border border-gray-600 border-r-2 border-b-2"
+                      className="border mt-5 w-[80%] bg-white hover:bg-gray-200 transition rounded-md duration-200 shadow-lg border-gray-600 border-r-2 border-b-2"
                     >
                       <SidebarMenuButton asChild>
-                        <a onClick={() => handleClick(item.title)}>
+                        <a onClick={() => handleProfileClick(item.title)}>
                           <span className="text-sm font-medium font-montserrat">
                             {item.title}
                           </span>
@@ -101,19 +97,10 @@ export function AppSidebar() {
                 </SidebarMenu>
               </SidebarGroup>
             </div>
-            <div className="bg-blue h-[50%]"></div>
+            <div className="bg-blue h-[50%] "></div>
           </SidebarContent>
         </Sidebar>
       </div>
-
-      {modalOpen && (
-        <UserProfileModal
-          setModalOpen={setModalOpen}
-          modalOpen={modalOpen}
-          goalBuddyData={goalBuddyData}
-          updateGoalBuddyData={setGoalBuddyData}
-        />
-      )}
     </>
   )
 }

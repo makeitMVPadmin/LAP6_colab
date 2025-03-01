@@ -209,7 +209,11 @@ const Sidebar = React.forwardRef<
       //     </SheetContent>
       //   </Sheet>
       // )
-      return <div className="flex h-[70vh] w-[55%] flex-col absolute right-0 ">{children}</div>
+      return (
+        <div className="flex h-[70vh] w-[55%] flex-col absolute right-0 border-gray-600 border-r-2 border-b-2 rounded-md border">
+          {children}
+        </div>
+      )
     }
 
     return (
