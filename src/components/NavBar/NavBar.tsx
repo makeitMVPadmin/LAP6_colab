@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import CommunitiLogo from '../../assets/Logo/communiti_logo.png'
@@ -6,9 +6,12 @@ import { SidebarContext } from '@/components/context/SidebarContext'
 import { AppSidebar } from '../AppSidebar/AppSidebar'
 import clsx from 'clsx'
 import { IdContext } from '../context/IdContext'
+import UserProfileModal from '../Modal/UserProfileModal'
+
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate()
+  const [modalOpen, setModalOpen] = useState(false)
 
   const handleLogoClick = () => {
     navigate('/', { replace: true })
@@ -22,12 +25,32 @@ const NavBar: React.FC = () => {
   const { isSidebarOpen, setIsSideBarOpen } = sideBarContext
   const userProfileData = idContext?.userData
 
+  const userContext = useContext(IdContext)
+  if (!userContext) {
+    throw new Error('IdContext not found')
+  }
+  const { goalBuddyData, setGoalBuddyData } = userContext
+
+  const sidebarContext = useContext(SidebarContext)
+  if (!sidebarContext) {
+    throw new Error('Sidebar context not found')
+  }
+
   if (!userProfileData) {
     return null
   }
   const handleClick = () => {
     setIsSideBarOpen(!isSidebarOpen)
+    setModalOpen(false)
   }
+
+  const handleProfileClick = (title: string) => {
+    if (title === 'Profile') {
+      setModalOpen(!modalOpen)
+      setIsSideBarOpen(!isSidebarOpen)
+    }
+  }
+
   return (
     <nav
       className={clsx(
@@ -63,7 +86,16 @@ const NavBar: React.FC = () => {
         </div>
       </div>
 
-      {isSidebarOpen && <AppSidebar />}
+      {isSidebarOpen && <AppSidebar handleProfileClick={handleProfileClick} />}
+
+      {modalOpen && (
+        <UserProfileModal
+          setModalOpen={setModalOpen}
+          modalOpen={modalOpen}
+          goalBuddyData={goalBuddyData}
+          updateGoalBuddyData={setGoalBuddyData}
+        />
+      )}
     </nav>
   )
 }
