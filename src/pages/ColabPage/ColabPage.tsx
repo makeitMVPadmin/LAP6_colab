@@ -1,4 +1,4 @@
-import { SidebarContext } from '@/components/context/SidebarContext'
+// import { SidebarContext } from '@/components/context/SidebarContext'
 import { useContext, useEffect, useState } from 'react'
 import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
@@ -30,11 +30,6 @@ export default function ColabPage() {
   })
 
   const [isLoading, setIsLoading] = useState(true)
-  const sideBarContext = useContext(SidebarContext)
-  if (!sideBarContext) {
-    throw new Error('Sidebar context not found')
-  }
-  const { isSidebarOpen } = sideBarContext
   const userContext = useContext(IdContext)
   if (!userContext) {
     throw new Error('IdContext not found')
