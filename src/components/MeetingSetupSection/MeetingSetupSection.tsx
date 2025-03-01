@@ -216,9 +216,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   return (
     <div className="flex flex-col w-full h-fit md:h-full flex-grow md:flex-grow-0">
       {confirmationState ? (
-        <div className="flex flex-col items-center justify-between py-4 px-8 h-full w-full">
-          <div className="flex flex-col items-center justify-center h-full w-full">
-            <div className="bg-[#ECFDF2] w-full h-[66%] flex flex-col items-center justify-between p-4 rounded">
+        <div className="flex flex-col items-center justify-between pt-7 pb-4 px-12 md:px-8 md:py-4 h-[472px] md:h-full w-full">
+          <div className="flex flex-col items-center justify-start md:justify-center h-full w-full">
+            <div className="bg-[#ECFDF2] w-full h-[340px] md:h-[66%] flex flex-col items-center justify-between p-4 rounded">
                 <div className="bg-[#ECFDF2] w-full h-full flex flex-col items-center justify-center my-1">
                     <ConfirmationIcon />
                     <h3 className="text-[#00892d] text-base font-medium font-montserrat leading-none py-4 text-center my-2">
@@ -237,7 +237,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             onClick={resetState}
             variant="colabPrimary"
             size="colabPrimary"
-            className={`tracking-wide min-w-[195px]`}
+            className={`mb-2 md:mb-0 tracking-wide lg:min-w-[195px]`}
           >
             {`Book Another Session`}
           </Button>
@@ -251,17 +251,18 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-between p-3 h-full w-full flex-grow md:flex-grow-0">
+          <div className="flex flex-col items-center justify-between py-4 px-12 md:p-3 h-full w-full flex-grow md:flex-grow-0">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
               <h2 className="font-semibold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
               {date ? (
-                <h3 className="font-medium font-monserrat text-sm mb-1">{date.toDateString()}</h3>
+                <h3 className="font-medium font-montserrat text-base md:text-sm mb-1">{date.toDateString()}</h3>
               ) : (
-                <h3 className="font-medium font-monserrat text-sm mb-1">{`Select a date`}</h3>
+                <h3 className="font-medium font-montserrat text-base md:text-sm mb-1">{`Select a date`}</h3>
+                // Monday, 7th Nov 2023
               )}
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
-                <div className="flex flex-col items-center justify-start flex-grow w-full px-3">
+                <div className="flex flex-col items-center justify-start flex-grow w-full px-3 my-6 md:my-0">
                   <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px] my-1">{`Time Zone: Eastern Standard Time`}</h3>
 
                   <TimeSelectionList
@@ -277,6 +278,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               disabled={date === undefined || selectedTime === undefined}
               variant="colabPrimary"
               size="colabPrimary"
+              className="my-10 md:my-0"
             >
               {`Confirm`}
             </Button>
