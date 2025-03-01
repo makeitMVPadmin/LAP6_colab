@@ -35,8 +35,7 @@ const NavBar: React.FC = () => {
         isSidebarOpen && 'z-0',
       )}
     >
-      <div className="flex items-center justify-between w-full p-6">
-        {/* Communiti Logo (navigation to ColabPage.tsx) */}
+      <div className="flex items-center justify-between w-full p-6 h-full">
         <div
           className="flex items-center justify-end"
           onClick={handleLogoClick}
@@ -64,7 +63,7 @@ const NavBar: React.FC = () => {
         </div>
       </div>
 
-      {isSidebarOpen&& <AppSidebar />}
+      {isSidebarOpen && <AppSidebar />}
     </nav>
   )
 }
