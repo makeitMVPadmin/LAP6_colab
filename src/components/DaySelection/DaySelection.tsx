@@ -28,7 +28,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({
   ]
 
     return (
-        <div className="w-full mt-4 flex flex-col justify-center items-center">
+        <div className="w-full mt-3 md:mt-4 flex flex-col justify-center items-center">
             <Select onValueChange={(value: DayOfWeek) => setSelectedDay(value)}>
                 <SelectTrigger className={`h-[49.68px] px-[16.26px] py-[10.84px] bg-white rounded-lg border-l border-r-2 border-t border-b-2 border-[#28363f] justify-between items-center inline-flex" ${isError ? "border-[#b71c1c]": ""}`}>
                     <SelectValue placeholder="Select a day" />
