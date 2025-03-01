@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react'
 import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
-import { AllGoalBuddyData } from '../../types/types'
+import { AllGoalBuddyData, GoalBuddy } from '../../types/types'
 import { goalBuddiesMergedWithUsers } from '../../utils/goalBuddiesMergedWithUsers'
 import Filter from '../../components/Filter/Filter'
 import Layout from '@/components/Layout/Layout'
@@ -38,8 +38,9 @@ export default function ColabPage() {
 
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
-      const goalBuddies = await getAllGoalBuddies()
-      const users = await getAllUsers()
+      const goalBuddies: GoalBuddy[] = await getAllGoalBuddies()
+      const userIds: string[] = goalBuddies.map((goalBuddy) => goalBuddy.userId);
+      const users = await getAllUsers(userIds)
 
       const excludeActiveUserList = goalBuddiesMergedWithUsers(
         goalBuddies,
