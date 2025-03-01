@@ -51,7 +51,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           }
         </div>
       </div>
-      <div className="h-[90%] md:h-[88%]">
+      <div className="h-[90%] md:h-[88%] md:overflow-y-auto scrollbar-hidden">
         <div className="mt-2 flex flex-col pl-3 gap-1 font-semibold font-font-montserrat ">
           <label>
             First Name:{' '}
@@ -108,7 +108,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             })}
           </section>
         </div>
-        <section className="border border-gray-600 border-r-2 border-b-2 rounded-md pl-4 pt-1 pb-1 ml-3 mt-4 mr-2 mb-3 md:mb-0 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
+        <section className="border border-gray-600 border-r-2 border-b-2 rounded-md pl-4 pt-1 pb-1 ml-3 mt-4 mr-2 mb-3 shadow-[1px_0px_2px_1px_rgba(0,0,0,0.2)]">
           <div className=" font-fraunces font-semibold text-lg tracking-wide">
             About
           </div>

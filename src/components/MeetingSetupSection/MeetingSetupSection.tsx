@@ -214,7 +214,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   
 
   return (
-    <div className="flex flex-col w-full h-fit md:h-full flex-grow md:flex-grow-0">
+    <div className="flex flex-col w-full h-fit md:h-full flex-grow md:flex-grow-0 bg-blue">
       {confirmationState ? (
         <div className="flex flex-col items-center justify-between pt-7 pb-4 px-12 md:px-8 md:py-4 h-[472px] md:h-full w-full">
           <div className="flex flex-col items-center justify-start md:justify-center h-full w-full">
@@ -237,7 +237,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             onClick={resetState}
             variant="colabPrimary"
             size="colabPrimary"
-            className={`mb-2 md:mb-0 tracking-wide lg:min-w-[195px]`}
+            className={`mb-2 md:mb-0 tracking-wide md:whitespace-normal md:min-h-12 md:h-fit md:py-1 lg:min-w-[195px]`}
           >
             {`Book Another Session`}
           </Button>
@@ -251,7 +251,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-between py-4 px-12 md:p-3 h-full w-full flex-grow md:flex-grow-0">
+          <div className="flex flex-col items-center justify-between py-4 px-12 md:py-3 md:px-8 h-full w-full flex-grow md:flex-grow-0">
             <div className="flex flex-col items-center justify-start flex-grow max-h-[90%] w-full">
               <h2 className="font-semibold font-fraunces tracking-wide text-center text-2xl mb-1">{`Book a Meeting`}</h2>
               {date ? (
@@ -262,7 +262,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               )}
               <BookingCalendar selectedDate={date} setDate={populateTimeListings} />
               {date &&
-                <div className="flex flex-col items-center justify-start flex-grow w-full px-3 my-6 md:my-0">
+                <div className="flex flex-col items-center justify-start flex-grow w-full px-3 md:px-0 my-6 md:my-3">
                   <h3 className="text-[#0c0c0c] text-sm text-center font-semibold font-montserrat leading-[14.80px] my-1">{`Time Zone: Eastern Standard Time`}</h3>
 
                   <TimeSelectionList
@@ -278,7 +278,7 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
               disabled={date === undefined || selectedTime === undefined}
               variant="colabPrimary"
               size="colabPrimary"
-              className="my-10 md:my-0"
+              className="my-10 md:my-2"
             >
               {`Confirm`}
             </Button>
