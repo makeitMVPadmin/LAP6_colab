@@ -8,6 +8,7 @@ import { TooltipWrapper } from '../Tooltip/TooltipWrapper'
 import { useContext } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
 import useScreenWidth from '@/hooks/useScreenWidth'
+import { TooltipWrapperAdaptive } from '../Tooltip/TooltipWrapperAdaptive'
 
 interface filterProps {
   filterGoalBuddies: Function
@@ -115,7 +116,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
   const renderRole = (tag: string, roleName: string, roleToFilter: boolean) => {
     return (
       <div className="flex flex-row relative sm:h-8 lg:mb-4 flex-grow justify-around items-end gap-1 lg:gap-5 sm:items-center">
-        <TooltipWrapper roleItem={getRoleItem(roleName)}>
+        <TooltipWrapperAdaptive roleItem={getRoleItem(roleName)}>
           <label
             className="lg:bg-card rounded-lg lg:border lg:border-r-2 lg:border-b-2 lg:border-black xs:w-[50px] sm:w-[120px] md:w-[194px] h-[100%] pl-2 
                     text-md lg:text-xl leading-5 sm:leading-[35px] relative
@@ -129,7 +130,7 @@ const Filter: React.FC<filterProps> = ({ filterGoalBuddies, filter }) => {
               </span>
             </div>
           </label>
-        </TooltipWrapper>
+        </TooltipWrapperAdaptive>
         {renderCheckbox(roleToFilter, tag)}
       </div>
     )
