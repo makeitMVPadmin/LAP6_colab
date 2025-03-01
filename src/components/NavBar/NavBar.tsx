@@ -32,7 +32,11 @@ const NavBar: React.FC = () => {
     <nav
       className={clsx(
         'flex flex-col shadow-md h-[100px]',
+<<<<<<< Updated upstream
         isSidebarOpen && 'z-0',
+=======
+         isSidebarOpen && 'z-0',
+>>>>>>> Stashed changes
       )}
     >
       <div className="flex items-center justify-between w-full p-6">
