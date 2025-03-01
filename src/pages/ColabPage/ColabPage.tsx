@@ -1,4 +1,4 @@
-import { SidebarContext } from '@/components/context/SidebarContext'
+// import { SidebarContext } from '@/components/context/SidebarContext'
 import { useContext, useEffect, useState } from 'react'
 import getAllGoalBuddies from '../../../firebase/functions/goalBuddies'
 import { getAllUsers } from '../../../firebase/functions/getAllUsers'
@@ -30,11 +30,6 @@ export default function ColabPage() {
   })
 
   const [isLoading, setIsLoading] = useState(true)
-  const sideBarContext = useContext(SidebarContext)
-  if (!sideBarContext) {
-    throw new Error('Sidebar context not found')
-  }
-  const { isSidebarOpen } = sideBarContext
   const userContext = useContext(IdContext)
   if (!userContext) {
     throw new Error('IdContext not found')
@@ -111,13 +106,7 @@ export default function ColabPage() {
   }
 
   return (
-    <main
-      className={
-        isSidebarOpen
-          ? 'fade-in-0 duration-500 backdrop-brightness-50 '
-          : ''
-      }
-    >
+    <main>
       <Layout>
         <div
           className={clsx(
@@ -131,10 +120,7 @@ export default function ColabPage() {
             minHeight: '100vh',
           }}
         >
-          <Filter
-            filterGoalBuddies={filterGoalBuddies}
-            filter={filter}
-          />
+          <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] max-h-[120px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
