@@ -28,8 +28,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
     label: string
     icon: string
   }> = [
-    { key: 'isAccountabilityPartner', label: 'Goal Buddy', icon: SmilePlus },
     { key: 'isMentor', label: 'Mentor', icon: GraduationCap },
+    { key: 'isAccountabilityPartner', label: 'Goal Buddy', icon: SmilePlus },
     { key: 'isNetworking', label: 'Networking', icon: Network },
   ]
   return (
@@ -38,6 +38,7 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
         <Avatar className="w-[55px] h-[55px] lg:w-[90px] lg:h-[90px] md:w-[70px] md:h-[70px] absolute lg:absolute md:absolute top-[50%] right-[5%] md:top-[65%]  lg:right-[10%] lg:top-[40%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
+          
             src={goalBuddy ? goalBuddy.profilePhoto : ''}
             alt="@shadcn"
           />
@@ -49,19 +50,22 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
           {goalBuddy &&
             colabRoles.map((colabRole, index) => {
               return (
-                goalBuddy?.[colabRole.key] && (colabRole.key==="isMentor"?<img
-                  key={index}
-                  src={colabRole.icon}
-                  alt=""
-                  className="w-5 h-5"
-                />:
+                goalBuddy?.[colabRole.key] &&
+                (colabRole.key === 'isMentor' ? (
+                  <img
+                    key={index}
+                    src={colabRole.icon}
+                    alt=""
+                    className="w-5 h-5"
+                  />
+                ) : (
                   <img
                     key={index}
                     src={colabRole.icon}
                     alt=""
                     className="w-4 h-4"
                   />
-                )
+                ))
               )
             })}
         </div>
