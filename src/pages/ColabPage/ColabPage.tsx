@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { Skeleton } from '@/components/ui/skeleton'
 import GoalBuddyProfileModal from '../../../src/components/Modal/GoalBuddyProfileModal'
 import { IdContext } from '@/components/context/IdContext'
+import { SidebarContext } from '@/components/context/SidebarContext'
 import BackgroundImage from '../../assets/Image/Background.png'
 
 export default function ColabPage() {
@@ -31,9 +32,18 @@ export default function ColabPage() {
 
   const [isLoading, setIsLoading] = useState(true)
   const userContext = useContext(IdContext)
+
   if (!userContext) {
     throw new Error('IdContext not found')
   }
+  
+  const sideBarContext = useContext(SidebarContext)
+
+  if (!sideBarContext) {
+    throw new Error('Sidebar context not found')
+  }
+
+  const { isSidebarOpen, setIsSidebarOpen } = sideBarContext
   const { userData, isActiveUserFetched } = userContext
 
   useEffect(() => {
@@ -106,8 +116,12 @@ export default function ColabPage() {
     })
   }
 
+  const closeSidebar = () => {
+    if (isSidebarOpen) setIsSidebarOpen(!isSidebarOpen)
+  }
+
   return (
-    <main>
+    <main onClick={() => closeSidebar()}>
       <Layout>
         <div
           className={clsx(
