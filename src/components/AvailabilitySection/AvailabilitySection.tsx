@@ -15,7 +15,6 @@ interface AvailabilitySectionProps {
 }
 
 const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBuddy, updateGoalBuddy }) => {
-    // Set state variables
     const [availability, setAvailability] = useState<Availabilities[]>(activeGoalBuddy.availabilities);
     const [selectedDay, setSelectedDay] = useState<DayOfWeek | null>(null);
     const [selectedDayAvailability, setSelectedDayAvailability] = useState<Availabilities | null>(null);
@@ -27,11 +26,9 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
     const [confirmationState, setConfirmationState] = useState<boolean>(false);
 
     useEffect(() => {
-        // Clear the inputs when there is no selected day or any availabilities on that day
         if (selectedDay === null || selectedDayAvailability === null) {
             setTimePeriodInputs([]);
 
-        // Populate the inputs when the selected day changes to one with times
         } else {
             const currentTimePeriods: TimePeriodDisplay[] = [];      
             selectedDayAvailability.timePeriods.forEach((period) => {
@@ -44,7 +41,6 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
 
     }, [selectedDay, selectedDayAvailability]);
 
-    // Function to show availability for a specific day
     function showAvailability(day: DayOfWeek) {
         const availabilityForDay = findAvailabilityForDay(day, availability);
 
@@ -58,7 +54,6 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         setSelectedDay(day);
     }
 
-    // Function to update the time period input for start or end time in one row
     function updateTimePeriod(index: number, input: string, isStartTime: boolean){
         const updatedTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
         if(isStartTime){
@@ -66,12 +61,9 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         }else{
             updatedTimePeriodInputs[index].endTime = input;
         }
-
         setTimePeriodInputs(updatedTimePeriodInputs);
-        
     }
 
-    // Function to delete the TimePeriod from the index'th spot in timePeriodInputs
     function deleteTimePeriod(index: number){
         if(timePeriodInputs.length <= 1){
             setTimeErrors([]);
@@ -92,7 +84,6 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         }
     }
 
-    // Function to add another row for time period inputs
     function addTimeRow(){
         const oneMoreTimePeriodInputs: TimePeriodDisplay[] = [...timePeriodInputs];
         oneMoreTimePeriodInputs.push({startTime: "", endTime: ""});
@@ -106,45 +97,36 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
         
     }
 
-    // Function to handle the user trying to confirm their new availability for a day
     async function updateGoalBuddyAvailability() {
-        
-        // Verify that a day has been selected
         let isDayError: string = "";
         if (selectedDay === null) {
             isDayError = "Please select a date";
         }
         
-        // Look for errors in the time period fields.
         const errors: AvailabilityErrors[] = validateAllAvailabilities(timePeriodInputs);
 
-        //  If any errors are found, halt the update process and show them.
         const hasErrors = errors.some(error => error.errorsExist);
         if (hasErrors || isDayError) {
             updateErrorStates(isDayError, errors, "");
             return;
         }
 
-        // Check if any of the time periods overlap
         if(hasOverlap(timePeriodInputs)){
             updateErrorStates("", [], "*Time periods cannot overlap");
             return;
         }
 
-        // Create the new Availabilities object with the current input
         const updatedTimePeriods: TimePeriod[] = [];
         timePeriodInputs?.forEach((period) => {
             updatedTimePeriods.push({ startTime: createTimeFromStrings(period.startTime), endTime: createTimeFromStrings(period.endTime) });
         });
         const createdAvailability: Availabilities = { day: selectedDay!, timePeriods: updatedTimePeriods };
 
-        // Copy the availability items to updatedAvailabilities
         let selectDayExists: boolean = false;
         const updatedAvailabilities: Availabilities[] = [];
         availability?.forEach((dailyAvailability)=> {
             if (dailyAvailability.day === selectedDay){
                 selectDayExists = true;
-                // Remove the edited availability if it has no time periods
                 if(updatedTimePeriods.length !== 0) {
                     updatedAvailabilities.push(createdAvailability);
                 }
@@ -153,19 +135,16 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             }
         });
 
-        // If there was no availability to update, then push the new daily availability to the array
         if (!selectDayExists) {
             updatedAvailabilities.push(createdAvailability);
         }
 
-        // Make the call to firebase to update the user's goal_buddy document availabilities field.
         try {
             await editGoalBuddy(activeGoalBuddy.id, { availabilities: updatedAvailabilities });
             setAvailability(updatedAvailabilities);
             setBackendError("");
             setConfirmationState(true);
 
-            // Update the goal buddy data for page rerender
             const updatedGoalBuddy: GoalBuddy = {
                 ...activeGoalBuddy,
                 availabilities: updatedAvailabilities
@@ -173,12 +152,10 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             updateGoalBuddy(updatedGoalBuddy);
             
         } catch (error) {
-            // Show error state
             setBackendError(`Something went wrong with updating your availability. ${error} Please try again.`);
         }
     }
 
-    // Function to return component to "pristine" look after a successful update
     function resetComponent() {
         setSelectedDay(null);
         setSelectedDayAvailability(null);
