@@ -35,10 +35,10 @@ const GoalBuddyCard: React.FC<GoalBuddyCardProps> = ({
         {goalBuddy.isMentor && (
           <div className="flex-grow flex-basis-1/3">
             <MentorBadge
-              width="w-[15px]"
+              width="w-[20px]"
               stroke="4"
               yOffset={35}
-              height="h-[15px]"
+              height="h-[20px]"
             />
           </div>
         )}
