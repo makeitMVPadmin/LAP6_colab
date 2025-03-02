@@ -28,14 +28,14 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent
-        className="flex flex-col max-w-[90vw] h-[90%] lg:max-w-[50vw] md:max-w-[70vw] lg:h-[70%] md:h-[70%]  lg:flex-row md:flex-row  p-0 gap-0 border border-black "
+        className="flex flex-col md:flex-row lg:flex-row max-w-[90vw] md:max-w-[70vw] lg:max-w-[50vw] h-[90vh] md:h-[70vh] lg:h-[70vh] p-0 gap-0 border border-black rounded overflow-y-auto md:overflow-hidden scrollbar-hidden"
         aria-describedby={undefined}
       >
      < DialogTitle></DialogTitle>
-        <div className="h-[60%] lg:w-[55%] md:w-[55%] lg:h-[100%] md:h-[100%] pt-0 overflow-y-auto scrollbar-hidden">
+        <div className="min-h-[50%] h-full w-full md:w-[55%] lg:w-[55%] pt-0 flex flex-col flex-grow md:flex-grow-0">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
-        <div className="flex flex-col h-[40%] items-center w-[100%] lg:w-[45%] md:w-[45%]  md:h-[100%] bg-[#279af1] p-0 overflow-y-auto scrollbar-hidden ">
+        <div className="flex flex-col h-full items-center w-full md:w-[45%] lg:w-[45%] bg-blue p-0 md:overflow-y-auto scrollbar-hidden flex-grow md:flex-grow-0 mt-3 md:mt-0">
           {userContext && userData ? (
             <MeetingSetupSection activeUserId={userData.id} showingUser={goalBuddy} />
           ) : (
