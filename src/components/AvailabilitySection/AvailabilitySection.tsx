@@ -94,7 +94,8 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
             setTimeErrors(oneMoreTimeErrors);
         }
         setTimePeriodInputs(oneMoreTimePeriodInputs);
-        
+        const testEl = document.getElementById("bottom")
+        testEl?.scrollIntoView()
     }
 
     async function updateGoalBuddyAvailability() {
@@ -243,6 +244,7 @@ const AvailabilitySection: React.FC<AvailabilitySectionProps> = ({ activeGoalBud
                                         ))}
                                     </div>
                                 </div>
+                                <span id="bottom" />
                             </div>
                             <Button variant="colabAdd" size="colabAdd" className="my-1" onClick={addTimeRow}>
                                 <AddIcon />
