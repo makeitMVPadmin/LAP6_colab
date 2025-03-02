@@ -3,6 +3,7 @@ import { UserProfile } from '../UserProfile/UserProfile'
 import { DialogTitle } from '../ui/dialog'
 import AvailabilitySection from '../AvailabilitySection/AvailabilitySection'
 import { GoalBuddy } from '../../types/types'
+import useScreenWidth from '@/hooks/useScreenWidth'
 
 interface ModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,19 +18,29 @@ const UserprofileModal: React.FC<ModalProps> = ({
   goalBuddyData,
   updateGoalBuddyData,
 }) => {
-  
+  const screenWidth = useScreenWidth()
+
   const handleModalClick = () => {
     setModalOpen(false)
- 
   }
- 
+
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen} modal={true}>
-  
-      <section className="flex flex-col md:flex-row  md:w-auto min-w-[60vw] h-[80vh] md:h-[75vh] bg-white p-0 gap-0 border border-black rounded absolute md:right-[19px] top-[164px] md:top-[79px] mx-2 md:mx-0 z-50 overflow-y-auto md:overflow-hidden scrollbar-hidden"
-      
-    aria-describedby={undefined}>
-
+      <section
+        className="flex flex-col md:flex-row  md:w-auto min-w-[60vw] h-[80vh] md:h-[75vh] bg-white p-0 gap-0 border border-black rounded absolute md:right-[19px] top-[164px] md:top-[79px] mx-2 md:mx-0 z-50 overflow-y-auto md:overflow-hidden scrollbar-hidden"
+        style={
+          screenWidth === 'sm'
+            ? {
+                display: 'flex',
+                position: 'fixed',
+                inset: 0,
+                overscrollBehavior: 'contain',
+                alignSelf: 'center',
+              }
+            : {}
+        }
+        aria-describedby={undefined}
+      >
         <DialogTitle></DialogTitle>
         <div className="flex flex-col w-full md:w-[57%] min-h-[100%] h-full flex-grow md:flex-grow-0 pt-0 pl-0 md:overflow-y-auto scrollbar-hidden bg-white rounded-tl rounded-bl">
           <div
@@ -41,13 +52,14 @@ const UserprofileModal: React.FC<ModalProps> = ({
           <UserProfile />
         </div>
         <div className="flex flex-col items-center h-fit md:h-full w-full md:w-[43%] bg-blue mt-1 md:m-0 p-0 flex-grow md:flex-grow-0 md:overflow-hidden md:rounded-tr md:rounded-br">
-            {goalBuddyData ? (
-              <AvailabilitySection activeGoalBuddy={goalBuddyData} updateGoalBuddy={updateGoalBuddyData} />
-            ) : (
-              <p>{`No user data was provided`}</p>
-            )
-            }
-            
+          {goalBuddyData ? (
+            <AvailabilitySection
+              activeGoalBuddy={goalBuddyData}
+              updateGoalBuddy={updateGoalBuddyData}
+            />
+          ) : (
+            <p>{`No user data was provided`}</p>
+          )}
         </div>
       </section>
     </Dialog>
