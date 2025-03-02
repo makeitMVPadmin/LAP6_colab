@@ -32,10 +32,10 @@ const GoalBuddyProfileModal: React.FC<ModalProps> = ({
         aria-describedby={undefined}
       >
      < DialogTitle></DialogTitle>
-        <div className="min-h-[50%] h-full w-full md:w-[55%] lg:w-[55%] pt-0 flex flex-col flex-grow md:flex-grow-0">
+        <div className=" min-h-[70%] w-full md:w-[55%] lg:w-[55%] pt-0 flex flex-col flex-grow md:flex-grow-0 md:overflow-y-auto scrollbar-hidden ">
           <GoalBuddyProfile goalBuddy={goalBuddy} />
         </div>
-        <div className="flex flex-col h-full items-center w-full md:w-[45%] lg:w-[45%] bg-blue p-0 md:overflow-y-auto scrollbar-hidden flex-grow md:flex-grow-0 mt-3 md:mt-0">
+        <div className="flex flex-col min-h-[30%] items-center w-full md:w-[45%] lg:w-[45%] bg-blue p-0 md:overflow-y-auto scrollbar-hidden flex-grow md:flex-grow-0 mt-3 md:mt-0">
           {userContext && userData ? (
             <MeetingSetupSection activeUserId={userData.id} showingUser={goalBuddy} />
           ) : (
