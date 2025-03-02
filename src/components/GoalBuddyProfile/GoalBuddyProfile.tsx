@@ -33,8 +33,8 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
     { key: 'isNetworking', label: 'Networking', icon: Network },
   ]
   return (
-    <div className="h-full flex flex-col bg-white text-[16px] rounded-l-sm">
-      <div className="h-[10%] lg:h-[12%] md:h-[12%] bg-yellow relative md:relative sm:relative rounded-tl-md">
+    <div className="h-full flex flex-col bg-white text-[16px] ">
+      <div className="h-[10%] lg:h-[12%] md:h-[12%] bg-yellow relative md:relative sm:relative ">
         <Avatar className="w-[55px] h-[55px] lg:w-[90px] lg:h-[90px] md:w-[70px] md:h-[70px] absolute lg:absolute md:absolute top-[30%] right-[5%] md:top-[65%]  lg:right-[10%] lg:top-[40%] ">
           <AvatarFallback className="bg-[#B7D9B9]" />
           <AvatarImage
