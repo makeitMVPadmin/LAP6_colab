@@ -45,11 +45,16 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
         <p className="lg:hidden md:hidden absolute top-[50%] right-[21%] font-fraunces text-md font-bold">
           Co-Lab Role
         </p>
-        <div className="flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]">
+        <div className="flex items-center gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]">
           {goalBuddy &&
             colabRoles.map((colabRole, index) => {
               return (
-                goalBuddy?.[colabRole.key] && (
+                goalBuddy?.[colabRole.key] && (colabRole.key==="isMentor"?<img
+                  key={index}
+                  src={colabRole.icon}
+                  alt=""
+                  className="w-5 h-5"
+                />:
                   <img
                     key={index}
                     src={colabRole.icon}
