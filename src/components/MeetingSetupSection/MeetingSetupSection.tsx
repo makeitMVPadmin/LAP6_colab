@@ -17,8 +17,6 @@ interface MeetingSetupSectionProps {
 const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   activeUserId, showingUser
 }) => {
-
-  // Define state variables needed for creating a meeting event
   const [availability, setAvailability] = useState<Availabilities[]>([]);
   const [userMeetings, setUserMeetings] = useState<CalendarEvents[] | undefined>(undefined);
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -27,19 +25,14 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
   const [confirmationState, setConfirmationState] = useState<boolean>(false);
   const [backendError, setBackendError] = useState<string>("");
 
-  // Fetch the user's current meetings so they can be used to help determine availability
   useEffect(() => {
     const fetchUserMeetings = async (userId: string) => {
-      // Limit the user's meetings to only those that occur on or after the current date
       try {
         const currentDate: Timestamp = Timestamp.now()
         const data = await getUserEvents(userId, currentDate);
 
-        // If the user has no meetings, set the userMeetings state to an empty array
         if (data.length === 0) {
           setUserMeetings([]);
-
-          // Otherwise, set the userMeetings state to the data returned from the getUserEvents function
         } else {
           setUserMeetings(data as CalendarEvents[]);
         }
@@ -53,32 +46,24 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     fetchUserMeetings(showingUser.userId);
   }, [confirmationState])
 
-  // Using the selected date and the user's availability, create a list of times that can be selected for meetings on that day
   function populateTimeListings(selectedDate: Date | undefined) {
     const currentDate: Date = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
-    // If there is no date selected then there should be no time listings
     if (selectedDate === undefined) {
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-
-    //Check that the user hasn't chosen a date in the past
-    // In theory, they cannot as dates before the present have been disabled
     }else if(selectedDate < currentDate){
       setAvailableTimes([]);
       setSelectedTime(undefined);
       setDate(undefined);
-
-    //Otherwise, we will look at the user's availability and their current meetings for that date and make a list of available times in 30 minute intervals
     } else {
       const availableTimes: TimePeriod[] = [];
 
       const selectedDay: string = dayAsString(selectedDate.getDay());
       const dailyAvailability: Availabilities | undefined = findAvailabilityForDay(selectedDay, availability);
 
-      // If the user has no availability for the selected day, set the times state to an empty array as no times will be available
       if (
         dailyAvailability === undefined ||
         dailyAvailability.timePeriods.length === 0
@@ -87,12 +72,9 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         setAvailableTimes([]);
         setSelectedTime(undefined);
         setDate(selectedDate);
-
-      // Otherwise, we will create a list of available times for the selected day
       } else {
         const meetingTimes: TimePeriod[] = dailyAvailability.timePeriods;
 
-        // Go throuh each of the user's availability time periods for this day and add each 30 minute interval to the availableTimes array
         for (let i:number  = 0; i < meetingTimes.length; i++) {
           let meetingStartTime: Time = meetingTimes[i].startTime
           let endTime: Time = meetingTimes[i].endTime
@@ -154,11 +136,8 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     }
   }
 
-  // Create a meeting event based on the selected date and time
   async function makeMeetingEvent() {
-    // If the user has selected a date and time, then create a meeting event
     if (date && selectedTime) {
-      // Create the data package to be sent with the firebase function to create a calendar event in the collection
       const eventData: EventData = {
         createdUserId: activeUserId,
         eventDescription: 'Meeting between two goal buddies (default text)',
@@ -170,7 +149,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
         googleEventId: 'google-event-id-123', // Currently default - Replace with actual Google Event ID if enabled and available
       }
 
-      // Call the createCalendarEvent function to create the event in the collection
       try {
         await createCalendarEvent(eventData)
         setConfirmationState(true);
@@ -182,7 +160,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     }
   }
 
-  // Function to reset the meeting inputs
   function resetState(){
     setDate(undefined);
     setAvailableTimes([]);
@@ -190,7 +167,6 @@ const MeetingSetupSection: React.FC<MeetingSetupSectionProps> = ({
     setConfirmationState(false);
   }
 
-  // Function to write confirmation messages with a formatted date and time.
   function makeConfirmationMessage(forDate: boolean): string {
     if (!date || !selectedTime) return "";
 

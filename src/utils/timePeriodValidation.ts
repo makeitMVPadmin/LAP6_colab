@@ -1,7 +1,7 @@
 import { AvailabilityErrors, TimePeriodDisplay } from "@/types/types";
 
 /*
-* A function that receives a string and checks if it matches the "hh:mm" format of a 24 hour clock
+* A set of functions that validate time periods
 * @author: Katrina
 */
 function is24HourTimeFormat(time: string): boolean{
@@ -13,10 +13,6 @@ function is24HourTimeFormat(time: string): boolean{
     }
 }
 
-/*
-* A function that looks at two "hh:mm" strings and checks that the end time is later than the start time
-* @author: Katrina
-*/
 function endIsAfterStart(startTime: string, endTime: string, strictly: boolean): boolean{
     const testStartTime: Date = getTimeStringAsDefaultDate(startTime);
     const testEndTime: Date = getTimeStringAsDefaultDate(endTime);
@@ -36,10 +32,6 @@ function endIsAfterStart(startTime: string, endTime: string, strictly: boolean):
     }
 }
 
-/*
-* A function that looks at two "hh:mm" strings and checks that the end time at least 30 minutes after the start time
-* @author: Katrina
-*/
 function isEnd30MinutesLater(startTime: string, endTime: string): boolean{
     const testStartTime: Date = getTimeStringAsDefaultDate(startTime);
     const testEndTime: Date = getTimeStringAsDefaultDate(endTime);
@@ -53,25 +45,15 @@ function isEnd30MinutesLater(startTime: string, endTime: string): boolean{
     }
 }
 
-/*
-* Helper function that returns a date from 01/01/1970 with the given time string input of "hh:mm"
-* @author: Katrina
-*/
 function getTimeStringAsDefaultDate(time: string): Date{
     return new Date(`1970-01-01T${time.length === 4 ? '0' : ''}${time}:00`);
 }
 
-/*
-* A function that looks at an array of TimePeriodDisplay objects and checks if any of the time periods overlap
-* @author: Katrina
-*/
 export function hasOverlap(timePeriods: TimePeriodDisplay[]): boolean{
-    // If there are one or less time periods then there is no overlap
     if(timePeriods.length <= 1){
         return false;
     }
 
-    // Sort the time periods by their start times
     const sortedTimePeriods = timePeriods.sort((a, b) => {
         const startA = getTimeStringAsDefaultDate(a.startTime);
         const startB = getTimeStringAsDefaultDate(b.startTime);
@@ -86,14 +68,9 @@ export function hasOverlap(timePeriods: TimePeriodDisplay[]): boolean{
             return true;
         }
     }
-
     return false
 }
 
-/*
-* Function that is given an array of TimePeriodDisplay obects and returns an array of AvailabilityErrors objects after testing the validation of each individual timeperiod.
-* @author: Katrina
-*/
 export function validateAllAvailabilities(times: TimePeriodDisplay[]): AvailabilityErrors[] {
     if(times.length === 0){
         return [];
@@ -103,14 +80,9 @@ export function validateAllAvailabilities(times: TimePeriodDisplay[]): Availabil
     times.forEach((period: TimePeriodDisplay) =>{
         errors.push(validateAnAvailability(period.startTime, period.endTime));
     });
-
     return errors;
 }
 
-/*
-* Function to validate the time inputs of one time period display and return an AvailbilityErrors object.
-* @author: Katrina
-*/
 function validateAnAvailability(startTime: string, endTime: string): AvailabilityErrors {
     const presentErrors = {startTimeError: "", endTimeError: "", errorsExist: false };
 
