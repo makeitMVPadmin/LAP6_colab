@@ -42,13 +42,23 @@ const GoalBuddyProfile: React.FC<GoalBuddyProfileProps> = ({ goalBuddy }) => {
             alt="@shadcn"
           />
         </Avatar>
-        <p className='lg:hidden md:hidden absolute top-[50%] right-[21%] font-fraunces text-md font-bold'>Co-Lab Role</p>
-        <div className='flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]'>
-          {
-            goalBuddy && colabRoles.map((colabRole, index) => (
-              <img  key={index} src={colabRole.icon} alt="" className='w-4 h-4'/>
-            )) 
-          }
+        <p className="lg:hidden md:hidden absolute top-[50%] right-[21%] font-fraunces text-md font-bold">
+          Co-Lab Role
+        </p>
+        <div className="flex gap-1 absolute lg:hidden md:hidden top-[110%] right-[20%]">
+          {goalBuddy &&
+            colabRoles.map((colabRole, index) => {
+              return (
+                goalBuddy?.[colabRole.key] && (
+                  <img
+                    key={index}
+                    src={colabRole.icon}
+                    alt=""
+                    className="w-4 h-4"
+                  />
+                )
+              )
+            })}
         </div>
       </div>
       <div className="h-[90%] md:h-[88%] md:overflow-y-auto scrollbar-hidden">
