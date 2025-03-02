@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
   }
 
   return (
-    <nav className={clsx('flex flex-col shadow-md')}>
+    <nav className={clsx('flex flex-col shadow-md md:h-[100px]')}>
       <div className="flex items-center justify-between w-full p-6">
         <div
           className="flex items-center justify-end"
