@@ -36,7 +36,7 @@ export default function ColabPage() {
   if (!userContext) {
     throw new Error('IdContext not found')
   }
-  
+
   const sideBarContext = useContext(SidebarContext)
 
   if (!sideBarContext) {
@@ -49,7 +49,7 @@ export default function ColabPage() {
   useEffect(() => {
     const fetchGoalBuddiesCombinedWithUser = async () => {
       const goalBuddies: GoalBuddy[] = await getAllGoalBuddies()
-      const userIds: string[] = goalBuddies.map((goalBuddy) => goalBuddy.userId);
+      const userIds: string[] = goalBuddies.map((goalBuddy) => goalBuddy.userId)
       const users = await getAllUsers(userIds)
 
       const excludeActiveUserList = goalBuddiesMergedWithUsers(
@@ -136,7 +136,7 @@ export default function ColabPage() {
           }}
         >
           <Filter filterGoalBuddies={filterGoalBuddies} filter={filter} />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] max-h-[120px] ">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[1200px] min-h-[120px] ">
             {isLoading
               ? Array.from({ length: 9 }).map((_, index) => (
                   <Skeleton
