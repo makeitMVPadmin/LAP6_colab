@@ -18,6 +18,7 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, idName, tim
 
     const [startError, setStartError] = useState<string>("");
     const [endError, setEndError] = useState<string>("")
+    const htmlAttributes = { maxLength: '20' };
 
     useEffect(() => {
         if(errors.length !== 0){
@@ -31,12 +32,12 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, idName, tim
     
     // Event handlers for input changes
     const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTimePeriod(index, e.target.value, true);
-
+        setTimePeriod(index, e.target.value.replace(/[^0-9]/, '').replace(/..\B/, '$&:'), true);
+        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,5)
     };
 
     const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTimePeriod(index, e.target.value, false);
+        setTimePeriod(index, e.target.value.replace(/[^0-9]/, ''), false);
     };
 
     // Event handler for deletion
@@ -52,7 +53,7 @@ const AvailabilityInput: React.FC<AvailabilityInputProps> = ({index, idName, tim
                         <Label className="text-slate-900 text-sm font-medium font-montserrat leading-3" htmlFor={`startTime_${idName}`}>
                             {`Start Time`}
                         </Label>
-                        <Input type="string" id={`startTime_${idName}`} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${startError ? "border-[#b71c1c] mb-1": ""}`}/>
+                        <Input type="string" id={`startTime_${idName}`} placeholder='0:00' value={timePeriod.startTime} onChange={handleStartTimeChange} className={`w-[40%] h-[24px] pl-[7.57px] pr-[7.57px] py-[5.05px] bg-white rounded border border-slate-300 justify-start items-center inline-flex text-slate-900 text-sm font-normal font-montserrat leading-3 ${startError ? "border-[#b71c1c] mb-1": ""}`} />
                     </div>
                     {startError && 
                         <p className="text-[#b71c1c] text-xs font-medium font-montserrat leading-none">{`*${startError}`}</p>

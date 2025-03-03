@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { IdContext } from '../context/IdContext'
 import UserProfileModal from '../Modal/UserProfileModal'
 
-
 const NavBar: React.FC = () => {
   const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
@@ -52,12 +51,7 @@ const NavBar: React.FC = () => {
   }
 
   return (
-    <nav
-      className={clsx(
-        'flex flex-col shadow-md h-[100px]',
-        // isSidebarOpen && 'z-0',
-      )}
-    >
+    <nav className={clsx('flex flex-col shadow-md md:h-[100px]')}>
       <div className="flex items-center justify-between w-full p-6">
         <div
           className="flex items-center justify-end"
